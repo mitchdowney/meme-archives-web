@@ -6,11 +6,8 @@
 export const pageRules = {
   gallery: true,
   memes: true,
-  image: true,
   artists: true,
-  artist: true,
   collections: true,
-  collection: true,
   stickers: true,
   whitepaper: true,
   roadmap: true,
