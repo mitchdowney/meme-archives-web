@@ -90,6 +90,106 @@ function NavDropdownIcon({ imageSrc, title, url }: NavDropdownIconProps) {
   )
 }
 
+const getDropdownMenuItems = () => {
+  const dropdownItems: DropdownItem[] = []
+
+  if (pageRules.stickers) {
+    dropdownItems.push(    {
+      className: `${styles['dropdown-item']} d-md-none`,
+      href: '/stickers',
+      label: 'Stickers',
+      target: '_self'
+    })
+  }
+
+  if (pageRules.memes) {
+    dropdownItems.push({
+      className: `${styles['dropdown-item']} d-md-none`,
+      href: '/art?type=memes',
+      label: 'Memes',
+      target: '_self'
+    })
+  }
+
+  if (pageRules.whitepaper) {
+    dropdownItems.push({
+      className: `${styles['dropdown-item']} d-md-none`,
+      href: '/whitepaper',
+      label: 'Whitepaper',
+      target: '_self'
+    })
+  }
+
+  if (pageRules.roadmap) {
+    dropdownItems.push({
+      className: `${styles['dropdown-item']} d-md-none`,
+      href: '/roadmap',
+      label: 'Roadmap',
+      target: '_self'
+    })
+  }
+
+  if (
+    configCharts.birdeyeUrl ||
+    configCharts.dexscreenerUrl ||
+    configCharts.dextoolsUrl ||
+    configCharts.coingeckoUrl
+  ) {
+    const iconRowIcons = []
+    if (configCharts.birdeyeUrl) {
+      iconRowIcons.push(
+        <NavDropdownIcon
+          imageSrc='/external-sites/birdeye.svg'
+          key='nav-birdeye-icon'
+          title='Birdeye'
+          url={configCharts.birdeyeUrl}
+        />
+      )
+    }
+    if (configCharts.dexscreenerUrl) {
+      iconRowIcons.push(
+        <NavDropdownIcon
+          imageSrc='/external-sites/dexscreener.svg'
+          key='nav-dexscreener-icon'
+          title='DEX Screener'
+          url={configCharts.dexscreenerUrl}
+        />
+      )
+    }
+    if (configCharts.dextoolsUrl) {
+      iconRowIcons.push(
+        <NavDropdownIcon
+          imageSrc='/external-sites/dextools.svg'
+          key='nav-dextools-icon'
+          title='DEXTools'
+          url={configCharts.dextoolsUrl}
+        />
+      )
+    }
+    if (configCharts.coingeckoUrl) {
+      iconRowIcons.push(
+        <NavDropdownIcon
+          imageSrc='/external-sites/coingecko.svg'
+          key='nav-coingecko-icon'
+          title='CoinGecko'
+          url={configCharts.coingeckoUrl}
+        />
+      )
+    }
+
+    dropdownItems.push({
+      iconRow: (
+        <div className={styles['nav-dropdown-icons']} key="nav-dropdown-icons">
+          {iconRowIcons}
+        </div>
+      )
+    })
+
+  }
+
+  return dropdownItems
+}
+
 export default function NavBar() {
   const buttonRef = useRef<any>(null)
   const pathname = usePathname()
@@ -120,63 +220,8 @@ export default function NavBar() {
     }
   }, [])
 
-  const dropdownItems: DropdownItem[] = [
-    {
-      className: `${styles['dropdown-item']} d-md-none`,
-      href: '/stickers',
-      label: 'Stickers',
-      target: '_self'
-    },
-    {
-      className: `${styles['dropdown-item']} d-md-none`,
-      href: '/art?type=memes',
-      label: 'Memes',
-      target: '_self'
-    },
-    {
-      className: `${styles['dropdown-item']} d-lg-none`,
-      href: '/whitepaper',
-      label: 'Whitepaper',
-      target: '_self'
-    },
-    {
-      className: `${styles['dropdown-item']} d-lg-none`,
-      href: '/roadmap',
-      label: 'Roadmap',
-      target: '_self'
-    },
-    {
-      iconRow: (
-        <div className={styles['nav-dropdown-icons']} key="nav-dropdown-icons">
-          <NavDropdownIcon
-            imageSrc='/external-sites/birdeye.svg'
-            key='nav-birdeye-icon'
-            title='Birdeye'
-            url={configCharts.birdeyeUrl}
-          />
-          <NavDropdownIcon
-            imageSrc='/external-sites/dexscreener.svg'
-            key='nav-dexscreener-icon'
-            title='DEX Screener'
-            url={configCharts.dexscreenerUrl}
-          />
-          <NavDropdownIcon
-            imageSrc='/external-sites/dextools.svg'
-            key='nav-dextools-icon'
-            title='DEXTools'
-            url={configCharts.dextoolsUrl}
-          />
-          <NavDropdownIcon
-            imageSrc='/external-sites/coingecko.svg'
-            key='nav-coingecko-icon'
-            title='CoinGecko'
-            url={configCharts.coingeckoUrl}
-          />
-        </div>
-      )
-    }
-  ]
-
+  const dropdownItems: DropdownItem[] = getDropdownMenuItems()
+  
   const imageAlt = `${configText.appName} Logo`
 
   return (
@@ -223,7 +268,7 @@ export default function NavBar() {
                   <Link
                     className={`nav-link ${styles['nav-link-text']} ${isArtGallery ? 'active' : ''}`}
                     {...(isArtGallery ? { 'aria-current': 'page' } : {})}
-                    href='/art'>
+                    href={pageRules.homePageIsGallery ? '/' : '/art'}>
                     Gallery
                   </Link>
                 </li>
@@ -235,7 +280,7 @@ export default function NavBar() {
                   <Link
                     className={`nav-link ${styles['nav-link-text']} ${isMemes ? 'active' : ''}`}
                     {...(isMemes ? { 'aria-current': 'page' } : {})}
-                    href='/art?type=memes'>
+                    href={pageRules.homePageIsGallery ? '/' : '/art?type=memes'}>
                     Memes
                   </Link>
                 </li>
