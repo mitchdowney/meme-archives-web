@@ -2,8 +2,26 @@
 // Replace the images in the /public/images folder with your own images
 //
 
-// Enable or disable pages 
-export const pageRules = {
+type PageRules = {
+  gallery: boolean
+  memes: boolean
+  artists: boolean
+  collections: boolean
+  stickers: boolean
+  whitepaper: boolean
+  roadmap: boolean
+  resources: boolean
+  admin: boolean
+  homePageIsGallery: boolean
+  disableImageTypes: boolean
+  disableFilterSelectors: boolean
+  centerViewTypeSelector: boolean
+  disableBorderImages: boolean
+  defaultPreviewCropStyle: 'top' | 'middle' | 'bottom' | 'no-crop'
+}
+
+export const pageRules: PageRules = {
+  // Enable or disable pages 
   gallery: true,
   memes: true,
   artists: true,
@@ -16,13 +34,16 @@ export const pageRules = {
   // If you'd like the home page to load the gallery instead of the splash page,
   // set homePageIsGallery to true, and rename the pages/art.tsx file to pages/index.tsx.
   homePageIsGallery: false,
-  // This will hide the image type dropdown filter in the gallery
+  // Hide the image type dropdown filter in the gallery
   disableImageTypes: false,
-  // This will hide the radio buttons under the search bar
+  // Hide the radio buttons under the search bar
   disableFilterSelectors: false,
-  // This will hide all of the other buttons
-  // and center the ViewTypeSelector under the search bar
-  centerViewTypeSelector: false
+  // Hide all of the other buttons and center the ViewTypeSelector under the search bar
+  centerViewTypeSelector: false,
+  // Prevent border images from being uploaded or displayed
+  disableBorderImages: false,
+  // Set the default preview crop style
+  defaultPreviewCropStyle: 'middle'
 }
 
 // Set to empty string to disable

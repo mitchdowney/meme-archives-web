@@ -40,8 +40,6 @@ export default function UploadImage() {
   const [allArtists, setAllArtists] = useState<Artist[]>([])
   const [artistInputText, setArtistInputText] = useState<string>('')
   const [artistNames, setArtistNames] = useState<string[]>([])
-  const [borderPreviewCropPosition, setBorderPreviewCropPosition] =
-    useState<'top' | 'middle' | 'bottom'>('middle')
   const [editingImage, setEditingImage] = useState<ImageT | null>(null)
   const [imageNoBorderSrc, setImageNoBorderSrc] = useState<string>('')
   const [imageBorderSrc, setImageBorderSrc] = useState<string>('')
@@ -51,8 +49,10 @@ export default function UploadImage() {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isSaving, setIsSaving] = useState<boolean>(false)
   const [lastUpdatedData, setLastUpdatedData] = useState<LastUpdatedData>(null)
-  const [preventBorderImage, setPreventBorderImage] = useState<BooleanString>('false')
-  const [allowPreviewImage, setAllowPreviewImage] = useState<BooleanString>('true')
+  const [preventBorderImage, setPreventBorderImage] = useState<BooleanString>(pageRules.disableBorderImages ? 'true' : 'false')
+  const [previewCropPosition, setPreviewCropPosition] =
+    useState<'top' | 'middle' | 'bottom' | 'no-crop'>(pageRules.defaultPreviewCropStyle)
+  const [allowPreviewImage, setAllowPreviewImage] = useState<BooleanString>(pageRules.disableBorderImages ? 'false' : 'true')
   const [removeAnimation, setRemoveAnimation] = useState<BooleanString>('false')
   const [removeBorder, setRemoveBorder] = useState<BooleanString>('false')
   const [removeNoBorder, setRemoveNoBorder] = useState<BooleanString>('false')
@@ -264,11 +264,11 @@ export default function UploadImage() {
     }
 
     if (allowPreviewImage === 'true') {
-      formData.append('allow_preview_image', 'true')
+      formData.append('allow_preview_border_image', 'true')
     }
 
-    if (willCropPreviewImage && borderPreviewCropPosition) {
-      formData.append('border_preview_crop_position', borderPreviewCropPosition)
+    if (willCropPreviewImage && previewCropPosition) {
+      formData.append('preview_crop_position', previewCropPosition)
     }
 
     try {
@@ -322,9 +322,9 @@ export default function UploadImage() {
       setArtistInputText('')
       setArtistNames([])
       setSlug('')
-      setPreventBorderImage('false')
+      setPreventBorderImage(pageRules.disableBorderImages ? 'true' : 'false')
       setAllowPreviewImage('true')
-      setBorderPreviewCropPosition('middle')
+      setPreviewCropPosition(pageRules.defaultPreviewCropStyle)
     }
   }
 
@@ -513,23 +513,29 @@ export default function UploadImage() {
                   )
                 }
                 <h2>{pageTitle}</h2>
-                <div className={`${styles['form-select-wrapper']} mb-4`}>
-                  <label htmlFor='image-type'>
-                    Image type
-                  </label>
-                  <select
-                    aria-label='Image type'
-                    className='form-select'
-                    id='link-image-type'
-                    onChange={handleTypeChange}>
-                    <option selected={imageType === 'painting'} value="painting">Painting</option>
-                    <option selected={imageType === 'meme'} value="meme">Meme</option>
-                    <option selected={imageType === 'painting-and-meme'} value="painting-and-meme">Painting and Meme</option>
-                  </select>
-                </div>
-                <hr />
+                {
+                  !pageRules.disableImageTypes && (
+                    <>
+                      <div className={`${styles['form-select-wrapper']} mb-4`}>
+                        <label htmlFor='image-type'>
+                          Image type
+                        </label>
+                        <select
+                          aria-label='Image type'
+                          className='form-select'
+                          id='link-image-type'
+                          onChange={handleTypeChange}>
+                          <option selected={imageType === 'painting'} value="painting">Painting</option>
+                          <option selected={imageType === 'meme'} value="meme">Meme</option>
+                          <option selected={imageType === 'painting-and-meme'} value="painting-and-meme">Painting and Meme</option>
+                        </select>
+                      </div>
+                      <hr />
+                    </>
+                  )
+                }
                 {generateImageNodes('no-border')}
-                {generateImageNodes('border')}
+                {!pageRules.disableBorderImages && (generateImageNodes('border'))}
                 {generateImageNodes('animation')}
                 <div className="mb-3">
                   <label htmlFor="title" className="form-label">Title</label>
@@ -635,11 +641,12 @@ export default function UploadImage() {
                         className='form-select'
                         id='link-preview-crop-position'
                         onChange={(event: any) => {
-                          setBorderPreviewCropPosition(event.target.value)
+                          setPreviewCropPosition(event.target.value)
                         }}>
-                        <option selected={borderPreviewCropPosition === 'top'} value="top">Top</option>
-                        <option selected={borderPreviewCropPosition === 'middle'} value="middle">Middle</option>
-                        <option selected={borderPreviewCropPosition === 'bottom'} value="bottom">Bottom</option>
+                        <option selected={previewCropPosition === 'top'} value="top">Top</option>
+                        <option selected={previewCropPosition === 'middle'} value="middle">Middle</option>
+                        <option selected={previewCropPosition === 'bottom'} value="bottom">Bottom</option>
+                        <option selected={previewCropPosition === 'no-crop'} value="no-crop">No Crop</option>
                       </select>
                     </div>
                   )
