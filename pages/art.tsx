@@ -1,24 +1,24 @@
-import _debounce from 'lodash/debounce'
-import Head from 'next/head'
 import * as serverSideCookieLib from 'cookie'
-import clientSideCookieLib from 'universal-cookie'
+import _debounce from 'lodash/debounce'
+import { GetServerSidePropsContext } from 'next'
+import Head from 'next/head'
+import { useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/router'
 import { useCallback, useEffect, useRef, useState } from 'react'
+import clientSideCookieLib from 'universal-cookie'
+import FilterSelector from '@/components/FilterSelector'
 import ImageCards from '@/components/ImageCards'
+import InfoBox from '@/components/InfoBox'
+import LoadingSpinner from '@/components/LoadingSpinner'
 import SearchInput from '@/components/SearchInput'
+import { configPageText, configSocials, pageRules } from '@/lib/constants/configurables'
+import { CurationInfoText } from '@/lib/constants/curationInfoText'
 import { Artist, FilterTypes, Image, Tag, ViewTypes } from '@/lib/types'
+import { checkIfValidInteger } from '@/lib/validation'
 import { getAllArtistsWithImages, getArtist } from '@/services/artist'
 import { ImageType, getImages, getImagesByArtistId, getImagesByTagId, getImagesWithoutArtists } from '@/services/image'
 import { getAllTagsWithImages, getTagById } from '@/services/tag'
-import LoadingSpinner from '@/components/LoadingSpinner'
 import styles from '@/styles/Art.module.css'
-import { GetServerSidePropsContext } from 'next'
-import { useRouter } from 'next/router'
-import FilterSelector from '@/components/FilterSelector'
-import { checkIfValidInteger } from '@/lib/validation'
-import InfoBox from '@/components/InfoBox'
-import { CurationInfoText } from '@/lib/constants/curationInfoText'
-import { useSearchParams } from 'next/navigation'
-import { configPageText, configSocials, pageRules } from '@/lib/constants/configurables'
 
 type QueryParamImageType = 'paintings' | 'memes' | null
 
@@ -33,7 +33,7 @@ const getCurrentImageType = (queryParamImageType: QueryParamImageType) => {
 }
 
 export const getServerSideProps = (async (context: GetServerSidePropsContext) => {
-  if (!pageRules.gallery) {
+  if (!pageRules.homePageIsGallery && !pageRules.gallery) {
     return {
       notFound: true
     }
