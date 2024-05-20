@@ -2,11 +2,19 @@ import Head from 'next/head'
 import Link from 'next/link'
 import styles from '@/styles/Admin.module.css'
 import { UserInfo } from '@/lib/types'
-import { configPageText, configText } from '@/lib/constants/configurableText'
+import { configPageText, configSocials, pageRules } from '@/lib/constants/configurables'
 
 type Props = {
   isUserInfoLoading: boolean
   userInfo: UserInfo
+}
+
+export const getServerSideProps = async () => {
+  if (!pageRules.admin) {
+    return {
+      notFound: true
+    }
+  }
 }
 
 export default function Admin({ isUserInfoLoading, userInfo }: Props) {
@@ -19,7 +27,7 @@ export default function Admin({ isUserInfoLoading, userInfo }: Props) {
         <title>{metaTitle}</title>
         <meta name='description' content={metaDescription} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content={configText.socials.twitterHandle} />
+        <meta name="twitter:site" content={configSocials.twitterHandle} />
         <meta name="twitter:title" content={metaTitle} />
         <meta name="twitter:description" content={metaDescription} />
         <meta name="twitter:image" content={`${process.env.NEXT_PUBLIC_WEB_BASE_URL}/logo-preview.png`} />

@@ -6,9 +6,15 @@ import LoadingSpinner from '@/components/LoadingSpinner'
 import { Artist } from '@/lib/types'
 import { getArtists } from '@/services/artist'
 import styles from '@/styles/Artists.module.css'
-import { configPageText, configText } from '@/lib/constants/configurableText'
+import { configPageText, configSocials, pageRules } from '@/lib/constants/configurables'
 
-export const getServerSideProps = (async () => { 
+export const getServerSideProps = (async () => {
+  if (!pageRules.artists) {
+    return {
+      notFound: true
+    }
+  }
+
   const data = await getArtists({ page: 1 })
   const initialArtists: Artist[] = data || []
 
@@ -48,7 +54,7 @@ export default function Artists({
         <title>{metaTitle}</title>
         <meta name='description' content={metaDescription} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content={configText.socials.twitterHandle} />
+        <meta name="twitter:site" content={configSocials.twitterHandle} />
         <meta name="twitter:title" content={metaTitle} />
         <meta name="twitter:description" content={metaDescription} />
         <meta name="twitter:image" content={metaImageUrl} />

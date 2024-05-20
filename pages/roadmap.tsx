@@ -3,7 +3,15 @@ import styles from '@/styles/Roadmap.module.css'
 import Image from '@/components/Image'
 import Footer from '@/components/Footer'
 import { useState } from 'react'
-import { configPageText, configText } from '@/lib/constants/configurableText'
+import { configPageText, configSocials, configText, pageRules } from '@/lib/constants/configurables'
+
+export const getServerSideProps = async () => {
+  if (!pageRules.roadmap) {
+    return {
+      notFound: true
+    }
+  }
+}
 
 export default function Roadmap() {
   const [imageIsLoading, setImageIsLoading] = useState(true)
@@ -16,7 +24,7 @@ export default function Roadmap() {
   const metaDescription = configPageText.roadmap.metaDescription
   const metaImageUrl = `${process.env.NEXT_PUBLIC_WEB_BASE_URL}/public/roadmap.png`
  
-  const imageAlt = `${configText.text.appName} roadmap`
+  const imageAlt = `${configText.appName} roadmap`
 
   return (
     <>
@@ -24,7 +32,7 @@ export default function Roadmap() {
         <title>{metaTitle}</title>
         <meta name='description' content={metaDescription} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content={configText.socials.twitterHandle} />
+        <meta name="twitter:site" content={configSocials.twitterHandle} />
         <meta name="twitter:title" content={metaTitle} />
         <meta name="twitter:description" content={metaDescription} />
         <meta name="twitter:image" content={metaImageUrl} />

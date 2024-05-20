@@ -15,13 +15,21 @@ import SearchInputTags from '@/components/SearchInputTags'
 import { getAllTags } from '@/services/tag'
 import { getAllArtists } from '@/services/artist'
 import SearchInputArtists from '@/components/SearchInputArtists'
-import { configPageText, configText } from '@/lib/constants/configurableText'
+import { configPageText, configSocials, pageRules } from '@/lib/constants/configurables'
 
 type ImageMediumType = 'no-border' | 'border' | 'animation'
 type LastUpdatedData = {
   id: number
   slug?: string
 } | null
+
+export const getServerSideProps = async () => {
+  if (!pageRules.admin) {
+    return {
+      notFound: true
+    }
+  }
+}
 
 export default function UploadImage() {
   const searchParams = useSearchParams()
@@ -458,7 +466,7 @@ export default function UploadImage() {
         <title>{metaTitle}</title>
         <meta name='description' content={metaDescription} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content={configText.socials.twitterHandle} />
+        <meta name="twitter:site" content={configSocials.twitterHandle} />
         <meta name="twitter:title" content={metaTitle} />
         <meta name="twitter:description" content={metaDescription} />
         <meta name="twitter:image" content={`${process.env.NEXT_PUBLIC_WEB_BASE_URL}/logo-preview.png`} />

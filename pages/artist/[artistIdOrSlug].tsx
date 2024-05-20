@@ -13,13 +13,19 @@ import styles from '@/styles/Artist.module.css'
 import ArtistHeader from '@/components/ArtistHeader'
 import { checkIfValidInteger } from '@/lib/validation'
 import ViewTypeSelector from '@/components/ViewTypeSelector'
-import { configPageText, configText } from '@/lib/constants/configurableText'
+import { configPageText, configSocials, pageRules } from '@/lib/constants/configurables'
 
 type ServerSidePropsParams = {
   artistIdOrSlug?: string
 }
 
 export const getServerSideProps = (async (context: GetServerSidePropsContext) => {
+  if (!pageRules.artist) {
+    return {
+      notFound: true
+    }
+  }
+
   const { params, req, res } = context
   const { artistIdOrSlug } = params as ServerSidePropsParams
   const { cookie: cookies } = req.headers
@@ -116,7 +122,7 @@ export default function ArtistPage({
         <title>{metaTitle}</title>
         <meta name='description' content={metaDescription} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content={configText.socials.twitterHandle} />
+        <meta name="twitter:site" content={configSocials.twitterHandle} />
         <meta name="twitter:title" content={metaTitle} />
         <meta name="twitter:description" content={metaDescription} />
         <meta name="twitter:image" content={metaImageUrl} />

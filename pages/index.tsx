@@ -4,7 +4,11 @@ import Link from 'next/link'
 import Image from '@/components/Image'
 import Footer from '@/components/Footer'
 import { useState } from 'react'
-import { configPageText, configText } from '@/lib/constants/configurableText'
+import { configPageText, configSocials, configText } from '@/lib/constants/configurables'
+
+export const getServerSideProps = async () => {
+
+}
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState<boolean>(true)
@@ -14,15 +18,15 @@ export default function Home() {
   const metaDescription = configPageText.home.metaDescription
   const metaImageUrl = `${process.env.NEXT_PUBLIC_WEB_BASE_URL}/logo-preview.png`
 
-  const imageAlt = `${configText.text.appName} Logo`
+  const imageAlt = `${configText.appName} Logo`
 
   return (
     <>
       <Head>
-        <title>{configText.text.appName}</title>
+        <title>{configText.appName}</title>
         <meta name='description' content={metaDescription} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content={configText.socials.twitterHandle} />
+        <meta name="twitter:site" content={configSocials.twitterHandle} />
         <meta name="twitter:title" content={metaTitle} />
         <meta name="twitter:description" content={metaDescription} />
         <meta name="twitter:image" content={metaImageUrl} />

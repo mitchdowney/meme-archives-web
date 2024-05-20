@@ -1,7 +1,15 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import Footer from '@/components/Footer'
-import { ConfigStickerSet, configPageText, configStickerSets, configText } from '@/lib/constants/configurableText'
+import { ConfigStickerSet, configPageText, configSocials, configStickerSets, pageRules } from '@/lib/constants/configurables'
+
+export const getServerSideProps = async () => {
+  if (!pageRules.resources) {
+    return {
+      notFound: true
+    }
+  }
+}
 
 export default function Resources() {
   const metaTitle = configPageText.resources.metaTitle
@@ -35,7 +43,7 @@ export default function Resources() {
         <title>{metaTitle}</title>
         <meta name='description' content={metaDescription} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content={configText.socials.twitterHandle} />
+        <meta name="twitter:site" content={configSocials.twitterHandle} />
         <meta name="twitter:title" content={metaTitle} />
         <meta name="twitter:description" content={metaDescription} />
         <meta name="twitter:image" content={metaImageUrl} />

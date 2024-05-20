@@ -18,7 +18,7 @@ import { checkIfValidInteger } from '@/lib/validation'
 import InfoBox from '@/components/InfoBox'
 import { CurationInfoText } from '@/lib/constants/curationInfoText'
 import { useSearchParams } from 'next/navigation'
-import { configPageText, configText } from '@/lib/constants/configurableText'
+import { configPageText, configSocials, pageRules } from '@/lib/constants/configurables'
 
 type QueryParamImageType = 'paintings' | 'memes' | null
 
@@ -33,6 +33,12 @@ const getCurrentImageType = (queryParamImageType: QueryParamImageType) => {
 }
 
 export const getServerSideProps = (async (context: GetServerSidePropsContext) => {
+  if (!pageRules.gallery) {
+    return {
+      notFound: true
+    }
+  }
+
   const { query, req } = context
   const { cookie: cookies } = req.headers
   const { artistId, noArtist, tagId, type } = query
@@ -283,7 +289,7 @@ export default function Gallery({
         <title>{metaTitle}</title>
         <meta name='description' content={metaDescription} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content={configText.socials.twitterHandle} />
+        <meta name="twitter:site" content={configSocials.twitterHandle} />
         <meta name="twitter:title" content={metaTitle} />
         <meta name="twitter:description" content={metaDescription} />
         <meta name="twitter:image" content={metaImageUrl} />

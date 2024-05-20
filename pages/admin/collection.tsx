@@ -11,12 +11,20 @@ import styles from '@/styles/AdminUploadImage.module.css'
 import { getImagesAllByCollectionId } from '@/services/image'
 import AdminImageListItems from '@/components/AdminImageListItems'
 import { moveItem } from '@/lib/array'
-import { configPageText, configText } from '@/lib/constants/configurableText'
+import { configPageText, configSocials, pageRules } from '@/lib/constants/configurables'
 
 type LastUpdatedData = {
   id: number
   slug: string | null
 } | null
+
+export const getServerSideProps = async () => {
+  if (!pageRules.admin) {
+    return {
+      notFound: true
+    }
+  }
+}
 
 export default function AdminCollection() {
   const searchParams = useSearchParams()
@@ -244,7 +252,7 @@ export default function AdminCollection() {
         <title>{metaTitle}</title>
         <meta name='description' content={metaDescription} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content={configText.socials.twitterHandle} />
+        <meta name="twitter:site" content={configSocials.twitterHandle} />
         <meta name="twitter:title" content={metaTitle} />
         <meta name="twitter:description" content={metaDescription} />
         <meta name="twitter:image" content={`${process.env.NEXT_PUBLIC_WEB_BASE_URL}/logo-preview.png`} />

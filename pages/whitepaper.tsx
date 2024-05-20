@@ -1,7 +1,15 @@
 import Head from 'next/head'
 import styles from '@/styles/Whitepaper.module.css'
 import Footer from '@/components/Footer'
-import { configPageText, configText } from '@/lib/constants/configurableText'
+import { configPageText, configSocials, pageRules } from '@/lib/constants/configurables'
+
+export const getServerSideProps = async () => {
+  if (!pageRules.whitepaper) {
+    return {
+      notFound: true
+    }
+  }
+}
 
 export default function Whitepaper() {
   const metaTitle = configPageText.whitepaper.metaTitle
@@ -14,7 +22,7 @@ export default function Whitepaper() {
         <title>{metaTitle}</title>
         <meta name='description' content={metaDescription} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content={configText.socials.twitterHandle} />
+        <meta name="twitter:site" content={configSocials.twitterHandle} />
         <meta name="twitter:title" content={metaTitle} />
         <meta name="twitter:description" content={metaDescription} />
         <meta name="twitter:image" content={metaImageUrl} />

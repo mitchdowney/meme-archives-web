@@ -11,9 +11,15 @@ import LoadingSpinner from '@/components/LoadingSpinner'
 import { Collection } from '@/lib/types'
 import { getCollections } from '@/services/collection'
 import styles from '@/styles/Collections.module.css'
-import { configPageText, configText } from '@/lib/constants/configurableText'
+import { configPageText, configSocials, pageRules } from '@/lib/constants/configurables'
 
-export const getServerSideProps = (async () => { 
+export const getServerSideProps = (async () => {
+  if (!pageRules.collections) {
+    return {
+      notFound: true
+    }
+  }
+
   const data = await getCollections({ page: 1, sort: 'alphabetical', type: 'general' })
   const initialCollections: Collection[] = data?.[0] || []
 
@@ -53,7 +59,7 @@ export default function Collections({
         <title>{metaTitle}</title>
         <meta name='description' content={metaDescription} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content={configText.socials.twitterHandle} />
+        <meta name="twitter:site" content={configSocials.twitterHandle} />
         <meta name="twitter:title" content={metaTitle} />
         <meta name="twitter:description" content={metaDescription} />
         <meta name="twitter:image" content={metaImageUrl} />

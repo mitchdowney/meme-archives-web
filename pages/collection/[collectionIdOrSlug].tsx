@@ -16,13 +16,19 @@ import styles from '@/styles/Collection.module.css'
 import { faEdit } from '@fortawesome/free-solid-svg-icons/faEdit'
 import FAIcon from '@/components/FAIcon'
 import { useRouter } from 'next/router'
-import { configPageText, configText } from '@/lib/constants/configurableText'
+import { configPageText, configSocials, pageRules } from '@/lib/constants/configurables'
 
 type ServerSidePropsParams = {
   collectionIdOrSlug?: string
 }
 
 export const getServerSideProps = (async (context: GetServerSidePropsContext) => {
+  if (!pageRules.collection) {
+    return {
+      notFound: true
+    }
+  }
+
   const { params, req, res } = context
   const { collectionIdOrSlug } = params as ServerSidePropsParams
   const { cookie: cookies } = req.headers
@@ -124,7 +130,7 @@ export default function CollectionPage({
         <title>{metaTitle}</title>
         <meta name='description' content={metaDescription} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content={configText.socials.twitterHandle} />
+        <meta name="twitter:site" content={configSocials.twitterHandle} />
         <meta name="twitter:title" content={metaTitle} />
         <meta name="twitter:description" content={metaDescription} />
         <meta name="twitter:image" content={metaImageUrl} />
