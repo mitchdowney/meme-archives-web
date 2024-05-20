@@ -33,12 +33,6 @@ type ServerSidePropsParams = {
 }
 
 export const getServerSideProps = (async (context: GetServerSidePropsContext) => {
-  if (!pageRules.image) {
-    return {
-      notFound: true
-    }
-  }
-
   const { params, res } = context
   const { imageIdOrSlug } = params as ServerSidePropsParams
   let initialImage: ImageT | null = null
