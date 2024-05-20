@@ -33,7 +33,12 @@ const getCurrentImageType = (queryParamImageType: QueryParamImageType) => {
 }
 
 export const getServerSideProps = (async (context: GetServerSidePropsContext) => {
-  if (!pageRules.homePageIsGallery && !pageRules.gallery) {
+  const isHomePage = context.req.url === '/'
+
+  if (
+    (isHomePage && !pageRules.homePageIsGallery)
+    || !pageRules.gallery
+  ) {
     return {
       notFound: true
     }
