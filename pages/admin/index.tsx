@@ -1,27 +1,41 @@
 import Head from 'next/head'
+import Link from 'next/link'
 import styles from '@/styles/Admin.module.css'
 import { UserInfo } from '@/lib/types'
-import Link from 'next/link'
+import { configPageText, configSocials, pageRules } from '@/lib/constants/configurables'
 
 type Props = {
   isUserInfoLoading: boolean
   userInfo: UserInfo
 }
 
+export const getServerSideProps = async () => {
+  if (!pageRules.admin) {
+    return {
+      notFound: true
+    }
+  }
+
+  return { props: {} }
+}
+
 export default function Admin({ isUserInfoLoading, userInfo }: Props) {
+  const metaTitle = configPageText.admin.metaTitle
+  const metaDescription = configPageText.admin.metaDescription
+
   return (
     <>
       <Head>
-        <title>$PAINT - Admin Panel</title>
-        <meta name='description' content='The $PAINT on SOL Admin Panel' />
+        <title>{metaTitle}</title>
+        <meta name='description' content={metaDescription} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@mspaintsol" />
-        <meta name="twitter:title" content="$PAINT" />
-        <meta name="twitter:description" content="$PAINT on SOL" />
-        <meta name="twitter:image" content={`${process.env.NEXT_PUBLIC_WEB_BASE_URL}/paint-logo-preview.png`} />
-        <meta property="og:title" content="$PAINT" />
-        <meta property="og:description" content="$PAINT on SOL" />
-        <meta property="og:image" content={`${process.env.NEXT_PUBLIC_WEB_BASE_URL}/paint-logo-preview.png`} />
+        <meta name="twitter:site" content={configSocials.twitterHandle} />
+        <meta name="twitter:title" content={metaTitle} />
+        <meta name="twitter:description" content={metaDescription} />
+        <meta name="twitter:image" content={`${process.env.NEXT_PUBLIC_WEB_BASE_URL}/logo-preview.png`} />
+        <meta property="og:title" content={metaTitle} />
+        <meta property="og:description" content={metaDescription} />
+        <meta property="og:image" content={`${process.env.NEXT_PUBLIC_WEB_BASE_URL}/logo-preview.png`} />
         <meta property="og:type" content="website" />
         <meta name="robots" content="noindex" />
       </Head>

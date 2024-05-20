@@ -1,10 +1,21 @@
 import Head from 'next/head'
 import styles from '@/styles/Whitepaper.module.css'
 import Footer from '@/components/Footer'
+import { configPageText, configSocials, pageRules } from '@/lib/constants/configurables'
+
+export const getServerSideProps = async () => {
+  if (!pageRules.whitepaper) {
+    return {
+      notFound: true
+    }
+  }
+
+  return { props: {} }
+}
 
 export default function Whitepaper() {
-  const metaTitle = '$PAINT - Whitepaper'
-  const metaDescription = 'The $PAINT on SOL whitepaper.'
+  const metaTitle = configPageText.whitepaper.metaTitle
+  const metaDescription = configPageText.whitepaper.metaDescription
   const metaImageUrl = `${process.env.NEXT_PUBLIC_WEB_BASE_URL}/whitepaper-preview.png`
 
   return (
@@ -13,7 +24,7 @@ export default function Whitepaper() {
         <title>{metaTitle}</title>
         <meta name='description' content={metaDescription} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@mspaintsol" />
+        <meta name="twitter:site" content={configSocials.twitterHandle} />
         <meta name="twitter:title" content={metaTitle} />
         <meta name="twitter:description" content={metaDescription} />
         <meta name="twitter:image" content={metaImageUrl} />

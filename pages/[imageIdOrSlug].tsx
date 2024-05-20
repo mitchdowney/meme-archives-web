@@ -21,6 +21,7 @@ import styles from '@/styles/ImageIdOrSlug.module.css'
 import { checkIfValidInteger } from '@/lib/validation'
 import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus'
 import { addImageToCollection, getAllCollections } from '@/services/collection'
+import { configSocials, configText, pageRules } from '@/lib/constants/configurables'
 
 type Props = {
   initialImage: ImageT | null
@@ -32,6 +33,12 @@ type ServerSidePropsParams = {
 }
 
 export const getServerSideProps = (async (context: GetServerSidePropsContext) => {
+  if (!pageRules.image) {
+    return {
+      notFound: true
+    }
+  }
+
   const { params, res } = context
   const { imageIdOrSlug } = params as ServerSidePropsParams
   let initialImage: ImageT | null = null
@@ -103,6 +110,7 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
         }
       }
     })()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.isReady, searchParams])
 
 
@@ -223,7 +231,7 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
   const artistNames = artists?.map((artist) => artist?.name)?.join(', ')
 
   const metaTitle = title
-  const metaDescription = artistNames ? `painting by ${artistNames}` : ''
+  const metaDescription = artistNames ? `by ${artistNames}` : ''
   const metaImageUrl = image?.has_no_border
     ? getAvailableImageUrl('preview', image)
     : getAvailableImageUrl('border', image)
@@ -231,10 +239,10 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
   return (
     <>
       <Head>
-        <title>{`$PAINT - ${title}`}</title>
+        <title>{`${configText.appName} - ${title}`}</title>
         <meta name='description' content={metaDescription} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@mspaintsol" />
+        <meta name="twitter:site" content={configSocials.twitterHandle} />
         <meta name="twitter:title" content={metaTitle} />
         <meta name="twitter:description" content={metaDescription} />
         <meta name="twitter:image" content={metaImageUrl} />

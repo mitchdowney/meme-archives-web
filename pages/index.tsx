@@ -1,27 +1,45 @@
 import Head from 'next/head'
-import styles from '@/styles/Home.module.css'
 import Link from 'next/link'
-import Image from '@/components/Image'
-import Footer from '@/components/Footer'
 import { useState } from 'react'
+import Footer from '@/components/Footer'
+import Image from '@/components/Image'
+import { configPageText, configSocials, configText, pageRules } from '@/lib/constants/configurables'
+import styles from '@/styles/Home.module.css'
+
+export const getServerSideProps = async () => {
+  // If you'd like the home page to load the gallery instead of the splash page,
+  // set homePageIsGallery to true, and rename the pages/art.tsx file to pages/index.tsx.
+  if (!pageRules.homePageIsGallery) {
+    return {
+      notFound: true
+    }
+  }
+
+  return { props: {} }
+}
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const splashLogoClass = isLoading ? styles['splash-logo-is-loading'] : styles['splash-logo']
-  const metaImageUrl = `${process.env.NEXT_PUBLIC_WEB_BASE_URL}/paint-logo-preview.png`
+
+  const metaTitle = configPageText.home.metaTitle
+  const metaDescription = configPageText.home.metaDescription
+  const metaImageUrl = `${process.env.NEXT_PUBLIC_WEB_BASE_URL}/logo-preview.png`
+
+  const imageAlt = `${configText.appName} Logo`
 
   return (
     <>
       <Head>
-        <title>$PAINT</title>
-        <meta name='description' content='$PAINT on SOL' />
+        <title>{configText.appName}</title>
+        <meta name='description' content={metaDescription} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@mspaintsol" />
-        <meta name="twitter:title" content="$PAINT" />
-        <meta name="twitter:description" content="$PAINT on SOL" />
+        <meta name="twitter:site" content={configSocials.twitterHandle} />
+        <meta name="twitter:title" content={metaTitle} />
+        <meta name="twitter:description" content={metaDescription} />
         <meta name="twitter:image" content={metaImageUrl} />
-        <meta property="og:title" content="$PAINT" />
-        <meta property="og:description" content="$PAINT on SOL" />
+        <meta property="og:title" content={metaTitle} />
+        <meta property="og:description" content={metaDescription} />
         <meta property="og:image" content={metaImageUrl} />
         <meta property="og:type" content="website" />
       </Head>
@@ -31,13 +49,13 @@ export default function Home() {
             className='link-primary'
             href='/art'>
             <Image
-              alt='$PAINT Logo'
+              alt={imageAlt}
               className={splashLogoClass}
-              imageSrc='/paint-splash-logo.png'
+              imageSrc='/splash-logo.png'
               onLoad={() => setIsLoading(false)}
               priority
               stretchFill
-              title='$PAINT Logo'
+              title={imageAlt}
             />
           </Link>
           {

@@ -11,8 +11,15 @@ import LoadingSpinner from '@/components/LoadingSpinner'
 import { Collection } from '@/lib/types'
 import { getCollections } from '@/services/collection'
 import styles from '@/styles/Collections.module.css'
+import { configPageText, configSocials, pageRules } from '@/lib/constants/configurables'
 
-export const getServerSideProps = (async () => { 
+export const getServerSideProps = (async () => {
+  if (!pageRules.collections) {
+    return {
+      notFound: true
+    }
+  }
+
   const data = await getCollections({ page: 1, sort: 'alphabetical', type: 'general' })
   const initialCollections: Collection[] = data?.[0] || []
 
@@ -42,9 +49,9 @@ export default function Collections({
     maxWait: 500
   }), [])
 
-  const metaTitle = '$PAINT - Collections and Sticker Sets'
-  const metaDescription = 'Collections and sticker sets by the $PAINT community.'
-  const metaImageUrl = `${process.env.NEXT_PUBLIC_WEB_BASE_URL}/paint-logo-preview.png`
+  const metaTitle = configPageText.collections.metaTitle
+  const metaDescription = configPageText.collections.metaDescription
+  const metaImageUrl = `${process.env.NEXT_PUBLIC_WEB_BASE_URL}/logo-preview.png`
 
   return (
     <>
@@ -52,7 +59,7 @@ export default function Collections({
         <title>{metaTitle}</title>
         <meta name='description' content={metaDescription} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@mspaintsol" />
+        <meta name="twitter:site" content={configSocials.twitterHandle} />
         <meta name="twitter:title" content={metaTitle} />
         <meta name="twitter:description" content={metaDescription} />
         <meta name="twitter:image" content={metaImageUrl} />

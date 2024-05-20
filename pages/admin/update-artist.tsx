@@ -8,11 +8,22 @@ import SearchInputArtists from '@/components/SearchInputArtists'
 import { Artist } from '@/lib/types'
 import styles from '@/styles/AdminUploadImage.module.css'
 import { getAllArtists, getArtistProfilePictureUrl, updateArtist } from '@/services/artist'
+import { configPageText, configSocials, pageRules } from '@/lib/constants/configurables'
 
 type LastUpdatedData = {
   id: number
   slug?: string
 } | null
+
+export const getServerSideProps = async () => {
+  if (!pageRules.admin) {
+    return {
+      notFound: true
+    }
+  }
+
+  return { props: {} }
+}
 
 export default function UpdateArtist() {
   const searchParams = useSearchParams()
@@ -231,19 +242,22 @@ export default function UpdateArtist() {
   const pageTitle = 'Update Artist'
   const saveButtonTitle = 'Update'
   
+  const metaTitle = configPageText.updateArtist.metaTitle
+  const metaDescription = configPageText.updateArtist.metaDescription
+
   return (
     <>
       <Head>
-        <title>$PAINT - Update Artist</title>
-        <meta name='description' content='The $PAINT on SOL Update Artist page' />
+        <title>{metaTitle}</title>
+        <meta name='description' content={metaDescription} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@mspaintsol" />
-        <meta name="twitter:title" content="$PAINT" />
-        <meta name="twitter:description" content="$PAINT on SOL" />
-        <meta name="twitter:image" content={`${process.env.NEXT_PUBLIC_WEB_BASE_URL}/paint-logo-preview.png`} />
-        <meta property="og:title" content="$PAINT" />
-        <meta property="og:description" content="$PAINT on SOL" />
-        <meta property="og:image" content={`${process.env.NEXT_PUBLIC_WEB_BASE_URL}/paint-logo-preview.png`} />
+        <meta name="twitter:site" content={configSocials.twitterHandle} />
+        <meta name="twitter:title" content={metaTitle} />
+        <meta name="twitter:description" content={metaDescription} />
+        <meta name="twitter:image" content={`${process.env.NEXT_PUBLIC_WEB_BASE_URL}/logo-preview.png`} />
+        <meta property="og:title" content={metaTitle} />
+        <meta property="og:description" content={metaDescription} />
+        <meta property="og:image" content={`${process.env.NEXT_PUBLIC_WEB_BASE_URL}/logo-preview.png`} />
         <meta property="og:type" content="website" />
         <meta name="robots" content="noindex" />
       </Head>

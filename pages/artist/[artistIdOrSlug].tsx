@@ -13,12 +13,19 @@ import styles from '@/styles/Artist.module.css'
 import ArtistHeader from '@/components/ArtistHeader'
 import { checkIfValidInteger } from '@/lib/validation'
 import ViewTypeSelector from '@/components/ViewTypeSelector'
+import { configPageText, configSocials, pageRules } from '@/lib/constants/configurables'
 
 type ServerSidePropsParams = {
   artistIdOrSlug?: string
 }
 
 export const getServerSideProps = (async (context: GetServerSidePropsContext) => {
+  if (!pageRules.artist) {
+    return {
+      notFound: true
+    }
+  }
+
   const { params, req, res } = context
   const { artistIdOrSlug } = params as ServerSidePropsParams
   const { cookie: cookies } = req.headers
@@ -103,8 +110,8 @@ export default function ArtistPage({
 
   const imageTotalText = `${initialImagesTotal} ${initialImagesTotal === 1 ? 'painting' : 'paintings'}`
 
-  const metaTitle = `$PAINT - ${artist.name}`
-  const metaDescription = `Paintings by ${artist.name}`
+  const metaTitle = configPageText.artist.metaTitle(artist.name)
+  const metaDescription = configPageText.artist.metaDescription(artist.name)
   const metaImageUrl = artist.has_profile_picture
     ? getArtistProfilePictureUrl(artist.id, 'preview')
     : `${process.env.NEXT_PUBLIC_WEB_BASE_URL}/profile-picture-preview.png`
@@ -115,7 +122,7 @@ export default function ArtistPage({
         <title>{metaTitle}</title>
         <meta name='description' content={metaDescription} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@mspaintsol" />
+        <meta name="twitter:site" content={configSocials.twitterHandle} />
         <meta name="twitter:title" content={metaTitle} />
         <meta name="twitter:description" content={metaDescription} />
         <meta name="twitter:image" content={metaImageUrl} />
