@@ -1,7 +1,8 @@
+import ViewTypeSelector from '@/components/ViewTypeSelector'
+import { pageRules } from '@/lib/constants/configurables'
 import { FilterTypes, ViewTypes } from '@/lib/types'
-import styles from '@/styles/components/FilterSelector.module.css'
-import ViewTypeSelector from './ViewTypeSelector'
 import { ImageType } from '@/services/image'
+import styles from '@/styles/components/FilterSelector.module.css'
 
 type Props = {
   filterSelected: FilterTypes
@@ -20,7 +21,6 @@ export default function FilterSelector({
   imageTypeSelected,
   viewTypeSelected
 }: Props) {
-
 
   const filterSelectorNode = (isMobile: boolean) => (
     <div className={styles['filter-selector-wrapper']}>
@@ -65,23 +65,32 @@ export default function FilterSelector({
     </select>
   )
 
+  const viewTypeSelectorWrapperClass = pageRules.centerViewTypeSelector
+    ? 'col-12 d-flex justify-content-center' : 'col-sm-3 col-lg-2 order-sm-3'
+
   return (
     <div className='row'>
-      <div className={`d-block d-sm-none ${styles['filter-wrapper-sm']}`}>
-        <div className={styles['filter-selector-sm']}>
-          {filterSelectorNode(true)}
-        </div>
-        <div className={styles['filter-image-type-sm']}>
-          {imageTypeSelectorNode(true)}
-        </div>
-      </div>
-      <div className='d-none d-sm-block col-sm-6 col-lg-8 order-sm-2'>
-        {filterSelectorNode(false)}
-      </div>
-      <div className='d-none d-sm-block col-sm-3 col-lg-2 order-sm-1'>
-        {imageTypeSelectorNode(false)}
-      </div>
-      <div className='col-sm-3 col-lg-2 order-sm-3'>
+      {
+        !pageRules.centerViewTypeSelector && (
+          <>
+            <div className={`d-block d-sm-none ${styles['filter-wrapper-sm']}`}>
+              <div className={styles['filter-selector-sm']}>
+                {!pageRules.disableFilterSelectors ? filterSelectorNode(true) : null}
+              </div>
+              <div className={styles['filter-image-type-sm']}>
+                {!pageRules.disableImageTypes ? imageTypeSelectorNode(true) : null}
+              </div>
+            </div>
+            <div className='d-none d-sm-block col-sm-6 col-lg-8 order-sm-2'>
+              {!pageRules.disableFilterSelectors ? filterSelectorNode(false) : null}
+            </div>
+            <div className='d-none d-sm-block col-sm-3 col-lg-2 order-sm-1'>
+              {!pageRules.disableImageTypes ? imageTypeSelectorNode(false) : null}
+            </div>
+          </>
+        )
+      }
+      <div className={viewTypeSelectorWrapperClass}>
         <ViewTypeSelector
           handleSelectViewType={handleSelectViewType}
           viewTypeSelected={viewTypeSelected}
