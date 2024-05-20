@@ -37,7 +37,7 @@ export const getServerSideProps = (async (context: GetServerSidePropsContext) =>
 
   if (
     (isHomePage && !pageRules.homePageIsGallery)
-    || !pageRules.gallery
+    || (!isHomePage && !pageRules.gallery)
   ) {
     return {
       notFound: true
