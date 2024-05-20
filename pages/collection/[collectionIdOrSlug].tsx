@@ -16,6 +16,7 @@ import styles from '@/styles/Collection.module.css'
 import { faEdit } from '@fortawesome/free-solid-svg-icons/faEdit'
 import FAIcon from '@/components/FAIcon'
 import { useRouter } from 'next/router'
+import { configPageText, configText } from '@/lib/constants/configurableText'
 
 type ServerSidePropsParams = {
   collectionIdOrSlug?: string
@@ -111,11 +112,11 @@ export default function CollectionPage({
   
   const collectionFirstPreviewImage = collection?.preview_images?.[0] || null
   
-  const metaTitle = `$PAINT - Collection - ${collection.title}`
-  const metaDescription = `The ${collection.title} collection on the $PAINT community website.`
+  const metaTitle = configPageText.collection.metaTitle(collection.title || '')
+  const metaDescription = configPageText.collection.metaDescription(collection.title || '')
   const metaImageUrl = collectionFirstPreviewImage?.image
     ? getAvailableImageUrl('preview', collectionFirstPreviewImage.image)
-    : `${process.env.NEXT_PUBLIC_WEB_BASE_URL}/paint-logo-preview.png`
+    : `${process.env.NEXT_PUBLIC_WEB_BASE_URL}/logo-preview.png`
 
   return (
     <>
@@ -123,7 +124,7 @@ export default function CollectionPage({
         <title>{metaTitle}</title>
         <meta name='description' content={metaDescription} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@mspaintsol" />
+        <meta name="twitter:site" content={configText.socials.twitterHandle} />
         <meta name="twitter:title" content={metaTitle} />
         <meta name="twitter:description" content={metaDescription} />
         <meta name="twitter:image" content={metaImageUrl} />

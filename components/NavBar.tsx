@@ -10,6 +10,8 @@ import Icon from './Icon'
 import styles from '@/styles/components/NavBar.module.css'
 import { useEffect, useRef } from 'react'
 import Dropdown, { DropdownItem } from './Dropdown'
+import { configText } from '@/lib/constants/configurableText'
+import { config } from 'next/dist/build/templates/pages'
 
 const navIconSize = 24
 
@@ -151,30 +153,32 @@ export default function NavBar() {
             imageSrc='/external-sites/birdeye.svg'
             key='nav-birdeye-icon'
             title='Birdeye'
-            url='https://birdeye.so/token/8x9c5qa4nvakKo5wHPbPa5xvTVMKmS26w4DRpCQLCLk3?chain=solana'
+            url={configText.charts.birdeyeUrl}
           />
           <NavDropdownIcon
             imageSrc='/external-sites/dexscreener.svg'
             key='nav-dexscreener-icon'
             title='DEX Screener'
-            url='https://dexscreener.com/solana/8x9c5qa4nvakKo5wHPbPa5xvTVMKmS26w4DRpCQLCLk3'
+            url={configText.charts.dexscreenerUrl}
           />
           <NavDropdownIcon
             imageSrc='/external-sites/dextools.svg'
             key='nav-dextools-icon'
             title='DEXTools'
-            url='https://www.dextools.io/app/en/solana/pair-explorer/NniGZMgEpXL9jTmEATcKMxUbmH5cSNALngJKAQLTXzB'
+            url={configText.charts.dextoolsUrl}
           />
           <NavDropdownIcon
             imageSrc='/external-sites/coingecko.svg'
             key='nav-coingecko-icon'
             title='CoinGecko'
-            url='https://www.coingecko.com/en/coins/ms-paint/usd'
+            url={configText.charts.coingeckoUrl}
           />
         </div>
       )
     }
   ]
+
+  const imageAlt = `${configText.text.appName} Logo`
 
   return (
     <nav
@@ -182,21 +186,21 @@ export default function NavBar() {
       <div className='container-fluid'>
         <Link className='navbar-brand d-none d-sm-block' href='/'>
           <Image
-            alt='$PAINT Logo'
+            alt={imageAlt}
             height={48}
-            imageSrc='/paint-logo-small-square.png'
+            imageSrc='/logo-small-square.png'
             priority
-            title='$PAINT Logo'
+            title={imageAlt}
             width={48}
           />
         </Link>
         <Link className='navbar-brand d-block d-sm-none' href='/'>
           <Image
-            alt='$PAINT Logo'
+            alt={imageAlt}
             height={48}
-            imageSrc='/paint-horizontal-logo.png'
+            imageSrc='/horizontal-logo.png'
             priority
-            title='$PAINT Logo'
+            title={imageAlt}
             width={175}
           />
         </Link>
@@ -284,17 +288,17 @@ export default function NavBar() {
                 icon={faTelegram}
                 style={{ marginRight: '-1px' }}
                 title='Telegram'
-                url='https://t.co/OjMn6rdbaU'
+                url={configText.socials.telegramUrl}
               />
               <NavLinkFAIcon
                 icon={faXTwitter}
                 title='X - Twitter'
-                url='https://twitter.com/mspaintsol'
+                url={configText.socials.twitterUrl}
               />
               <NavLinkIcon
                 imageSrc='/external-sites/farcaster.png'
                 title='Farcaster'
-                url='https://warpcast.com/paintsol'
+                url={configText.socials.farcasterUrl}
               />
             </div>
             <div className={styles['social-links']}>
@@ -302,25 +306,25 @@ export default function NavBar() {
                 className='d-sm-none d-md-none d-xl-block'
                 imageSrc='/external-sites/birdeye.svg'
                 title='Birdeye'
-                url='https://birdeye.so/token/8x9c5qa4nvakKo5wHPbPa5xvTVMKmS26w4DRpCQLCLk3?chain=solana'
+                url={configText.charts.birdeyeUrl}
               />
               <NavLinkIcon
                 className='d-sm-none d-md-none d-xl-block'
                 imageSrc='/external-sites/dexscreener.svg'
                 title='DEX Screener'
-                url='https://dexscreener.com/solana/8x9c5qa4nvakKo5wHPbPa5xvTVMKmS26w4DRpCQLCLk3'
+                url={configText.charts.dexscreenerUrl}
               />
               <NavLinkIcon
                 className='d-sm-none d-md-none d-xl-block'
                 imageSrc='/external-sites/dextools.svg'
                 title='DEXTools'
-                url='https://www.dextools.io/app/en/solana/pair-explorer/NniGZMgEpXL9jTmEATcKMxUbmH5cSNALngJKAQLTXzB'
+                url={configText.charts.dextoolsUrl}
               />
               <NavLinkIcon
                 className='d-sm-none d-md-none d-xl-block'
                 imageSrc='/external-sites/coingecko.svg'
                 title='CoinGecko'
-                url='https://www.coingecko.com/en/coins/ms-paint/usd'
+                url={configText.charts.coingeckoUrl}
               />
               <div className='d-none d-sm-block d-xl-none'>
                 <Dropdown

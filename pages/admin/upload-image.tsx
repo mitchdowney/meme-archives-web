@@ -15,6 +15,7 @@ import SearchInputTags from '@/components/SearchInputTags'
 import { getAllTags } from '@/services/tag'
 import { getAllArtists } from '@/services/artist'
 import SearchInputArtists from '@/components/SearchInputArtists'
+import { configPageText, configText } from '@/lib/constants/configurableText'
 
 type ImageMediumType = 'no-border' | 'border' | 'animation'
 type LastUpdatedData = {
@@ -81,6 +82,7 @@ export default function UploadImage() {
         //
       }
     })()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams])
 
   const populateEditData = (paramImage: ImageT | null) => {
@@ -447,19 +449,22 @@ export default function UploadImage() {
   const saveButtonTitle = isEditing ? 'Update' : 'Save'
   const clearButtonTitle = isEditing ? 'Reset' : 'Clear'
 
+  const metaTitle = configPageText.uploadImage.metaTitle
+  const metaDescription = configPageText.uploadImage.metaDescription
+
   return (
     <>
       <Head>
-        <title>$PAINT - Upload Image</title>
-        <meta name='description' content='The $PAINT on SOL Upload Image page' />
+        <title>{metaTitle}</title>
+        <meta name='description' content={metaDescription} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@mspaintsol" />
-        <meta name="twitter:title" content="$PAINT" />
-        <meta name="twitter:description" content="$PAINT on SOL" />
-        <meta name="twitter:image" content={`${process.env.NEXT_PUBLIC_WEB_BASE_URL}/paint-logo-preview.png`} />
-        <meta property="og:title" content="$PAINT" />
-        <meta property="og:description" content="$PAINT on SOL" />
-        <meta property="og:image" content={`${process.env.NEXT_PUBLIC_WEB_BASE_URL}/paint-logo-preview.png`} />
+        <meta name="twitter:site" content={configText.socials.twitterHandle} />
+        <meta name="twitter:title" content={metaTitle} />
+        <meta name="twitter:description" content={metaDescription} />
+        <meta name="twitter:image" content={`${process.env.NEXT_PUBLIC_WEB_BASE_URL}/logo-preview.png`} />
+        <meta property="og:title" content={metaTitle} />
+        <meta property="og:description" content={metaDescription} />
+        <meta property="og:image" content={`${process.env.NEXT_PUBLIC_WEB_BASE_URL}/logo-preview.png`} />
         <meta property="og:type" content="website" />
         <meta name="robots" content="noindex" />
       </Head>

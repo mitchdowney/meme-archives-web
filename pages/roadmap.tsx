@@ -3,6 +3,7 @@ import styles from '@/styles/Roadmap.module.css'
 import Image from '@/components/Image'
 import Footer from '@/components/Footer'
 import { useState } from 'react'
+import { configPageText, configText } from '@/lib/constants/configurableText'
 
 export default function Roadmap() {
   const [imageIsLoading, setImageIsLoading] = useState(true)
@@ -11,17 +12,19 @@ export default function Roadmap() {
     setImageIsLoading(!imageIsLoading)
   }
 
-  const metaTitle = '$PAINT - Roadmap'
-  const metaDescription = 'The $PAINT on SOL roadmap.'
+  const metaTitle = configPageText.roadmap.metaTitle
+  const metaDescription = configPageText.roadmap.metaDescription
   const metaImageUrl = `${process.env.NEXT_PUBLIC_WEB_BASE_URL}/public/roadmap.png`
  
+  const imageAlt = `${configText.text.appName} roadmap`
+
   return (
     <>
       <Head>
         <title>{metaTitle}</title>
         <meta name='description' content={metaDescription} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@mspaintsol" />
+        <meta name="twitter:site" content={configText.socials.twitterHandle} />
         <meta name="twitter:title" content={metaTitle} />
         <meta name="twitter:description" content={metaDescription} />
         <meta name="twitter:image" content={metaImageUrl} />
@@ -34,13 +37,13 @@ export default function Roadmap() {
         <div className='main-content-inner-wrapper'>
           <div className={styles['roadmap-image-wrapper']}>
             <Image
-              alt='$PAINT on SOL roadmap'
+              alt={imageAlt}
               className={styles['roadmap-image']}
               imageSrc='/roadmap.png'
               onLoad={handleImageOnLoad}
               priority
               stretchFill
-              title='$PAINT on SOL roadmap'
+              title={imageAlt}
             />
           </div>
         </div>

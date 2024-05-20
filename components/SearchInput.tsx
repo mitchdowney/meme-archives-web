@@ -63,6 +63,7 @@ export default function SearchInput({ allArtists, allTags, filterSelected,
     ) {
       debouncedFilter(filterSelected, '')
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterSelected])
 
   function handleOutSideClick (event: any) {

@@ -4,24 +4,30 @@ import Link from 'next/link'
 import Image from '@/components/Image'
 import Footer from '@/components/Footer'
 import { useState } from 'react'
+import { configPageText, configText } from '@/lib/constants/configurableText'
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const splashLogoClass = isLoading ? styles['splash-logo-is-loading'] : styles['splash-logo']
-  const metaImageUrl = `${process.env.NEXT_PUBLIC_WEB_BASE_URL}/paint-logo-preview.png`
+
+  const metaTitle = configPageText.home.metaTitle
+  const metaDescription = configPageText.home.metaDescription
+  const metaImageUrl = `${process.env.NEXT_PUBLIC_WEB_BASE_URL}/logo-preview.png`
+
+  const imageAlt = `${configText.text.appName} Logo`
 
   return (
     <>
       <Head>
-        <title>$PAINT</title>
-        <meta name='description' content='$PAINT on SOL' />
+        <title>{configText.text.appName}</title>
+        <meta name='description' content={metaDescription} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@mspaintsol" />
-        <meta name="twitter:title" content="$PAINT" />
-        <meta name="twitter:description" content="$PAINT on SOL" />
+        <meta name="twitter:site" content={configText.socials.twitterHandle} />
+        <meta name="twitter:title" content={metaTitle} />
+        <meta name="twitter:description" content={metaDescription} />
         <meta name="twitter:image" content={metaImageUrl} />
-        <meta property="og:title" content="$PAINT" />
-        <meta property="og:description" content="$PAINT on SOL" />
+        <meta property="og:title" content={metaTitle} />
+        <meta property="og:description" content={metaDescription} />
         <meta property="og:image" content={metaImageUrl} />
         <meta property="og:type" content="website" />
       </Head>
@@ -31,13 +37,13 @@ export default function Home() {
             className='link-primary'
             href='/art'>
             <Image
-              alt='$PAINT Logo'
+              alt={imageAlt}
               className={splashLogoClass}
-              imageSrc='/paint-splash-logo.png'
+              imageSrc='/splash-logo.png'
               onLoad={() => setIsLoading(false)}
               priority
               stretchFill
-              title='$PAINT Logo'
+              title={imageAlt}
             />
           </Link>
           {

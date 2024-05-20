@@ -18,6 +18,7 @@ import { checkIfValidInteger } from '@/lib/validation'
 import InfoBox from '@/components/InfoBox'
 import { CurationInfoText } from '@/lib/constants/curationInfoText'
 import { useSearchParams } from 'next/navigation'
+import { configPageText, configText } from '@/lib/constants/configurableText'
 
 type QueryParamImageType = 'paintings' | 'memes' | null
 
@@ -173,6 +174,7 @@ export default function Gallery({
         //
       }
     })()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams])
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -271,9 +273,9 @@ export default function Gallery({
     })
   }
 
-  const metaTitle = '$PAINT - Art Gallery'
-  const metaDescription = 'The $PAINT on SOL art gallery. Showcasing the art of the $PAINT community.'
-  const metaImageUrl = `${process.env.NEXT_PUBLIC_WEB_BASE_URL}/paint-logo-preview.png`
+  const metaTitle = configPageText.art.metaTitle
+  const metaDescription = configPageText.art.metaDescription
+  const metaImageUrl = `${process.env.NEXT_PUBLIC_WEB_BASE_URL}/logo-preview.png`
 
   return (
     <>
@@ -281,7 +283,7 @@ export default function Gallery({
         <title>{metaTitle}</title>
         <meta name='description' content={metaDescription} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@mspaintsol" />
+        <meta name="twitter:site" content={configText.socials.twitterHandle} />
         <meta name="twitter:title" content={metaTitle} />
         <meta name="twitter:description" content={metaDescription} />
         <meta name="twitter:image" content={metaImageUrl} />
