@@ -105,7 +105,8 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
           }, 0)
         } catch (error: any) {
           if (error?.response?.status === 404) {
-            router.replace('/art')
+            const replacePath = pageRules.homePageIsGallery ? '/' : '/art'
+            router.replace(replacePath)
           }
         }
       }
