@@ -9,6 +9,8 @@ export const getServerSideProps = async () => {
       notFound: true
     }
   }
+
+  return { props: {} }
 }
 
 export default function Resources() {
