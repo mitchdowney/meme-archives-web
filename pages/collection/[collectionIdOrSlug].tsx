@@ -23,7 +23,7 @@ type ServerSidePropsParams = {
 }
 
 export const getServerSideProps = (async (context: GetServerSidePropsContext) => {
-  if (!pageRules.collection) {
+  if (!pageRules.collections) {
     return {
       notFound: true
     }
