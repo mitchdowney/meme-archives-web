@@ -1,13 +1,21 @@
 import Head from 'next/head'
-import styles from '@/styles/Home.module.css'
 import Link from 'next/link'
-import Image from '@/components/Image'
-import Footer from '@/components/Footer'
 import { useState } from 'react'
-import { configPageText, configSocials, configText } from '@/lib/constants/configurables'
+import Footer from '@/components/Footer'
+import Image from '@/components/Image'
+import { configPageText, configSocials, configText, pageRules } from '@/lib/constants/configurables'
+import styles from '@/styles/Home.module.css'
 
 export const getServerSideProps = async () => {
+  // If you'd like the home page to load the gallery instead of the splash page,
+  // set homePageIsGallery to true, and rename the pages/art.tsx file to pages/index.tsx.
+  if (!pageRules.homePageIsGallery) {
+    return {
+      notFound: true
+    }
+  }
 
+  return { props: {} }
 }
 
 export default function Home() {

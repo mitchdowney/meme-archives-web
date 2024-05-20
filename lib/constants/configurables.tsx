@@ -4,7 +4,6 @@
 
 // Enable or disable pages 
 export const pageRules = {
-  homePageIsGallery: false,
   gallery: true,
   memes: true,
   image: true,
@@ -16,7 +15,10 @@ export const pageRules = {
   whitepaper: true,
   roadmap: true,
   resources: false,
-  admin: true
+  admin: true,
+  // If you'd like the home page to load the gallery instead of the splash page,
+  // set homePageIsGallery to true, and rename the pages/art.tsx file to pages/index.tsx.
+  homePageIsGallery: false
 }
 
 // Set to empty string to disable
