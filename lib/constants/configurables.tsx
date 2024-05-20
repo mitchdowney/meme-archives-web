@@ -82,7 +82,7 @@ export const configPageText = {
   },
   artist: {
     metaTitle: (artistName: string) => `${configText.appName} - ${artistName}`,
-    metaDescription: (artistName: string) => `Paintings by ${artistName}`
+    metaDescription: (artistName: string) => `by ${artistName}`
   },
   artists: {
     metaTitle: `${configText.appName} - Artists`,
