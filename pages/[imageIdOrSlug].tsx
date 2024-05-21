@@ -180,6 +180,7 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
   const prevNav = (
     <Link className={styles['prev-svg']} href={`/${prevData?.slug ? prevData.slug : prevData?.id}`}>
       <FAIcon
+        className='arrow-left'
         icon={faArrowLeft}
         title='Go to previous image'
       />
@@ -189,6 +190,7 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
   const nextNav = (
     <Link className={styles['next-svg']} href={`/${nextData?.slug ? nextData.slug : nextData?.id}`}>
       <FAIcon
+        className='arrow-right'
         icon={faArrowRight}
         title='Go to next image'
       />

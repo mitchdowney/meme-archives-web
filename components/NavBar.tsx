@@ -55,6 +55,7 @@ function NavLinkFAIcon({ icon, style, title, url }: NavLinkFAIconProps) {
         style={style}
         target='_blank'>
         <FAIcon
+          className='nav-link-fa-icon'
           icon={icon}
           title={title}
         />
