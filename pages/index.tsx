@@ -1,3 +1,4 @@
+import { GetServerSidePropsContext } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
 import { useState } from 'react'
@@ -6,10 +7,11 @@ import Image from '@/components/Image'
 import { configPageText, configSocials, configText, pageRules } from '@/lib/constants/configurables'
 import styles from '@/styles/Home.module.css'
 
-export const getServerSideProps = async () => {
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   // If you'd like the home page to load the gallery instead of the splash page,
   // set homePageIsGallery to true, and rename the pages/art.tsx file to pages/index.tsx.
-  if (!pageRules.homePageIsGallery) {
+  const isHomePage = context.req.url === '/'
+  if (!isHomePage && !pageRules.homePageIsGallery) {
     return {
       notFound: true
     }
