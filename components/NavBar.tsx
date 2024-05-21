@@ -355,88 +355,107 @@ export default function NavBar() {
                 Resources
               </Link>
             </li> */}
-            <div className='flex-grow-1' />
-            <div className={styles['social-links']}>
-              {
-                configSocials.telegramUrl && (
-                  <NavLinkFAIcon
-                    icon={faTelegram}
-                    style={{ marginRight: '-1px' }}
-                    title='Telegram'
-                    url={configSocials.telegramUrl}
-                  />
-                )
-              }
-              {
-                configSocials.twitterUrl && (
-                  <NavLinkFAIcon
-                    icon={faXTwitter}
-                    title='X - Twitter'
-                    url={configSocials.twitterUrl}
-                  />
-                )
-              }
-              {
-                configSocials.farcasterUrl && (
-                  <NavLinkIcon
-                    imageSrc='/external-sites/farcaster.png'
-                    title='Farcaster'
-                    url={configSocials.farcasterUrl}
-                  />
-                )
-              }
-            </div>
-            <div className={styles['social-links']}>
-              {
-                configCharts.birdeyeUrl && (
-                  <NavLinkIcon
-                    className='d-sm-none d-md-none d-xl-block'
-                    imageSrc='/external-sites/birdeye.svg'
-                    title='Birdeye'
-                    url={configCharts.birdeyeUrl}
-                  />
-                )
-              }
-              {
-                configCharts.dexscreenerUrl && (
-                  <NavLinkIcon
-                    className='d-sm-none d-md-none d-xl-block'
-                    imageSrc='/external-sites/dexscreener.svg'
-                    title='DEX Screener'
-                    url={configCharts.dexscreenerUrl}
-                  />
-                )
-              }
-              {
-                configCharts.dextoolsUrl && (
-                  <NavLinkIcon
-                    className='d-sm-none d-md-none d-xl-block'
-                    imageSrc='/external-sites/dextools.svg'
-                    title='DEXTools'
-                    url={configCharts.dextoolsUrl}
-                  />
-                )
-              }
-              {
-                configCharts.coingeckoUrl && (
-                  <NavLinkIcon
-                    className='d-sm-none d-md-none d-xl-block'
-                    imageSrc='/external-sites/coingecko.svg'
-                    title='CoinGecko'
-                    url={configCharts.coingeckoUrl}
-                  />
-                )
-              }
-              <div className='d-none d-sm-block d-xl-none'>
-                <Dropdown
-                  alignRight
-                  dropdownClassName={styles['dropdown']}
-                  dropdownToggleClassName={styles['dropdown-toggle']}
-                  dropdownMenuClassName={styles['dropdown-menu']}
-                  dropdownItems={dropdownItems}
-                />
-              </div>
-            </div>
+            {
+              configSocials.farcasterUrl
+              || configSocials.telegramUrl
+              || configSocials.twitterUrl && (
+                <>
+                  <div className='flex-grow-1' />
+                  <div className={styles['social-links']}>
+                    {
+                      configSocials.telegramUrl && (
+                        <NavLinkFAIcon
+                          icon={faTelegram}
+                          style={{ marginRight: '-1px' }}
+                          title='Telegram'
+                          url={configSocials.telegramUrl}
+                        />
+                      )
+                    }
+                    {
+                      configSocials.twitterUrl && (
+                        <NavLinkFAIcon
+                          icon={faXTwitter}
+                          title='X - Twitter'
+                          url={configSocials.twitterUrl}
+                        />
+                      )
+                    }
+                    {
+                      configSocials.farcasterUrl && (
+                        <NavLinkIcon
+                          imageSrc='/external-sites/farcaster.png'
+                          title='Farcaster'
+                          url={configSocials.farcasterUrl}
+                        />
+                      )
+                    }
+                  </div>
+                </>
+              )
+            }
+            {
+              configCharts.birdeyeUrl
+              || configCharts.dexscreenerUrl
+              || configCharts.dextoolsUrl
+              || configCharts.coingeckoUrl && (
+                <div className={styles['social-links']}>
+                  {
+                    configCharts.birdeyeUrl && (
+                      <NavLinkIcon
+                        className='d-sm-none d-md-none d-xl-block'
+                        imageSrc='/external-sites/birdeye.svg'
+                        title='Birdeye'
+                        url={configCharts.birdeyeUrl}
+                      />
+                    )
+                  }
+                  {
+                    configCharts.dexscreenerUrl && (
+                      <NavLinkIcon
+                        className='d-sm-none d-md-none d-xl-block'
+                        imageSrc='/external-sites/dexscreener.svg'
+                        title='DEX Screener'
+                        url={configCharts.dexscreenerUrl}
+                      />
+                    )
+                  }
+                  {
+                    configCharts.dextoolsUrl && (
+                      <NavLinkIcon
+                        className='d-sm-none d-md-none d-xl-block'
+                        imageSrc='/external-sites/dextools.svg'
+                        title='DEXTools'
+                        url={configCharts.dextoolsUrl}
+                      />
+                    )
+                  }
+                  {
+                    configCharts.coingeckoUrl && (
+                      <NavLinkIcon
+                        className='d-sm-none d-md-none d-xl-block'
+                        imageSrc='/external-sites/coingecko.svg'
+                        title='CoinGecko'
+                        url={configCharts.coingeckoUrl}
+                      />
+                    )
+                  }
+                  {
+                    dropdownItems?.length > 0 && (
+                      <div className='d-none d-sm-block d-xl-none'>
+                        <Dropdown
+                          alignRight
+                          dropdownClassName={styles['dropdown']}
+                          dropdownToggleClassName={styles['dropdown-toggle']}
+                          dropdownMenuClassName={styles['dropdown-menu']}
+                          dropdownItems={dropdownItems}
+                        />
+                      </div>
+                    )
+                  }
+                </div>
+              )
+            }
           </ul>
         </div>
       </div>
