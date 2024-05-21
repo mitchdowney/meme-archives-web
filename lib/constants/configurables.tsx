@@ -70,15 +70,15 @@ export const configText = {
 export const configPageText = {
   admin: {
     metaTitle: `${configText.appName} - Admin Panel`,
-    metaDescription: `The ${configText.appName} Admin Panel`
+    metaDescription: `${configText.appName} Admin Panel`
   },
   adminCollection: {
     metaTitle: `${configText.appName} - Admin Collection`,
-    metaDescription: `The ${configText.appName} Admin Collection page`
+    metaDescription: `${configText.appName} Admin Collection page`
   },
   art: {
-    metaTitle: `${configText.appName} - Art Gallery`,
-    metaDescription: `The ${configText.appName} art gallery. Showcasing the art of the ${configText.appName} community.`
+    metaTitle: `${configText.appName} - Gallery`,
+    metaDescription: `${configText.appName} gallery.`
   },
   artist: {
     metaTitle: (artistName: string) => `${configText.appName} - ${artistName}`,
@@ -86,15 +86,15 @@ export const configPageText = {
   },
   artists: {
     metaTitle: `${configText.appName} - Artists`,
-    metaDescription: `The ${configText.appName} community artists page.`
+    metaDescription: `${configText.appName} artists page.`
   },
   collection: {
     metaTitle: (collectionTitle: string) => `${configText.appName} - Collection - ${collectionTitle}`,
-    metaDescription: (collectionTitle: string) => `The ${collectionTitle} collection on the ${configText.appName} community website.`
+    metaDescription: (collectionTitle: string) => `${collectionTitle} collection`
   },
   collections: {
     metaTitle: `${configText.appName} - Collections`,
-    metaDescription: `Collections by the ${configText.appName} community.`
+    metaDescription: `${configText.appName} collections.`
   },
   home: {
     metaTitle: `${configText.appName}`,
@@ -110,7 +110,7 @@ export const configPageText = {
   },
   stickers: {
     metaTitle: `${configText.appName} - Stickers`,
-    metaDescription: `Sticker sets by the ${configText.appName} community.`
+    metaDescription: `${configText.appName} sticker sets.`
   },
   updateArtist: {
     metaTitle: `${configText.appName} - Update Artist`,
