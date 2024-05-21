@@ -22,6 +22,7 @@ export const getServerSideProps = async () => {
 export default function Admin({ isUserInfoLoading, userInfo }: Props) {
   const metaTitle = configPageText.admin.metaTitle
   const metaDescription = configPageText.admin.metaDescription
+  const metaImageUrl = `${process.env.NEXT_PUBLIC_WEB_BASE_URL}/logo-preview.png`
 
   return (
     <>
@@ -32,10 +33,10 @@ export default function Admin({ isUserInfoLoading, userInfo }: Props) {
         <meta name="twitter:site" content={configSocials.twitterHandle} />
         <meta name="twitter:title" content={metaTitle} />
         <meta name="twitter:description" content={metaDescription} />
-        <meta name="twitter:image" content={`${process.env.NEXT_PUBLIC_WEB_BASE_URL}/logo-preview.png`} />
+        <meta name="twitter:image" content={metaImageUrl} />
         <meta property="og:title" content={metaTitle} />
         <meta property="og:description" content={metaDescription} />
-        <meta property="og:image" content={`${process.env.NEXT_PUBLIC_WEB_BASE_URL}/logo-preview.png`} />
+        <meta property="og:image" content={metaImageUrl} />
         <meta property="og:type" content="website" />
         <meta name="robots" content="noindex" />
       </Head>
