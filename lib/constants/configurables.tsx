@@ -22,7 +22,7 @@ type PageRules = {
 
 export const pageRules: PageRules = {
   // Enable or disable pages 
-  gallery: false,
+  gallery: true,
   memes: false,
   artists: true,
   collections: false,
