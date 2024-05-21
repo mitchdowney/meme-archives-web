@@ -245,7 +245,7 @@ export default function NavBar() {
             imageSrc='/horizontal-logo.png'
             priority
             title={imageAlt}
-            width={175}
+            width={48}
           />
         </Link>
         <button
