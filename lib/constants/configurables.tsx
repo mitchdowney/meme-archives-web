@@ -46,6 +46,10 @@ export const pageRules: PageRules = {
   defaultPreviewCropStyle: 'middle'
 }
 
+export const configImages = {
+  useDeprecatedNoBorderImageName: true
+}
+
 // Set to empty string to disable
 export const configCharts = {
   birdeyeUrl: '',
