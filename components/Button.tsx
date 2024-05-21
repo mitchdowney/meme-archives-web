@@ -20,6 +20,7 @@ export default function Button({ children, className, isLoading, onClick, type }
       {
         isLoading && (
           <FAIcon 
+            className='ps-button'
             icon={faSpinner}
             spin
             title='Loading...'
