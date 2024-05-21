@@ -72,12 +72,6 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
   const { artists, nextData, prevData, tags } = image || {}
   const title = getTitleOrUntitled(image?.title || null)
 
-  console.log('nextData', nextData)
-  console.log('prevData', prevData)
-
-  console.log('faArrowLeft', faArrowLeft)
-  console.log('faArrowRight', faArrowRight)
-
   useEffect(() => {
     (async () => {
       setIsLoading(true)
