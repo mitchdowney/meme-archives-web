@@ -47,7 +47,7 @@ export const pageRules: PageRules = {
 }
 
 export const configImages = {
-  useDeprecatedNoBorderImageName: true
+  useDeprecatedNoBorderImageName: false
 }
 
 // Set to empty string to disable
