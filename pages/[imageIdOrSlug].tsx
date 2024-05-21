@@ -306,33 +306,39 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
                           />
                           Edit
                         </button>
-                        <div className={styles['edit-collection']}>
-                          <button
-                            className='btn btn-warning btn-rounded'
-                            onClick={handleShowAddToCollectionModal}
-                            type="button">
-                            <FAIcon
-                              className={styles['edit-icon']}
-                              icon={faPlus}
-                              title='Add to Collection'
-                            />
-                            Add to Collection
-                          </button>
-                          <div className='form-check'>
-                            <input
-                              className={`form-check-input ${styles['edit-toggle-input']}`}
-                              id='selected-collection-is-preview'
-                              onChange={(event: any) => {
-                                setSelectedCollectionIsPreview(event.target.checked?.toString())
-                              }}
-                              type="checkbox"
-                              value={selectedCollectionIsPreview}
-                            />
-                            <label className={`form-check-label ${styles['edit-toggle-input-label']}`} htmlFor='selected-collection-is-preview'>
-                              is image preview
-                            </label>
-                          </div>
-                        </div>
+                        {
+                          pageRules.collections && (
+                            <>
+                              <div className={styles['edit-collection']}>
+                                <button
+                                  className='btn btn-warning btn-rounded'
+                                  onClick={handleShowAddToCollectionModal}
+                                  type="button">
+                                  <FAIcon
+                                    className={styles['edit-icon']}
+                                    icon={faPlus}
+                                    title='Add to Collection'
+                                  />
+                                  Add to Collection
+                                </button>
+                                <div className='form-check'>
+                                  <input
+                                    className={`form-check-input ${styles['edit-toggle-input']}`}
+                                    id='selected-collection-is-preview'
+                                    onChange={(event: any) => {
+                                      setSelectedCollectionIsPreview(event.target.checked?.toString())
+                                    }}
+                                    type="checkbox"
+                                    value={selectedCollectionIsPreview}
+                                  />
+                                  <label className={`form-check-label ${styles['edit-toggle-input-label']}`} htmlFor='selected-collection-is-preview'>
+                                    is image preview
+                                  </label>
+                                </div>
+                              </div>
+                            </>
+                          )
+                        }
                         <div className={`mb-3 ${styles['edit-select']}`}>
                           <select
                             aria-label='Select add to collection'
