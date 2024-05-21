@@ -77,7 +77,7 @@ export const configPageText = {
     metaDescription: `${configText.appName} Admin Collection page`
   },
   art: {
-    metaTitle: `${configText.appName} - Gallery`,
+    metaTitle: `${configText.appName} Gallery`,
     metaDescription: `${configText.appName} gallery.`
   },
   artist: {
