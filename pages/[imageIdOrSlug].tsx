@@ -336,20 +336,20 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
                                   </label>
                                 </div>
                               </div>
+                              <div className={`mb-3 ${styles['edit-select']}`}>
+                                <select
+                                  aria-label='Select add to collection'
+                                  className='form-select'
+                                  id='select-add-to-collection'
+                                  onChange={(event: any) => {
+                                    setSelectedCollection(event.target.value)
+                                  }}>
+                                  {collectionOptions}
+                                </select>
+                              </div>
                             </>
                           )
                         }
-                        <div className={`mb-3 ${styles['edit-select']}`}>
-                          <select
-                            aria-label='Select add to collection'
-                            className='form-select'
-                            id='select-add-to-collection'
-                            onChange={(event: any) => {
-                              setSelectedCollection(event.target.value)
-                            }}>
-                            {collectionOptions}
-                          </select>
-                        </div>
                       </div>
                     )
                   }
