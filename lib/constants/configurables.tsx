@@ -46,6 +46,10 @@ export const pageRules: PageRules = {
   defaultPreviewCropStyle: 'middle'
 }
 
+export const configImages = {
+  useDeprecatedNoBorderImageName: true
+}
+
 // Set to empty string to disable
 export const configCharts = {
   birdeyeUrl: 'https://birdeye.so/token/8x9c5qa4nvakKo5wHPbPa5xvTVMKmS26w4DRpCQLCLk3?chain=solana',

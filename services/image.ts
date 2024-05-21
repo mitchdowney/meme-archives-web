@@ -1,5 +1,6 @@
 import { Image } from '@/lib/types'
 import { apiRequest } from './apiRequest'
+import { configImages } from '@/lib/constants/configurables'
 
 export type ImageVersion = 'animation' | 'border' | 'no-border' | 'preview'
 export type ImageType = 'painting' | 'meme' | 'painting-and-meme'
@@ -22,7 +23,8 @@ export const getImageUrl = (id: number, imageVersion: ImageVersion) => {
   if (imageVersion === 'animation') {
     return `${process.env.NEXT_PUBLIC_S3_BUCKET_URL}/${id}-animation.gif`
   } else if (imageVersion === 'no-border') {
-    return `${process.env.NEXT_PUBLIC_S3_BUCKET_URL}/${id}-no-border.png`
+    const imageNameEnding = configImages.useDeprecatedNoBorderImageName ? '-no-border' : ''
+    return `${process.env.NEXT_PUBLIC_S3_BUCKET_URL}/${id}${imageNameEnding}.png`
   } else if (imageVersion === 'preview') {
     return `${process.env.NEXT_PUBLIC_S3_BUCKET_URL}/${id}-preview.png`
   } else {
