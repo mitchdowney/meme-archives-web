@@ -376,7 +376,7 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
                     </>
                   </div>
                 </div>
-                {
+                {/* {
                   imagedFinishedLoading && (
                     <div className={`${styles['navs-wrapper']} ${isShortMaxWidth ? styles['short-max-width'] : ''}`}>
                       <div className={styles['prev']}>
@@ -387,7 +387,7 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
                       </div>
                     </div>
                   )
-                }
+                } */}
               </div>
             </div>
           )
