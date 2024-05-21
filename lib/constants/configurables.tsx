@@ -63,7 +63,7 @@ export const configSocials = {
 }
 
 export const configText = {
-  appName: 'Daumen Gallery',
+  appName: 'Daumen',
   disclaimer: 'This website is for entertainment and informational purposes only, not financial or investment advice.'
 }
 
