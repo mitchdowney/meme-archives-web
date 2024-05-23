@@ -73,7 +73,6 @@ export default function ArtistLink({ className = '', has_profile_picture, href, 
             !!onRemoveClick && !!onRemoveKeyUp && (
               <div className={styles['artist-remove-icon']}>
                 <FAIcon
-                  className={styles['remove-icon']}
                   icon={faClose}
                   title={name}
                 />
