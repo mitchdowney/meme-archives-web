@@ -632,7 +632,7 @@ export default function UploadImage() {
                   )
                 }
                 {
-                  willCropPreviewImage && (
+                  imageNoBorderSrc && !imageBorderSrc && willCropPreviewImage && (
                     <div className={`${styles['form-select-wrapper']}`}>
                       <label htmlFor='link-preview-crop-position'>
                         Preview crop position
