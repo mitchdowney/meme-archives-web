@@ -43,7 +43,7 @@ export const pageRules: PageRules = {
   // Prevent border images from being uploaded or displayed
   disableBorderImages: true,
   // Set the default preview crop style
-  defaultPreviewCropStyle: 'middle'
+  defaultPreviewCropStyle: 'no-crop'
 }
 
 export const configImages = {
