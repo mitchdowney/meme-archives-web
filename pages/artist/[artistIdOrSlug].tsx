@@ -35,11 +35,9 @@ export const getServerSideProps = (async (context: GetServerSidePropsContext) =>
   let initialArtist: Artist | null = null
   let shouldRedirect = false
 
-  console.log('artistIdOrSlug', artistIdOrSlug)
   if (artistIdOrSlug) {
     try {
       const data = await getArtist(artistIdOrSlug, true)
-      console.log('data', data)
       if (data) {
         initialArtist = data
       }
@@ -49,7 +47,6 @@ export const getServerSideProps = (async (context: GetServerSidePropsContext) =>
         shouldRedirect = true
       }
     } catch (error: any) {
-      console.log('error', error)
       //
     }
   }
