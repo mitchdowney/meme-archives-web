@@ -13,12 +13,14 @@ import LoadingSpinner from '@/components/LoadingSpinner'
 import SearchInput from '@/components/SearchInput'
 import { configPageText, configSocials, pageRules } from '@/lib/constants/configurables'
 import { CurationInfoText } from '@/lib/constants/curationInfoText'
-import { Artist, FilterTypes, Image, Tag, ViewTypes } from '@/lib/types'
+import { Artist, FilterTypes, Image, QuerySort, Tag, ViewTypes } from '@/lib/types'
 import { checkIfValidInteger } from '@/lib/validation'
 import { getAllArtistsWithImages, getArtist } from '@/services/artist'
 import { ImageType, getImages, getImagesByArtistId, getImagesByTagId, getImagesWithoutArtists } from '@/services/image'
 import { getAllTagsWithImages, getTagById } from '@/services/tag'
 import styles from '@/styles/Art.module.css'
+import { parseQuerySortParam } from '@/services/apiRequest'
+import { initial } from 'lodash'
 
 type QueryParamImageType = 'paintings' | 'memes' | null
 
@@ -46,9 +48,10 @@ export const getServerSideProps = (async (context: GetServerSidePropsContext) =>
 
   const { query, req } = context
   const { cookie: cookies } = req.headers
-  const { artistId, noArtist, tagId, type } = query
+  const { artistId, noArtist, sort, tagId, type } = query
 
   const initialSelectedImageType = getCurrentImageType(type as any)
+  const initialSort = parseQuerySortParam(sort as string)
 
   let initialFilterSelected = 'by-tag'
   if (artistId || noArtist) {
@@ -78,7 +81,8 @@ export const getServerSideProps = (async (context: GetServerSidePropsContext) =>
   } else if (!artistIdIsValidInteger && !tagIdIsValidInteger) {
     const data = await getImages({
       page: 1,
-      imageType: initialSelectedImageType
+      imageType: initialSelectedImageType,
+      sort: initialSort
     })
     initialImages = data?.[0] || []
     initialImagesTotal = null
@@ -118,6 +122,7 @@ export const getServerSideProps = (async (context: GetServerSidePropsContext) =>
       initialImagesTotal,
       initialInputText,
       initialSelectedImageType,
+      initialSort,
       initialTag,
       initialViewType,
       noArtist: noArtist || null
@@ -134,6 +139,7 @@ type Props = {
   initialImagesTotal: number | null
   initialInputText: string
   initialSelectedImageType: ImageType
+  initialSort: QuerySort
   initialTag: Tag | null
   initialViewType: ViewTypes
   noArtist: boolean
@@ -148,6 +154,7 @@ export default function Gallery({
   initialImagesTotal,
   initialInputText,
   initialSelectedImageType,
+  initialSort,
   initialTag,
   initialViewType,
   noArtist
@@ -259,7 +266,8 @@ export default function Gallery({
     setSelectedTag(null)
     return getImages({
       page: 1,
-      imageType: selectedImageTypeRef.current
+      imageType: selectedImageTypeRef.current,
+      sort: initialSort
     })
   }
 
@@ -319,7 +327,8 @@ export default function Gallery({
             setPage,
             setImages,
             noArtist,
-            selectedImageType
+            selectedImageType,
+            initialSort
           })
         }}>
         <div className={`main-content-inner-wrapper ${viewTypeSelected === 'tiny' ? 'main-content-end-may-not-be-reached' : ''}`}>
@@ -384,6 +393,7 @@ type HandleOnScroll = {
   setImages: any
   noArtist: boolean
   selectedImageType: ImageType
+  initialSort: QuerySort
 }
 
 /*
@@ -403,7 +413,8 @@ async function handleOnScroll({
   page,
   setPage,
   setImages,
-  selectedImageType
+  selectedImageType,
+  initialSort
 }: HandleOnScroll) {
   const element = event.target
   const bottomSpacerHeight = 64
@@ -421,7 +432,7 @@ async function handleOnScroll({
     } else if (selectedTag) {
       nextPageData = await getImagesByTagId({ page: nextPage, tagId: selectedTag.id, imageType: selectedImageType })
     } else {
-      nextPageData = await getImages({ page: nextPage, imageType: selectedImageType })
+      nextPageData = await getImages({ page: nextPage, imageType: selectedImageType, sort: initialSort })
     }
     if (nextPageData?.[0].length === 0) {
       setEndReached(true)

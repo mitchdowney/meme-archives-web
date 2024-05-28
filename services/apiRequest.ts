@@ -8,3 +8,18 @@ export const apiRequest = (config: AxiosRequestConfig<any>, isServerSideReq?: bo
     ...config
   })
 }
+
+export const parseQuerySortParam = (sortParam: string) => {
+  switch (sortParam) {
+  case 'alphabetical':
+    return 'alphabetical'
+  case 'reverse-alphabetical':
+    return 'reverse-alphabetical'
+  case 'newest':
+    return 'newest'
+  case 'oldest':
+    return 'oldest'
+  default:
+    return 'random'
+  }
+}
