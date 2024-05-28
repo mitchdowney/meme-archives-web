@@ -1,4 +1,4 @@
-import { Image } from '@/lib/types'
+import { Image, QuerySort } from '@/lib/types'
 import { apiRequest } from './apiRequest'
 import { configImages } from '@/lib/constants/configurables'
 
@@ -116,15 +116,17 @@ export const getImage = async (idOrSlug: number | string, isServerSideReq?: bool
 type GetImages = {
   page: number
   imageType: ImageType
+  sort: QuerySort
 }
 
-export const getImages = async ({ page = 1, imageType }: GetImages) => {
+export const getImages = async ({ page = 1, imageType, sort = 'random' }: GetImages) => {
   const response = await apiRequest({
     method: 'GET',
     url: '/images',
     params: {
       page,
-      imageType
+      imageType,
+      sort
     }
   })
 

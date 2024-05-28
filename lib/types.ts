@@ -26,7 +26,7 @@ type CollectionImageTypes = 'general' | 'telegram-stickers' | 'discord-stickers'
 
 export type CollectionQueryType = 'general' | 'telegram-stickers' | 'discord-stickers' | 'stickers' | 'all'
 
-export type CollectionQuerySort = 'alphabetical' | 'reverse-alphabetical' | 'newest' | 'oldest'
+export type QuerySort = 'alphabetical' | 'reverse-alphabetical' | 'newest' | 'oldest' | 'random'
 
 export type Collection = {
   id: number
