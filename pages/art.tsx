@@ -175,8 +175,8 @@ export default function Gallery({
   useEffect(() => {
     (async () => {
       try {
-        const newSeachParamType = searchParams.get('type') as QueryParamImageType | null
-        const newImageType = getCurrentImageType(newSeachParamType)
+        const newSearchParamType = searchParams.get('type') as QueryParamImageType | null
+        const newImageType = getCurrentImageType(newSearchParamType)
 
         if (newImageType !== selectedImageType) {
           await handleSelectImageType({ target: { value: newImageType }})
