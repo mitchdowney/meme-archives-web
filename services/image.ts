@@ -2,7 +2,7 @@ import { Image, QuerySort } from '@/lib/types'
 import { apiRequest } from './apiRequest'
 import { configImages } from '@/lib/constants/configurables'
 
-export type ImageVersion = 'animation' | 'border' | 'no-border' | 'preview'
+export type ImageVersion = 'animation' | 'border' | 'no-border' | 'preview' | 'video'
 export type ImageType = 'painting' | 'meme' | 'painting-and-meme'
 
 export const getPreferredImagePageUrl = (image: Image) => {
@@ -13,14 +13,20 @@ export const getPreferredImagePageUrl = (image: Image) => {
   }
 }
 
-export const getAvailableImageUrl = (preferredVersion: ImageVersion | null, image: Image | null) => {
+export const getAvailableImageUrl = (preferredVersion: ImageVersion | null, image: Image | null, showVideo?: boolean) => {
   if (!image) return ''
+  const isVideo = image.has_video
+  if (isVideo && !showVideo) {
+    preferredVersion = 'preview'
+  }
   const availableImageVersion = getAvailableImageVersion(preferredVersion, image)
   return getImageUrl(image.id, availableImageVersion)
 }
 
 export const getImageUrl = (id: number, imageVersion: ImageVersion) => {
-  if (imageVersion === 'animation') {
+  if (imageVersion === 'video') {
+    return `${process.env.NEXT_PUBLIC_S3_BUCKET_URL}/${id}-video.mp4`
+  } else if (imageVersion === 'animation') {
     return `${process.env.NEXT_PUBLIC_S3_BUCKET_URL}/${id}-animation.gif`
   } else if (imageVersion === 'no-border') {
     const imageNameEnding = configImages.useDeprecatedNoBorderImageName ? '-no-border' : ''
@@ -33,23 +39,23 @@ export const getImageUrl = (id: number, imageVersion: ImageVersion) => {
 }
 
 const getAvailableImageVersion = (origVersion: ImageVersion | null, image: Image) => {
-  if (origVersion === 'animation' && image.has_animation) {
-    return 'animation'
-  } else if (origVersion === 'border' && image.has_border) {
-    return 'border'
-  } else if (origVersion === 'no-border' && image.has_no_border) {
-    return 'no-border'
-  } else if (origVersion === 'preview') {
-    return 'preview'
-  } else {
-    return image.has_border
-      ? 'border'
-      : image.has_no_border
-        ? 'no-border'
-        : image.has_animation
-          ? 'animation'
-          : 'border'
+  const versionMap = {
+    'video': image.has_video,
+    'animation': image.has_animation,
+    'border': image.has_border,
+    'no-border': image.has_no_border,
+    'preview': true
+  } as any
+
+  if (origVersion && versionMap[origVersion]) {
+    return origVersion
   }
+
+  return (['border', 'no-border', 'animation', 'video'].find(version => versionMap[version]) || 'border') as ImageVersion
+}
+
+export const checkIfImageUrlIsVideo = (url: string) => {
+  return url.endsWith('.mp4')
 }
 
 export const convertImagesToImageCardItems = (preferredVersion: ImageVersion, images: Image[]) => {

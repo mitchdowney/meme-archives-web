@@ -43,6 +43,7 @@ export type Image = {
   has_animation: boolean
   has_border: boolean
   has_no_border: boolean
+  has_video: boolean
   preview_image_type?: ImageVersion
   slug: string | null
   title: string | null
