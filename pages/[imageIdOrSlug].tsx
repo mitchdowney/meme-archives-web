@@ -16,12 +16,13 @@ import TagBadge from '@/components/TagBadge'
 import FAIcon from '@/components/FAIcon'
 import { getTitleOrUntitled } from '@/lib/utility'
 import { BooleanString, Collection, Image as ImageT, Tag, UserInfo } from '@/lib/types'
-import { getAvailableImageUrl, getImage } from '@/services/image'
+import { checkIfImageUrlIsVideo, getAvailableImageUrl, getImage } from '@/services/image'
 import styles from '@/styles/ImageIdOrSlug.module.css'
 import { checkIfValidInteger } from '@/lib/validation'
 import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus'
 import { addImageToCollection, getAllCollections } from '@/services/collection'
 import { configSocials, configText, pageRules } from '@/lib/constants/configurables'
+import Video from '@/components/Video'
 
 type Props = {
   initialImage: ImageT | null
@@ -88,7 +89,8 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
               : paramImageVersion
           const data = await getImage(idOrSlug)
           setImage(data)
-          const imageUrl = getAvailableImageUrl(paramImageVersion, data)
+          const showVideo = true
+          const imageUrl = getAvailableImageUrl(paramImageVersion, data, showVideo)
           setImageSrc(imageUrl)
 
           setTimeout(async () => {
@@ -227,9 +229,11 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
 
   const artistNames = artists?.map((artist) => artist?.name)?.join(', ')
 
+  const isVideo = checkIfImageUrlIsVideo(imageSrc)
+
   const metaTitle = title
   const metaDescription = artistNames ? `by ${artistNames}` : ''
-  const metaImageUrl = image?.has_no_border
+  const metaImageUrl = image?.has_no_border || image?.has_video
     ? getAvailableImageUrl('preview', image)
     : getAvailableImageUrl('border', image)
 
@@ -360,7 +364,7 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
                   <div className='col-xs-12'>
                     <>
                       {
-                        imageSrc && (
+                        imageSrc && !isVideo && (
                           <div className={`${styles['main-image-wrapper']} ${isShortMaxWidth ? styles['short-max-width'] : ''}`}>
                             <Image
                               alt={title}
@@ -371,6 +375,18 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
                               priority
                               stretchFill
                               title={title}
+                            />
+                          </div>
+                        )
+                      }
+                      {
+                        imageSrc && isVideo && (
+                          <div className={`${styles['main-image-wrapper']} ${isShortMaxWidth ? styles['short-max-width'] : ''}`}>
+                            <Video
+                              className={`${styles['main-image']}`}
+                              stretchFill
+                              title={title}
+                              videoSrc={imageSrc}
                             />
                           </div>
                         )
