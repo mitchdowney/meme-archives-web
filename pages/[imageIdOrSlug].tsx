@@ -386,6 +386,7 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
                               autoplay
                               className={`${styles['main-image']}`}
                               loop
+                              onLoadedData={handleImageFinishedLoading}
                               stretchFill
                               title={title}
                               videoSrc={imageSrc}
