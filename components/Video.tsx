@@ -22,6 +22,9 @@ export default function Video({ autoplay, className, height = 0, loop, videoSrc,
     style.width = '100%'
     style.height = 'auto'
   }
+
+  // muted must be true for autoplay to work on some browsers
+  const muted = autoplay
   
   return (
     <video
@@ -29,6 +32,7 @@ export default function Video({ autoplay, className, height = 0, loop, videoSrc,
       className={className}
       height={height}
       loop={loop}
+      muted={muted}
       onClick={onClick}
       onLoadedData={onLoadedData}
       ref={innerRef}
