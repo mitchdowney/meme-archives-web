@@ -28,10 +28,10 @@ export default function ImageCard({ hideTags, image }: Props) {
   const showVideo = true
   const videoSrc = getAvailableImageUrl('video', image, showVideo)
 
-  const handleMouseEnter = () => {
+  const handlePointerEnter = () => {
     setMouseEnter(true)
   }  
-  const handleMouseExit = () => {
+  const handlePointerExit = () => {
     setMouseEnter(false)
   }
 
@@ -44,8 +44,8 @@ export default function ImageCard({ hideTags, image }: Props) {
       <div className={`card ${styles.card}`}>
         <div 
           className='square-wrapper'
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseExit}
+          onPointerEnter={handlePointerEnter}
+          onPointerLeave={handlePointerExit}
         >
           <Image
             alt={title}
