@@ -36,7 +36,7 @@ const getCurrentImageType = (queryParamImageType: QueryParamImageType) => {
 
 export const getServerSideProps = (async (context: GetServerSidePropsContext) => {
   const isHomePage = context.req.url === '/'
-  const isVideosPage = context.req.url?.startsWith('/videos') || false
+  const isVideosPage = context.req.url?.includes('/videos') || false
 
   if (
     (isHomePage && !pageRules.homePageIsGallery)
@@ -128,8 +128,8 @@ export const getServerSideProps = (async (context: GetServerSidePropsContext) =>
       initialSort,
       initialTag,
       initialViewType,
-      isVideosPage,
-      noArtist: noArtist || null
+      noArtist: noArtist || null,
+      isVideosPage
     }
   }
 })
@@ -146,8 +146,8 @@ type Props = {
   initialSort: QuerySort
   initialTag: Tag | null
   initialViewType: ViewTypes
-  isVideosPage: boolean
   noArtist: boolean
+  isVideosPage: boolean
 }
 
 export default function Gallery({
@@ -162,8 +162,8 @@ export default function Gallery({
   initialSort,
   initialTag,
   initialViewType,
-  isVideosPage,
-  noArtist
+  noArtist,
+  isVideosPage
 }: Props) {
   const router = useRouter()
   const searchParams = useSearchParams()
