@@ -8,7 +8,7 @@ interface Props {
   videoSrc: string
   innerRef?: Ref<HTMLVideoElement>
   onClick?: MouseEventHandler<HTMLVideoElement>
-  onLoadedData?: () => void
+  onLoadedData?: any
   stretchFill?: boolean
   title: string
   width?: number
