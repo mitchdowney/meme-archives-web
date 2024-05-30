@@ -36,6 +36,7 @@ const getCurrentImageType = (queryParamImageType: QueryParamImageType) => {
 
 export const getServerSideProps = (async (context: GetServerSidePropsContext) => {
   const isHomePage = context.req.url === '/'
+  const isVideosPage = context.req.url?.startsWith('/videos') || false
 
   if (
     (isHomePage && !pageRules.homePageIsGallery)
@@ -82,7 +83,8 @@ export const getServerSideProps = (async (context: GetServerSidePropsContext) =>
     const data = await getImages({
       page: 1,
       imageType: initialSelectedImageType,
-      sort: initialSort
+      sort: initialSort,
+      ...(isVideosPage ? { imageMediumType: 'video' } : {})
     })
     initialImages = data?.[0] || []
     initialImagesTotal = null
@@ -103,7 +105,8 @@ export const getServerSideProps = (async (context: GetServerSidePropsContext) =>
     const data = await getImagesByTagId({
       page: 1,
       tagId: initialTag.id,
-      imageType: initialSelectedImageType
+      imageType: initialSelectedImageType,
+      ...(isVideosPage ? { imageMediumType: 'video' } : {})
     })
     initialImages = data?.[0] || []
     initialImagesTotal = data?.[1] || 0
@@ -125,6 +128,7 @@ export const getServerSideProps = (async (context: GetServerSidePropsContext) =>
       initialSort,
       initialTag,
       initialViewType,
+      isVideosPage,
       noArtist: noArtist || null
     }
   }
@@ -142,6 +146,7 @@ type Props = {
   initialSort: QuerySort
   initialTag: Tag | null
   initialViewType: ViewTypes
+  isVideosPage: boolean
   noArtist: boolean
 }
 
@@ -157,6 +162,7 @@ export default function Gallery({
   initialSort,
   initialTag,
   initialViewType,
+  isVideosPage,
   noArtist
 }: Props) {
   const router = useRouter()
@@ -267,7 +273,8 @@ export default function Gallery({
     return getImages({
       page: 1,
       imageType: selectedImageTypeRef.current,
-      sort: initialSort
+      sort: initialSort,
+      ...(isVideosPage ? { imageMediumType: 'video' } : {})
     })
   }
 
@@ -288,7 +295,8 @@ export default function Gallery({
     return getImagesByTagId({
       page: 1,
       tagId: tag.id,
-      imageType: selectedImageTypeRef.current
+      imageType: selectedImageTypeRef.current,
+      ...(isVideosPage ? { imageMediumType: 'video' } : {})
     })
   }
 
@@ -328,7 +336,8 @@ export default function Gallery({
             setImages,
             noArtist,
             selectedImageType,
-            initialSort
+            initialSort,
+            isVideosPage
           })
         }}>
         <div className={`main-content-inner-wrapper ${viewTypeSelected === 'tiny' ? 'main-content-end-may-not-be-reached' : ''}`}>
@@ -394,6 +403,7 @@ type HandleOnScroll = {
   noArtist: boolean
   selectedImageType: ImageType
   initialSort: QuerySort
+  isVideosPage: boolean
 }
 
 /*
@@ -414,7 +424,8 @@ async function handleOnScroll({
   setPage,
   setImages,
   selectedImageType,
-  initialSort
+  initialSort,
+  isVideosPage
 }: HandleOnScroll) {
   const element = event.target
   const bottomSpacerHeight = 64
@@ -430,9 +441,19 @@ async function handleOnScroll({
     } else if (selectedArtist) {
       nextPageData = await getImagesByArtistId({ page: nextPage, artistId: selectedArtist.id })
     } else if (selectedTag) {
-      nextPageData = await getImagesByTagId({ page: nextPage, tagId: selectedTag.id, imageType: selectedImageType })
+      nextPageData = await getImagesByTagId({
+        page: nextPage,
+        tagId: selectedTag.id,
+        imageType: selectedImageType,
+        ...(isVideosPage ? { imageMediumType: 'video' } : {})
+      })
     } else {
-      nextPageData = await getImages({ page: nextPage, imageType: selectedImageType, sort: initialSort })
+      nextPageData = await getImages({
+        page: nextPage,
+        imageType: selectedImageType,
+        sort: initialSort,
+        ...(isVideosPage ? { imageMediumType: 'video' } : {})
+      })
     }
     if (nextPageData?.[0].length === 0) {
       setEndReached(true)

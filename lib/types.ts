@@ -28,6 +28,8 @@ export type CollectionQueryType = 'general' | 'telegram-stickers' | 'discord-sti
 
 export type QuerySort = 'alphabetical' | 'reverse-alphabetical' | 'newest' | 'oldest' | 'random'
 
+export type ImageMediumType = 'no-border' | 'border' | 'animation' | 'video'
+
 export type Collection = {
   id: number
   preview_images: CollectionImage[]

@@ -5,6 +5,7 @@
 type PageRules = {
   gallery: boolean
   memes: boolean
+  videos: boolean
   artists: boolean
   collections: boolean
   stickers: boolean
@@ -24,6 +25,7 @@ export const pageRules: PageRules = {
   // Enable or disable pages 
   gallery: true,
   memes: false,
+  videos: true,
   artists: true,
   collections: false,
   stickers: false,
@@ -123,6 +125,10 @@ export const configPageText = {
   uploadImage: {
     metaTitle: `${configText.appName} - Upload Image`,
     metaDescription: `The ${configText.appName} Upload Image page`
+  },
+  videos: {
+    metaTitle: `${configText.appName} - Videos`,
+    metaDescription: `${configText.appName} videos.`
   },
   whitepaper: {
     metaTitle: `${configText.appName} - Whitepaper`,

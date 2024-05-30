@@ -94,20 +94,29 @@ function NavDropdownIcon({ imageSrc, title, url }: NavDropdownIconProps) {
 const getDropdownMenuItems = () => {
   const dropdownItems: DropdownItem[] = []
 
-  if (pageRules.stickers) {
-    dropdownItems.push(    {
-      className: `${styles['dropdown-item']} d-md-none`,
-      href: '/stickers',
-      label: 'Stickers',
-      target: '_self'
-    })
-  }
-
   if (pageRules.memes) {
     dropdownItems.push({
       className: `${styles['dropdown-item']} d-md-none`,
       href: '/art?type=memes',
       label: 'Memes',
+      target: '_self'
+    })
+  }
+
+  if (pageRules.videos) {
+    dropdownItems.push({
+      className: `${styles['dropdown-item']} d-md-none`,
+      href: '/videos',
+      label: 'Videos',
+      target: '_self'
+    })
+  }
+
+  if (pageRules.stickers) {
+    dropdownItems.push(    {
+      className: `${styles['dropdown-item']} d-md-none`,
+      href: '/stickers',
+      label: 'Stickers',
       target: '_self'
     })
   }
@@ -197,6 +206,7 @@ export default function NavBar() {
   const searchParams = useSearchParams()
   const queryParamType = searchParams.get('type') as any
   const isArtGallery = pathname === '/art' && queryParamType !== 'memes'
+  const isVideos = pathname === '/videos'
   const isArtists = pathname === '/artists'
   const isCollections = pathname === '/collections'
   const isStickers = pathname === '/stickers'
@@ -229,7 +239,8 @@ export default function NavBar() {
     <nav
       className={`navbar fixed-top navbar-expand-sm navbar-light bg-light ${styles.navbar}`}>
       <div className='container-fluid'>
-        <Link className='navbar-brand d-none d-sm-block' href='/'>
+        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+        <a className='navbar-brand d-none d-sm-block' href='/'>
           <Image
             alt={imageAlt}
             height={48}
@@ -238,8 +249,9 @@ export default function NavBar() {
             title={imageAlt}
             width={48}
           />
-        </Link>
-        <Link className='navbar-brand d-block d-sm-none' href='/'>
+        </a>
+        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+        <a className='navbar-brand d-block d-sm-none' href='/'>
           <Image
             alt={imageAlt}
             height={48}
@@ -248,7 +260,7 @@ export default function NavBar() {
             title={imageAlt}
             width={48}
           />
-        </Link>
+        </a>
         <button
           className='navbar-toggler'
           id='navbar-button-toggle'
@@ -266,24 +278,37 @@ export default function NavBar() {
             {
               pageRules.gallery && (
                 <li className='nav-item'>
-                  <Link
+                  <a
                     className={`nav-link ${styles['nav-link-text']} ${isArtGallery ? 'active' : ''}`}
                     {...(isArtGallery ? { 'aria-current': 'page' } : {})}
                     href={pageRules.homePageIsGallery ? '/' : '/art'}>
                     Gallery
-                  </Link>
+                  </a>
                 </li>
               )
             }
             {
               pageRules.memes && (
                 <li className='nav-item d-block d-sm-none d-md-block'>
-                  <Link
+                  <a
                     className={`nav-link ${styles['nav-link-text']} ${isMemes ? 'active' : ''}`}
                     {...(isMemes ? { 'aria-current': 'page' } : {})}
                     href={pageRules.homePageIsGallery ? '/' : '/art?type=memes'}>
                     Memes
-                  </Link>
+                  </a>
+                </li>
+              )
+            }
+            {
+              pageRules.videos && (
+                <li className='nav-item d-block d-sm-none d-md-block'>
+                  {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+                  <a
+                    className={`nav-link ${styles['nav-link-text']} ${isVideos ? 'active' : ''}`}
+                    {...(isVideos ? { 'aria-current': 'page' } : {})}
+                    href='/videos'>
+                    Videos
+                  </a>
                 </li>
               )
             }

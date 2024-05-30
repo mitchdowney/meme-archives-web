@@ -7,7 +7,7 @@ import Button from '@/components/Button'
 import Image from '@/components/Image'
 import LoadingSpinner from '@/components/LoadingSpinner'
 import TagBadge from '@/components/TagBadge'
-import { Artist, BooleanString, Image as ImageT, Tag } from '@/lib/types'
+import { Artist, BooleanString, ImageMediumType, Image as ImageT, Tag } from '@/lib/types'
 import { ImageType, createImage, deleteImage, getImage, getImageUrl, updateImage } from '@/services/image'
 import styles from '@/styles/AdminUploadImage.module.css'
 import { useRouter } from 'next/router'
@@ -18,7 +18,6 @@ import SearchInputArtists from '@/components/SearchInputArtists'
 import { configPageText, configSocials, pageRules } from '@/lib/constants/configurables'
 import Video from '@/components/Video'
 
-type ImageMediumType = 'no-border' | 'border' | 'animation' | 'video'
 type LastUpdatedData = {
   id: number
   slug?: string
