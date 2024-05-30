@@ -383,7 +383,9 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
                         imageSrc && isVideo && (
                           <div className={`${styles['main-image-wrapper']} ${isShortMaxWidth ? styles['short-max-width'] : ''}`}>
                             <Video
+                              autoplay
                               className={`${styles['main-image']}`}
+                              loop
                               stretchFill
                               title={title}
                               videoSrc={imageSrc}
