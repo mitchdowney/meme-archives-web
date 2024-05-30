@@ -1,4 +1,4 @@
-import { Image, QuerySort } from '@/lib/types'
+import { Image, ImageMediumType, QuerySort } from '@/lib/types'
 import { apiRequest } from './apiRequest'
 import { configImages } from '@/lib/constants/configurables'
 
@@ -123,16 +123,18 @@ type GetImages = {
   page: number
   imageType: ImageType
   sort: QuerySort
+  imageMediumType?: ImageMediumType
 }
 
-export const getImages = async ({ page = 1, imageType, sort = 'random' }: GetImages) => {
+export const getImages = async ({ page = 1, imageType, sort = 'random', imageMediumType }: GetImages) => {
   const response = await apiRequest({
     method: 'GET',
     url: '/images',
     params: {
       page,
       imageType,
-      sort
+      sort,
+      imageMediumType
     }
   })
 
@@ -177,16 +179,18 @@ type GetImagesByTagId = {
   page: number
   tagId: number,
   imageType: ImageType
+  imageMediumType?: ImageMediumType
 }
 
-export const getImagesByTagId = async ({ page = 1, tagId, imageType }: GetImagesByTagId) => {
+export const getImagesByTagId = async ({ page = 1, tagId, imageType, imageMediumType }: GetImagesByTagId) => {
   const response = await apiRequest({
     method: 'GET',
     url: '/images/by-tag',
     params: {
       page,
       id: tagId,
-      imageType
+      imageType,
+      imageMediumType
     }
   })
 
