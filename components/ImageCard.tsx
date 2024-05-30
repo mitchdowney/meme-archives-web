@@ -1,11 +1,11 @@
 import Link from 'next/link'
 import Image from '@/components/Image'
-import { Image as ImageT, Tag } from '@/lib/types'
+import { Image as ImageT } from '@/lib/types'
 import { getAvailableImageUrl, getPreferredImagePageUrl } from '@/services/image'
 import styles from '@/styles/components/ImageCard.module.css'
 import { getTitleOrUntitled } from '@/lib/utility'
 import { nonBreakingSpace } from '@/lib/reactHelpers'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Video from './Video'
 
 type Props = {
@@ -30,13 +30,8 @@ export default function ImageCard({ hideTags, image }: Props) {
 
   const handleMouseEnter = () => {
     setMouseEnter(true)
-  }
-
-  const handleTouchStart = () => {
-    setMouseEnter(true)
-  }
-  
-  const handleMouseExitOrTouchEnd = () => {
+  }  
+  const handleMouseExit = () => {
     setMouseEnter(false)
   }
 
@@ -44,39 +39,13 @@ export default function ImageCard({ hideTags, image }: Props) {
     event.stopPropagation()
   }
 
-  const handleContextMenu = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (isVideo) {
-      event.preventDefault()
-    }
-  }
-
-  useEffect(() => {
-    const handleTouchEndOrCancel = () => {
-      setMouseEnter(false)
-    }
-  
-    if (mouseEnter) {
-      document.addEventListener('touchend', handleTouchEndOrCancel)
-      document.addEventListener('touchcancel', handleTouchEndOrCancel)
-    }
-  
-    return () => {
-      document.removeEventListener('touchend', handleTouchEndOrCancel)
-      document.removeEventListener('touchcancel', handleTouchEndOrCancel)
-    }
-  }, [mouseEnter])
-
   return (
     <Link href={pageUrl} className='remove-text-decoration'>
       <div className={`card ${styles.card}`}>
         <div 
           className='square-wrapper'
           onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseExitOrTouchEnd}
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleMouseExitOrTouchEnd}
-          onTouchCancel={handleMouseExitOrTouchEnd}
-          onContextMenu={handleContextMenu}
+          onMouseLeave={handleMouseExit}
         >
           <Image
             alt={title}
