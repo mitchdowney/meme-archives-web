@@ -5,6 +5,8 @@ import { getAvailableImageUrl, getPreferredImagePageUrl } from '@/services/image
 import styles from '@/styles/components/ImageCard.module.css'
 import { getTitleOrUntitled } from '@/lib/utility'
 import { nonBreakingSpace } from '@/lib/reactHelpers'
+import { useEffect, useState } from 'react'
+import Video from './Video'
 
 type Props = {
   hideTags?: boolean
@@ -20,10 +22,62 @@ export default function ImageCard({ hideTags, image }: Props) {
 
   const cardBodyClass = hideTags ? styles['hide-tags'] : ''
 
+  const [mouseEnter, setMouseEnter] = useState(false)
+
+  const isVideo = !!image?.has_video
+  const showVideo = true
+  const videoSrc = getAvailableImageUrl('video', image, showVideo)
+
+  const handleMouseEnter = () => {
+    setMouseEnter(true)
+  }
+
+  const handleTouchStart = () => {
+    setMouseEnter(true)
+  }
+  
+  const handleMouseExitOrTouchEnd = () => {
+    setMouseEnter(false)
+  }
+
+  const handleVideoClick = (event: React.MouseEvent<HTMLVideoElement>) => {
+    event.stopPropagation()
+  }
+
+  const handleContextMenu = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (isVideo) {
+      event.preventDefault()
+    }
+  }
+
+  useEffect(() => {
+    const handleTouchEndOrCancel = () => {
+      setMouseEnter(false)
+    }
+  
+    if (mouseEnter) {
+      document.addEventListener('touchend', handleTouchEndOrCancel)
+      document.addEventListener('touchcancel', handleTouchEndOrCancel)
+    }
+  
+    return () => {
+      document.removeEventListener('touchend', handleTouchEndOrCancel)
+      document.removeEventListener('touchcancel', handleTouchEndOrCancel)
+    }
+  }, [mouseEnter])
+
   return (
     <Link href={pageUrl} className='remove-text-decoration'>
       <div className={`card ${styles.card}`}>
-        <div className='square-wrapper'>
+        <div 
+          className='square-wrapper'
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseExitOrTouchEnd}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleMouseExitOrTouchEnd}
+          onTouchCancel={handleMouseExitOrTouchEnd}
+          onContextMenu={handleContextMenu}
+        >
           <Image
             alt={title}
             className='image-element'
@@ -31,6 +85,20 @@ export default function ImageCard({ hideTags, image }: Props) {
             stretchFill
             title={title}
           />
+          {
+            isVideo && mouseEnter && (
+              <Video
+                autoplay
+                className='image-element'
+                controls={false}
+                loop
+                onClick={handleVideoClick}
+                stretchFill
+                title={title}
+                videoSrc={videoSrc}
+              />
+            )
+          }
         </div>
         <div className={`card-body ${cardBodyClass}`}>
           <h6 className={`card-title ${styles['image-title']}`}>{title}</h6>

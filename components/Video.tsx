@@ -3,6 +3,7 @@ import React, { CSSProperties, Ref, MouseEventHandler } from 'react'
 interface Props {
   autoplay?: boolean
   className?: string
+  controls?: boolean
   height?: number
   loop?: boolean
   videoSrc: string
@@ -14,7 +15,7 @@ interface Props {
   width?: number
 }
 
-export default function Video({ autoplay, className, height = 0, loop, videoSrc,
+export default function Video({ autoplay, className, controls = true, height = 0, loop, videoSrc,
   innerRef, onClick, onLoadedData, stretchFill, title, width = 0 }: Props) {
 
   const style: CSSProperties = {}
@@ -30,6 +31,7 @@ export default function Video({ autoplay, className, height = 0, loop, videoSrc,
     <video
       autoPlay={autoplay}
       className={className}
+      controls={controls}
       height={height}
       loop={loop}
       muted={muted}
@@ -40,7 +42,6 @@ export default function Video({ autoplay, className, height = 0, loop, videoSrc,
       title={title}
       style={style}
       width={width}
-      controls
     />
   )
 }
