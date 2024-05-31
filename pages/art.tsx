@@ -377,6 +377,7 @@ export default function Gallery({
           }
           <ImageCards
             endReached={endReached}
+            hideVideoOverlay={isVideosPage}
             images={images}
             viewType={viewTypeSelected}
           />
