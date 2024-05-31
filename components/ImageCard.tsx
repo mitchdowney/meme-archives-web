@@ -7,13 +7,16 @@ import { getTitleOrUntitled } from '@/lib/utility'
 import { nonBreakingSpace } from '@/lib/reactHelpers'
 import { useState } from 'react'
 import Video from './Video'
+import FAIcon from './FAIcon'
+import { faPlayCircle } from '@fortawesome/free-regular-svg-icons'
 
 type Props = {
   hideTags?: boolean
+  hideVideoOverlay?: boolean
   image: ImageT
 }
 
-export default function ImageCard({ hideTags, image }: Props) {
+export default function ImageCard({ hideTags, hideVideoOverlay, image }: Props) {
   const { tags } = image
   const title = getTitleOrUntitled(image.title)
   const tagsText = tags?.map?.((tag) => tag?.title).join(', ') || nonBreakingSpace
@@ -54,6 +57,16 @@ export default function ImageCard({ hideTags, image }: Props) {
             stretchFill
             title={title}
           />
+          {
+            !hideVideoOverlay && isVideo && !mouseEnter && (
+              <div className={styles['video-overlay']}>
+                <FAIcon
+                  className=''
+                  color='#f7f7f7'
+                  icon={faPlayCircle} />
+              </div>
+            )
+          }
           {
             isVideo && mouseEnter && (
               <Video

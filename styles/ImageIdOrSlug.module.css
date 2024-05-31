@@ -1,5 +1,6 @@
 .header-wrapper {
   margin: auto;
+  max-width: 720px;
 }
 
 .header-top-wrapper {
@@ -43,6 +44,7 @@
   align-items: center;
   padding: 0;
   margin: auto;
+  max-width: 720px;
 }
 
 .main-image {
@@ -51,27 +53,25 @@
 }
 
 .prev {
-  font-size: 32px;
+  font-size: 26px;
   display: flex;
   justify-content: flex-start;
 }
 
 .prev-svg {
   color: #000;
-  margin: 0;
-  padding: 0.5rem 1rem; 
+  margin: 0 0 0 1.5rem;
 }
 
 .next {
-  font-size: 32px;
+  font-size: 26px;
   display: flex;
   justify-content: flex-end;
 }
 
 .next-svg {
   color: #000;
-  margin: 0;
-  padding: 0.5rem 1rem; 
+  margin: 0 0 0 1.5rem;
 }
 
 .admin-buttons {
@@ -111,6 +111,17 @@
   display: flex !important;
   justify-content: space-between;
   margin: auto;
+  max-width: 720px;
+}
+
+.bottom-buttons {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+.download-button {
+  margin: 0 auto;
 }
 
 @media(max-width: 767px) {
@@ -130,18 +141,4 @@
   .next-svg {
     padding: 0 0 0.75rem 1rem;
   }
-}
-
-/* styles for non-horizontal rectangle image ratios */
-
-.short-max-width.header-wrapper {
-  max-width: 700px;
-}
-
-.short-max-width.main-image-wrapper {
-  max-width: 700px;
-}
-
-.short-max-width.navs-wrapper {
-  max-width: 700px;
 }

@@ -23,6 +23,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus'
 import { addImageToCollection, getAllCollections } from '@/services/collection'
 import { configSocials, configText, pageRules } from '@/lib/constants/configurables'
 import Video from '@/components/Video'
+import Button from '@/components/Button'
 
 type Props = {
   initialImage: ImageT | null
@@ -62,7 +63,7 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
   const searchParams = useSearchParams()
   const closeButtonRef = useRef<any>(null)
   const [isLoading, setIsLoading] = useState<boolean>(true)
-  const [isShortMaxWidth, setIsShortMaxWidth] = useState<boolean>(true)
+  const [isShortMaxWidth] = useState<boolean>(true)
   const [imagedFinishedLoading, setImagedFinishedLoading] = useState<boolean>(false)
   const [isFullView, setIsFullView] = useState<boolean>(false)
   const [image, setImage] = useState<ImageT | null>(initialImage)
@@ -130,10 +131,6 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
   }
 
   function handleImageFinishedLoading(event: any) {
-    const naturalHeight = event?.target?.naturalHeight
-    const naturalWidth = event?.target?.naturalWidth
-    const isShortMaxWidth = naturalWidth / naturalHeight < 1.9
-    setIsShortMaxWidth(isShortMaxWidth)
     setImagedFinishedLoading(true)
   }
 
@@ -230,6 +227,7 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
   const artistNames = artists?.map((artist) => artist?.name)?.join(', ')
 
   const isVideo = checkIfImageUrlIsVideo(imageSrc)
+  const downloadFileName = image && (`${image.slug}.mp4` || `${image.id}.mp4`)
 
   const metaTitle = title
   const metaDescription = artistNames ? `by ${artistNames}` : ''
@@ -265,9 +263,15 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
           !isLoading && (
             <div className='main-content-inner-wrapper'>
               <div className='container-fluid'>
-                <div className={`${styles['header-wrapper']} ${isShortMaxWidth ? styles['short-max-width'] : ''}`}>
+                <div className={`${styles['header-wrapper']} ${styles['short-max-width']}`}>
                   <div className={`${styles['header-top-wrapper']}`}>
                     <h2 className={styles['header-top-title']}>{title}</h2>
+                    <div className={styles['prev']}>
+                      {prevData?.id && prevNav}
+                    </div>
+                    <div className={styles['next']}>
+                      {nextData?.id && nextNav}
+                    </div>
                     {/* <div className={styles['header-top-buttons']}>
                       <FAIcon
                         className={styles['header-top-icon']}
@@ -381,34 +385,33 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
                       }
                       {
                         imageSrc && isVideo && (
-                          <div className={`${styles['main-image-wrapper']} ${isShortMaxWidth ? styles['short-max-width'] : ''}`}>
-                            <Video
-                              autoplay
-                              className={`${styles['main-image']}`}
-                              loop
-                              onLoadedData={handleImageFinishedLoading}
-                              stretchFill
-                              title={title}
-                              videoSrc={imageSrc}
-                            />
-                          </div>
+                          <>
+                            <div className={`${styles['main-image-wrapper']} ${isShortMaxWidth ? styles['short-max-width'] : ''}`}>
+                              <Video
+                                autoplay
+                                className={`${styles['main-image']}`}
+                                loop
+                                onLoadedData={handleImageFinishedLoading}
+                                stretchFill
+                                title={title}
+                                videoSrc={imageSrc}
+                              />
+                            </div>
+                            <div className={styles['bottom-buttons']}>
+                              <Button
+                                as='a'
+                                className={`btn btn-success ${styles['download-button']}`}
+                                download={downloadFileName}
+                                href={imageSrc}>
+                                Download
+                              </Button>
+                            </div>
+                          </>
                         )
                       }
                     </>
                   </div>
                 </div>
-                {
-                  imagedFinishedLoading && (
-                    <div className={`${styles['navs-wrapper']} ${isShortMaxWidth ? styles['short-max-width'] : ''}`}>
-                      <div className={styles['prev']}>
-                        {prevData?.id && prevNav}
-                      </div>
-                      <div className={styles['next']}>
-                        {nextData?.id && nextNav}
-                      </div>
-                    </div>
-                  )
-                }
               </div>
             </div>
           )
