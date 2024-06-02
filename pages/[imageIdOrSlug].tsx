@@ -26,6 +26,7 @@ import Video from '@/components/Video'
 import Button from '@/components/Button'
 import { copyImageToClipboard } from '@/lib/clipboard'
 import { faCopy } from '@fortawesome/free-regular-svg-icons'
+import { checkIfDesktopBrowser } from '@/lib/browser-detection'
 
 type Props = {
   initialImage: ImageT | null
@@ -85,7 +86,8 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
       setImageSrc('')
       if (router.isReady) {
         try {
-          if (checkIfDesktopBrowser()) {
+          const isDesktop = checkIfDesktopBrowser()
+          if (isDesktop) {
             setHasCopyButton(true)
           }
           const idOrSlug = router.asPath?.replace(/\//, '')
