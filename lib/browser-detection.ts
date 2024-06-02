@@ -1,7 +1,7 @@
-const checkIfiOSWebBrowser = () => {
+export const checkIfiOSWebBrowser = () => {
   return /iPad|iPhone|iPod/.test(navigator.userAgent)
 }
 
-const checkIfDesktopBrowser = () => {
+export const checkIfDesktopBrowser = () => {
   return !(/Mobi|Android/i.test(navigator.userAgent) || /iPad|iPhone|iPod/.test(navigator.userAgent))
 }
