@@ -4,7 +4,7 @@ import FAIcon from './FAIcon'
 
 type Props = {
   as?: 'button' | 'a'
-  children: string
+  children: any
   className: string
   download?: string | null
   href?: string

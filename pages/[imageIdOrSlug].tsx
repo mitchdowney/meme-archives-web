@@ -24,6 +24,8 @@ import { addImageToCollection, getAllCollections } from '@/services/collection'
 import { configSocials, configText, pageRules } from '@/lib/constants/configurables'
 import Video from '@/components/Video'
 import Button from '@/components/Button'
+import { copyImageToClipboard } from '@/lib/clipboard'
+import { faCopy } from '@fortawesome/free-regular-svg-icons'
 
 type Props = {
   initialImage: ImageT | null
@@ -62,6 +64,7 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
   const router = useRouter()
   const searchParams = useSearchParams()
   const closeButtonRef = useRef<any>(null)
+  const [hasCopied, setHasCopied] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [isShortMaxWidth] = useState<boolean>(true)
   const [imagedFinishedLoading, setImagedFinishedLoading] = useState<boolean>(false)
@@ -222,6 +225,16 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
     return options
   }
 
+  const handleCopyToClipboard = () => {
+    setHasCopied(true)
+    copyImageToClipboard(imageSrc)
+    setTimeout(() => {
+      setHasCopied(false)
+    }, 1500)
+  }
+
+  const copyButtonText = hasCopied ? 'Copied! ' : 'Copy '
+
   const collectionOptions = generateCollectionOptions()
 
   const artistNames = artists?.map((artist) => artist?.name)?.join(', ')
@@ -369,18 +382,34 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
                     <>
                       {
                         imageSrc && !isVideo && (
-                          <div className={`${styles['main-image-wrapper']} ${isShortMaxWidth ? styles['short-max-width'] : ''}`}>
-                            <Image
-                              alt={title}
-                              className={`${styles['main-image']}`}
-                              imageSrc={imageSrc}
-                              onClick={handleImageClick}
-                              onLoad={handleImageFinishedLoading}
-                              priority
-                              stretchFill
-                              title={title}
-                            />
-                          </div>
+                          <>
+                            <div className={`${styles['main-image-wrapper']} ${isShortMaxWidth ? styles['short-max-width'] : ''}`}>
+                              <Image
+                                alt={title}
+                                className={`${styles['main-image']}`}
+                                imageSrc={imageSrc}
+                                onClick={handleImageClick}
+                                onLoad={handleImageFinishedLoading}
+                                priority
+                                stretchFill
+                                title={title}
+                              />
+                            </div>
+                            <div className={styles['bottom-buttons']}>
+                              <Button
+                                as='button'
+                                className={`btn btn-success ${styles['download-button']}`}
+                                onClick={handleCopyToClipboard}>
+                                <>
+                                  {copyButtonText}
+                                  <FAIcon
+                                    className=''
+                                    icon={faCopy}
+                                  />
+                                </>
+                              </Button>
+                            </div>
+                          </>
                         )
                       }
                       {
