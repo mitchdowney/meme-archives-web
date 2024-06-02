@@ -85,6 +85,9 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
       setImageSrc('')
       if (router.isReady) {
         try {
+          if (!checkIfiOSWebBrowser) {
+            setHasCopyButton(true)
+          }
           const idOrSlug = router.asPath?.replace(/\//, '')
           let paramImageVersion = searchParams.get('v') as any
           paramImageVersion = paramImageVersion === 'original'
@@ -99,7 +102,6 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
           setImageSrc(imageUrl)
 
           setTimeout(async () => {
-            setHasCopyButton(!!navigator?.clipboard?.write)
             setIsLoading(false)
             const data = await getAllCollections()
             const collections = data?.[0] || []
