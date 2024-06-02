@@ -65,6 +65,7 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
   const searchParams = useSearchParams()
   const closeButtonRef = useRef<any>(null)
   const [hasCopied, setHasCopied] = useState<boolean>(false)
+  const [hasCopyButton, setHasCopyButton] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [isShortMaxWidth] = useState<boolean>(true)
   const [imagedFinishedLoading, setImagedFinishedLoading] = useState<boolean>(false)
@@ -98,6 +99,7 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
           setImageSrc(imageUrl)
 
           setTimeout(async () => {
+            setHasCopyButton(!!navigator?.clipboard?.write)
             setIsLoading(false)
             const data = await getAllCollections()
             const collections = data?.[0] || []
@@ -395,20 +397,24 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
                                 title={title}
                               />
                             </div>
-                            <div className={styles['bottom-buttons']}>
-                              <Button
-                                as='button'
-                                className={`btn btn-success ${styles['download-button']}`}
-                                onClick={handleCopyToClipboard}>
-                                <>
-                                  {copyButtonText}
-                                  <FAIcon
-                                    className=''
-                                    icon={faCopy}
-                                  />
-                                </>
-                              </Button>
-                            </div>
+                            {
+                              hasCopyButton && (
+                                <div className={styles['bottom-buttons']}>
+                                  <Button
+                                    as='button'
+                                    className={`btn btn-success ${styles['download-button']}`}
+                                    onClick={handleCopyToClipboard}>
+                                    <>
+                                      {copyButtonText}
+                                      <FAIcon
+                                        className=''
+                                        icon={faCopy}
+                                      />
+                                    </>
+                                  </Button>
+                                </div>
+                              )
+                            }
                           </>
                         )
                       }
