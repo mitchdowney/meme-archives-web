@@ -85,7 +85,7 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
       setImageSrc('')
       if (router.isReady) {
         try {
-          if (!checkIfiOSWebBrowser) {
+          if (checkIfDesktopBrowser()) {
             setHasCopyButton(true)
           }
           const idOrSlug = router.asPath?.replace(/\//, '')
