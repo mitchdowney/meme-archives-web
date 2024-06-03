@@ -76,63 +76,63 @@ export const configText = {
 export const configPageText = {
   admin: {
     metaTitle: `${configText.appName} - Admin Panel`,
-    metaDescription: `${configText.appName} Admin Panel`
+    metaDescription: ''
   },
   adminCollection: {
     metaTitle: `${configText.appName} - Admin Collection`,
-    metaDescription: `${configText.appName} Admin Collection page`
+    metaDescription: ''
   },
   art: {
     metaTitle: `${configText.appName} Gallery`,
-    metaDescription: `${configText.appName} gallery.`
+    metaDescription: ''
   },
   artist: {
-    metaTitle: (artistName: string) => `${configText.appName} - ${artistName}`,
-    metaDescription: (artistName: string) => `by ${artistName}`
+    metaTitle: (artistName: string) => `${configText.appName} - ${artistName}'s artist page`,
+    metaDescription: (artistName: string) => ''
   },
   artists: {
     metaTitle: `${configText.appName} - Artists`,
-    metaDescription: `${configText.appName} artists page.`
+    metaDescription: ''
   },
   collection: {
-    metaTitle: (collectionTitle: string) => `${configText.appName} - Collection - ${collectionTitle}`,
-    metaDescription: (collectionTitle: string) => `${collectionTitle} collection`
+    metaTitle: (collectionTitle: string) => `${configText.appName} - ${collectionTitle} collection`,
+    metaDescription: (collectionTitle: string) => ''
   },
   collections: {
     metaTitle: `${configText.appName} - Collections`,
-    metaDescription: `${configText.appName} collections.`
+    metaDescription: ''
   },
   home: {
-    metaTitle: `${configText.appName}`,
-    metaDescription: `${configText.appName}`
+    metaTitle: `${configText.appName} community `,
+    metaDescription: ''
   },
   resources: {
     metaTitle: `${configText.appName} - Resources`,
-    metaDescription: `Resources for ${configText.appName}.`
+    metaDescription: ''
   },
   roadmap: {
     metaTitle: `${configText.appName} - Roadmap`,
-    metaDescription: `The ${configText.appName} roadmap.`
+    metaDescription: ''
   },
   stickers: {
     metaTitle: `${configText.appName} - Stickers`,
-    metaDescription: `${configText.appName} sticker sets.`
+    metaDescription: ''
   },
   updateArtist: {
     metaTitle: `${configText.appName} - Update Artist`,
-    metaDescription: `The ${configText.appName} Update Artist page`
+    metaDescription: ''
   },
   uploadImage: {
     metaTitle: `${configText.appName} - Upload Image`,
-    metaDescription: `The ${configText.appName} Upload Image page`
+    metaDescription: ''
   },
   videos: {
     metaTitle: `${configText.appName} - Videos`,
-    metaDescription: `${configText.appName} videos.`
+    metaDescription: ''
   },
   whitepaper: {
     metaTitle: `${configText.appName} - Whitepaper`,
-    metaDescription: `The ${configText.appName} whitepaper`
+    metaDescription: ''
   }
 }
 
