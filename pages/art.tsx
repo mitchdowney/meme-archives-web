@@ -94,7 +94,8 @@ export const getServerSideProps = (async (context: GetServerSidePropsContext) =>
     initialInputText = initialArtist?.name
     const data = await getImagesByArtistId({
       page: 1,
-      artistId: initialArtist.id
+      artistId: initialArtist.id,
+      sort: initialSort
     })
     initialImages = data?.[0] || []
     initialImagesTotal = data?.[1] || 0
@@ -284,7 +285,8 @@ export default function Gallery({
     setInputText(artist.name)
     return getImagesByArtistId({
       page: 1,
-      artistId: artist.id
+      artistId: artist.id,
+      sort: initialSort
     })
   }
 
@@ -440,7 +442,7 @@ async function handleOnScroll({
     if (noArtist && !selectedArtist) {
       nextPageData = await getImagesWithoutArtists({ page: nextPage })
     } else if (selectedArtist) {
-      nextPageData = await getImagesByArtistId({ page: nextPage, artistId: selectedArtist.id })
+      nextPageData = await getImagesByArtistId({ page: nextPage, artistId: selectedArtist.id, sort: initialSort})
     } else if (selectedTag) {
       nextPageData = await getImagesByTagId({
         page: nextPage,

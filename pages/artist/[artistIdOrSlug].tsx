@@ -52,7 +52,7 @@ export const getServerSideProps = (async (context: GetServerSidePropsContext) =>
   }
 
   if (!shouldRedirect && initialArtist) {
-    const data = await getImagesByArtistId({ page: 1, artistId: initialArtist.id })
+    const data = await getImagesByArtistId({ page: 1, artistId: initialArtist.id, sort: 'random'})
     initialImages = data?.[0] || []
     initialImagesTotal = data?.[1] || 0
   }
@@ -215,7 +215,7 @@ async function handleOnScroll({
     const oldImages = images
     const nextPage = page + 1
     let nextPageData = []
-    nextPageData = await getImagesByArtistId({ page: nextPage, artistId: artist.id })
+    nextPageData = await getImagesByArtistId({ page: nextPage, artistId: artist.id, sort: 'random' })
 
     if (nextPageData?.[0].length === 0) {
       setEndReached(true)
