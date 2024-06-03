@@ -144,15 +144,17 @@ export const getImages = async ({ page = 1, imageType, sort = 'random', imageMed
 type GetImagesByArtistId = {
   page: number
   artistId: number
+  sort: QuerySort
 }
 
-export const getImagesByArtistId = async ({ page = 1, artistId }: GetImagesByArtistId) => {
+export const getImagesByArtistId = async ({ page = 1, artistId, sort = 'random' }: GetImagesByArtistId) => {
   const response = await apiRequest({
     method: 'GET',
     url: '/images/by-artist',
     params: {
       page,
-      id: artistId
+      id: artistId,
+      sort
     }
   })
 
