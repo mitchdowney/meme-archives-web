@@ -1,3 +1,5 @@
+// This approach allows to copy images to clipboard in a way that is compatible with iOS Safari
+
 export async function copyImageToClipboard(image: HTMLImageElement) {
   try {
     if (navigator.clipboard && navigator.clipboard.write) {
