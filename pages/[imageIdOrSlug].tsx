@@ -26,7 +26,6 @@ import Video from '@/components/Video'
 import Button from '@/components/Button'
 import { copyImageToClipboard } from '@/lib/clipboard'
 import { faCopy } from '@fortawesome/free-regular-svg-icons'
-import { checkIfDesktopBrowser } from '@/lib/browser-detection'
 
 type Props = {
   initialImage: ImageT | null
@@ -66,7 +65,6 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
   const searchParams = useSearchParams()
   const closeButtonRef = useRef<any>(null)
   const [hasCopied, setHasCopied] = useState<boolean>(false)
-  const [hasCopyButton, setHasCopyButton] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [isShortMaxWidth] = useState<boolean>(true)
   const [imagedFinishedLoading, setImagedFinishedLoading] = useState<boolean>(false)
@@ -87,10 +85,6 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
       setImageSrc('')
       if (router.isReady) {
         try {
-          const isDesktop = checkIfDesktopBrowser()
-          if (isDesktop) {
-            setHasCopyButton(true)
-          }
           const idOrSlug = router.asPath?.replace(/\//, '')
           let paramImageVersion = searchParams.get('v') as any
           paramImageVersion = paramImageVersion === 'original'
@@ -405,24 +399,20 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
                                 title={title}
                               />
                             </div>
-                            {
-                              hasCopyButton && (
-                                <div className={styles['bottom-buttons']}>
-                                  <Button
-                                    as='button'
-                                    className={`btn btn-success ${styles['download-button']}`}
-                                    onClick={handleCopyToClipboard}>
-                                    <>
-                                      {copyButtonText}
-                                      <FAIcon
-                                        className=''
-                                        icon={faCopy}
-                                      />
-                                    </>
-                                  </Button>
-                                </div>
-                              )
-                            }
+                            <div className={styles['bottom-buttons']}>
+                              <Button
+                                as='button'
+                                className={`btn btn-success ${styles['download-button']}`}
+                                onClick={handleCopyToClipboard}>
+                                <>
+                                  {copyButtonText}
+                                  <FAIcon
+                                    className=''
+                                    icon={faCopy}
+                                  />
+                                </>
+                              </Button>
+                            </div>
                           </>
                         )
                       }
