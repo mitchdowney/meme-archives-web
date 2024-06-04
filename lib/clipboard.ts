@@ -2,7 +2,7 @@ export async function copyImageToClipboard(image: HTMLImageElement) {
   try {
     if (navigator.clipboard && navigator.clipboard.write) {
       const copyableBlobPromise = createCopyableBlobPromise(image)
-      await navigator.clipboard.write([new ClipboardItem({ 'image/png': copyableBlobPromise })])
+      await navigator.clipboard.write([new ClipboardItem({ 'image/png': copyableBlobPromise as any })])
     }
   } catch (error) {
     console.error(error)
