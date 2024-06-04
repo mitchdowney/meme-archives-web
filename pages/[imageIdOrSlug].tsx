@@ -399,20 +399,24 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
                                 title={title}
                               />
                             </div>
-                            <div className={styles['bottom-buttons']}>
-                              <Button
-                                as='button'
-                                className={`btn btn-success ${styles['download-button']}`}
-                                onClick={handleCopyToClipboard}>
-                                <>
-                                  {copyButtonText}
-                                  <FAIcon
-                                    className=''
-                                    icon={faCopy}
-                                  />
-                                </>
-                              </Button>
-                            </div>
+                            {
+                              imagedFinishedLoading && (
+                                <div className={styles['bottom-buttons']}>
+                                  <Button
+                                    as='button'
+                                    className={`btn btn-success ${styles['download-button']}`}
+                                    onClick={handleCopyToClipboard}>
+                                    <>
+                                      {copyButtonText}
+                                      <FAIcon
+                                        className=''
+                                        icon={faCopy}
+                                      />
+                                    </>
+                                  </Button>
+                                </div>
+                              )
+                            }
                           </>
                         )
                       }
