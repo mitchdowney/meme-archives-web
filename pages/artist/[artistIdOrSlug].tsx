@@ -108,7 +108,7 @@ export default function ArtistPage({
     clientSideCookies.set('artViewTypeSelected', newViewType)
   }
 
-  const imageTotalText = `${initialImagesTotal} ${initialImagesTotal === 1 ? 'painting' : 'paintings'}`
+  const imageTotalText = `${initialImagesTotal} ${initialImagesTotal === 1 ? 'image' : 'images'}`
 
   const metaTitle = configPageText.artist.metaTitle(artist.name)
   const metaDescription = configPageText.artist.metaDescription(artist.name)
