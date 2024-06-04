@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { useRouter } from 'next/router'
-import { useEffect, useRef, useState } from 'react'
+import { MouseEventHandler, useEffect, useRef, useState } from 'react'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons/faArrowRight'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons/faArrowLeft'
 import { faEdit } from '@fortawesome/free-solid-svg-icons/faEdit'
@@ -78,6 +78,7 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
   const [selectedCollectionIsPreview, setSelectedCollectionIsPreview] = useState<BooleanString>('false')
   const { artists, nextData, prevData, tags } = image || {}
   const title = getTitleOrUntitled(image?.title || null)
+  const imageRef = useRef<any>(null)
 
   useEffect(() => {
     (async () => {
@@ -232,11 +233,13 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
   }
 
   const handleCopyToClipboard = () => {
-    setHasCopied(true)
-    copyImageToClipboard(imageSrc)
-    setTimeout(() => {
-      setHasCopied(false)
-    }, 1500)
+    if (imageRef?.current) {
+      setHasCopied(true)
+      copyImageToClipboard(imageRef?.current)
+      setTimeout(() => {
+        setHasCopied(false)
+      }, 1500)
+    }
   }
 
   const copyButtonText = hasCopied ? 'Copied! ' : 'Copy '
@@ -394,6 +397,7 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
                                 alt={title}
                                 className={`${styles['main-image']}`}
                                 imageSrc={imageSrc}
+                                innerRef={imageRef}
                                 onClick={handleImageClick}
                                 onLoad={handleImageFinishedLoading}
                                 priority
