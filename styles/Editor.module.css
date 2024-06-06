@@ -33,3 +33,36 @@
   /* width: 100%;
   height: auto; */
 }
+
+.inserted-image-buttons {
+  position: absolute;
+  top: -24px;
+  background-color: white;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 2px;
+  z-index: 1;
+}
+
+.inserted-image-button-wrapper {
+  height: 18px;
+  width: 18px;
+  margin: 0 6px;
+}
+
+.inserted-image-button {
+  height: 18px;
+  width: 18px;
+  display: flex;
+  justify-content: center;
+}
+
+.rotate-handle {
+  position: absolute;
+  top: -62px;
+  height: 20px;
+  width: 120px;
+  background-color: red;
+}

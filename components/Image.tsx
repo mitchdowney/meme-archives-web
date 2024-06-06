@@ -12,14 +12,14 @@ type Props = {
   onLoad?: ReactEventHandler<HTMLImageElement>
   priority?: boolean
   stretchFill?: boolean
+  style?: CSSProperties
   title: string
   width?: number
 }
 
 export default function Image({ alt, className, draggable = true, height = 0, imageSrc,
-  innerRef, onClick, onLoad, priority, stretchFill, title, width = 0 }: Props) {
+  innerRef, onClick, onLoad, priority, stretchFill, style = {}, title, width = 0 }: Props) {
 
-  const style: CSSProperties = {}
   if (stretchFill) {
     style.width = '100%'
     style.height = 'auto'
