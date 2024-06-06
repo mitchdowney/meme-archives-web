@@ -1,31 +1,42 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Rnd } from 'react-rnd';
-import Image from '@/components/Image';
-import styles from '@/styles/Editor.module.css';
+import html2canvas from 'html2canvas'
+import React, { useEffect, useRef, useState } from 'react'
+import { Rnd } from 'react-rnd'
+import Image from '@/components/Image'
+import styles from '@/styles/Editor.module.css'
+
+type InsertedImage = {
+  src: string
+  width: number
+  height: number
+}
 
 export default function Editor() {
-  const mainImage = 'https://d13jp9qoi0cn61.cloudfront.net/78.png';
-  const overlayImage = 'https://d13jp9qoi0cn61.cloudfront.net/79.png';
-  const [insertedImages, setInsertedImages] = useState<string[]>([]);
-  const [width, setWidth] = useState(200);
-  const [height, setHeight] = useState(200);
-  const imgRef = useRef(null);
+  const mainImage = 'https://d13jp9qoi0cn61.cloudfront.net/78.png'
+  const overlayImage = 'https://d13jp9qoi0cn61.cloudfront.net/79.png'
+  const [insertedImages, setInsertedImages] = useState<InsertedImage[]>([])
 
-  const handleImageClick = () => {
-    setInsertedImages([...insertedImages, overlayImage]);
-  };
+  const handleImageClick = (img: HTMLImageElement) => {
+    const aspectRatio = img.naturalWidth / img.naturalHeight
+    const width = Math.min(120, img.naturalWidth)
+    const height = width / aspectRatio
+    setInsertedImages([...insertedImages, { src: img.src, width, height }])
+  }
 
-  const onResize = (e, direction, ref, delta, position) => {
-    setWidth(ref.style.width);
-    setHeight(ref.style.height);
-  };
+  const onResize = (index: number, newWidth: number, newHeight: number) => {
+    setInsertedImages(insertedImages.map((img, i) => i === index ? { ...img, width: newWidth, height: newHeight } : img))
+  }
 
-  useEffect(() => {
-    if (imgRef.current) {
-      setWidth(imgRef.current.naturalWidth);
-      setHeight(imgRef.current.naturalHeight);
-    }
-  }, [imgRef.current]);
+  const handleDownload = () => {
+    const input = document.querySelector(`.${styles['main-image-wrapper']}`)
+    html2canvas(input, { useCORS: true })
+      .then((canvas) => {
+        const imgData = canvas.toDataURL('image/png')
+        const link = document.createElement('a')
+        link.href = imgData
+        link.download = 'combined-image.png'
+        link.click()
+      })
+  }
 
   return (
     <div className='container-fluid main-content-column overflow-y-scroll'>
@@ -33,30 +44,32 @@ export default function Editor() {
         <div className='container-fluid'>
           <div className={styles['main-image-wrapper']}>
             <Image
-              alt='Custom meme maker'
+              alt='Main image'
               className={`${styles['main-image']}`}
               draggable={false}
               imageSrc={mainImage}
               priority
               stretchFill
-              title='Custom meme maker'
+              title='Main image'
             />
             {insertedImages.map((image, index) => (
               <Rnd
                 key={index}
-                size={{ width,  height }}
-                onResize={onResize}
+                size={{ width: image.width, height: image.height }}
+                onResize={(e, direction, ref, delta, position) => {
+                  onResize(index, ref.offsetWidth, ref.offsetHeight)
+                }}
                 style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                 lockAspectRatio
+                bounds='parent'
               >
                 <Image
-                  ref={imgRef}
                   alt='Inserted image'
                   className={`${styles['inserted-image']}`}
                   draggable={false}
-                  imageSrc={image}
+                  imageSrc={image.src}
                   stretchFill
-                  style={{ width, height}}
+                  style={{ width: image.width, height: image.height }}
                   title='Inserted image'
                 />
               </Rnd>
@@ -67,13 +80,14 @@ export default function Editor() {
               alt='Insertable image'
               className={`${styles['insertable-image']}`}
               imageSrc={overlayImage}
-              onClick={handleImageClick}
+              onClick={(e) => handleImageClick(e.target as HTMLImageElement)}
               stretchFill
               title='Insertable image'
             />
           </div>
+          <button onClick={handleDownload}>Download Image</button>
         </div>
       </div>
     </div>
-  );
+  )
 }
