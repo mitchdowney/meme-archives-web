@@ -139,6 +139,15 @@ const getDropdownMenuItems = () => {
     })
   }
 
+  if (pageRules.editor) {
+    dropdownItems.push({
+      className: `${styles['dropdown-item']} d-md-none`,
+      href: '/editor',
+      label: 'Editor',
+      target: '_self'
+    })
+  }
+
   if (
     configCharts.birdeyeUrl ||
     configCharts.dexscreenerUrl ||
@@ -213,6 +222,7 @@ export default function NavBar() {
   const isWhitepaper = pathname === '/whitepaper'
   const isRoadmap = pathname === '/roadmap'
   const isMemes = pathname === '/art' && queryParamType === 'memes'
+  const isEditor = pathname === '/editor'
 
   const handleOutsideClick = (event: any) => {
     const menuIsExpanded = !!document.querySelector('.navbar-collapse.collapse.show')
@@ -368,6 +378,18 @@ export default function NavBar() {
                     {...(isRoadmap ? { 'aria-current': 'page' } : {})}
                     href='/roadmap'>
                     Roadmap
+                  </Link>
+                </li>
+              )
+            }
+            {
+              pageRules.editor && (
+                <li className='nav-item d-block d-sm-none d-md-none d-lg-block'>
+                  <Link
+                    className={`nav-link ${styles['nav-link-text']} ${isEditor ? 'active' : ''}`}
+                    {...(isEditor ? { 'aria-current': 'page' } : {})}
+                    href='/editor'>
+                    Editor
                   </Link>
                 </li>
               )

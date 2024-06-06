@@ -12,6 +12,7 @@ type PageRules = {
   whitepaper: boolean
   roadmap: boolean
   resources: boolean
+  editor: boolean
   admin: boolean
   homePageIsGallery: boolean
   disableImageTypes: boolean
@@ -32,6 +33,7 @@ export const pageRules: PageRules = {
   whitepaper: true,
   roadmap: true,
   resources: false,
+  editor: true,
   admin: true,
   // If you'd like the home page to load the gallery instead of the splash page,
   // set homePageIsGallery to true, and rename the pages/art.tsx file to pages/index.tsx.

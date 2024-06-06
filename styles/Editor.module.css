@@ -1,0 +1,35 @@
+.main-image-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: auto;
+  max-width: 720px;
+  position: relative;
+}
+
+.main-image {
+  margin: 18px 0;
+}
+
+.insertable-images {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  max-width: 720px;
+}
+
+.insertable-image {
+  height: 120px !important;
+  width: auto !important;
+  cursor: pointer;
+}
+
+.inserted-image {
+  position: absolute;
+  cursor: pointer;
+  /* top: 10px;
+  right: 10px; */
+  /* width: 100%;
+  height: auto; */
+}
