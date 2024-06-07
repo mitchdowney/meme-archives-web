@@ -1,1 +1,1 @@
-pages/meme-maker.tsx
+meme-maker.tsx
