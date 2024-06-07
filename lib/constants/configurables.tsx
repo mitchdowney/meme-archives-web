@@ -76,7 +76,7 @@ export const configText = {
 }
 
 export const configMemeMaker = {
-  defaultImageId: 6 // 78
+  defaultImageId: 78
 }
 
 export const configPageText = {
