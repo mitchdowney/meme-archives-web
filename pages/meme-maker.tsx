@@ -217,7 +217,7 @@ export default function MemeMaker({ initialImage, overlayImages }: Props) {
         const imgData = canvas.toDataURL('image/png')
         const link = document.createElement('a')
         link.href = imgData
-        link.download = 'combined-image.png'
+        link.download = 'daumen.png'
         link.click()
       })
   }
