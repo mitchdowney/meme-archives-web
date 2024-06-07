@@ -94,27 +94,45 @@ function NavDropdownIcon({ imageSrc, title, url }: NavDropdownIconProps) {
 const getDropdownMenuItems = () => {
   const dropdownItems: DropdownItem[] = []
 
-  if (pageRules.memes) {
-    dropdownItems.push({
-      className: `${styles['dropdown-item']} d-md-none`,
-      href: '/art?type=memes',
-      label: 'Memes',
-      target: '_self'
-    })
-  }
-
   if (pageRules.videos) {
     dropdownItems.push({
-      className: `${styles['dropdown-item']} d-md-none`,
+      className: `${styles['dropdown-item']} d-sm-none`,
       href: '/videos',
       label: 'Videos',
       target: '_self'
     })
   }
 
+  if (pageRules.memeMaker) {
+    dropdownItems.push({
+      className: `${styles['dropdown-item']} d-sm-none`,
+      href: '/meme-maker',
+      label: 'Meme Maker',
+      target: '_self'
+    })
+  }
+
+  if (pageRules.artists) {
+    dropdownItems.push({
+      className: `${styles['dropdown-item']} d-md-none`,
+      href: '/artists',
+      label: 'Artists',
+      target: '_self'
+    })
+  }
+
+  if (pageRules.collections) {
+    dropdownItems.push({
+      className: `${styles['dropdown-item']} d-md-none`,
+      href: '/collections',
+      label: 'Collections',
+      target: '_self'
+    })
+  }
+
   if (pageRules.stickers) {
     dropdownItems.push(    {
-      className: `${styles['dropdown-item']} d-md-none`,
+      className: `${styles['dropdown-item']} d-lg-none`,
       href: '/stickers',
       label: 'Stickers',
       target: '_self'
@@ -123,7 +141,7 @@ const getDropdownMenuItems = () => {
 
   if (pageRules.whitepaper) {
     dropdownItems.push({
-      className: `${styles['dropdown-item']} d-md-none`,
+      className: `${styles['dropdown-item']} d-lg-none`,
       href: '/whitepaper',
       label: 'Whitepaper',
       target: '_self'
@@ -132,7 +150,7 @@ const getDropdownMenuItems = () => {
 
   if (pageRules.roadmap) {
     dropdownItems.push({
-      className: `${styles['dropdown-item']} d-md-none`,
+      className: `${styles['dropdown-item']} d-xl-none`,
       href: '/roadmap',
       label: 'Roadmap',
       target: '_self'
@@ -205,14 +223,14 @@ export default function NavBar() {
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const queryParamType = searchParams.get('type') as any
-  const isArtGallery = pathname === '/art' && queryParamType !== 'memes'
+  const isArtGallery = pathname === '/art'
   const isVideos = pathname === '/videos'
   const isArtists = pathname === '/artists'
   const isCollections = pathname === '/collections'
   const isStickers = pathname === '/stickers'
   const isWhitepaper = pathname === '/whitepaper'
   const isRoadmap = pathname === '/roadmap'
-  const isMemes = pathname === '/art' && queryParamType === 'memes'
+  const isMemeMaker = pathname === '/meme-maker'
 
   const handleOutsideClick = (event: any) => {
     const menuIsExpanded = !!document.querySelector('.navbar-collapse.collapse.show')
@@ -288,20 +306,8 @@ export default function NavBar() {
               )
             }
             {
-              pageRules.memes && (
-                <li className='nav-item d-block d-sm-none d-md-block'>
-                  <a
-                    className={`nav-link ${styles['nav-link-text']} ${isMemes ? 'active' : ''}`}
-                    {...(isMemes ? { 'aria-current': 'page' } : {})}
-                    href={pageRules.homePageIsGallery ? '/' : '/art?type=memes'}>
-                    Memes
-                  </a>
-                </li>
-              )
-            }
-            {
               pageRules.videos && (
-                <li className='nav-item d-block d-sm-none d-md-block'>
+                <li className='nav-item d-block d-sm-block'>
                   {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
                   <a
                     className={`nav-link ${styles['nav-link-text']} ${isVideos ? 'active' : ''}`}
@@ -313,8 +319,20 @@ export default function NavBar() {
               )
             }
             {
+              pageRules.memeMaker && (
+                <li className='nav-item d-block d-sm-block'>
+                  <Link
+                    className={`nav-link ${styles['nav-link-text']} ${isMemeMaker ? 'active' : ''}`}
+                    {...(isMemeMaker ? { 'aria-current': 'page' } : {})}
+                    href='/meme-maker'>
+                    Meme Maker
+                  </Link>
+                </li>
+              )
+            }
+            {
               pageRules.artists && (
-                <li className='nav-item'>
+                <li className='nav-item d-block d-sm-none d-md-block d-lg-block d-xl-block'>
                   <Link
                     className={`nav-link ${styles['nav-link-text']} ${isArtists ? 'active' : ''}`}
                     {...(isArtists ? { 'aria-current': 'page' } : {})}
@@ -326,7 +344,7 @@ export default function NavBar() {
             }
             {
               pageRules.collections && (
-                <li className='nav-item'>
+                <li className='nav-item d-block d-sm-none d-md-block d-lg-block d-xl-block'>
                   <Link
                     className={`nav-link ${styles['nav-link-text']} ${isCollections ? 'active' : ''}`}
                     {...(isCollections ? { 'aria-current': 'page' } : {})}
@@ -338,7 +356,7 @@ export default function NavBar() {
             }
             {
               pageRules.stickers && (
-                <li className='nav-item d-block d-sm-none d-md-block d-lg-block d-xl-block'>
+                <li className='nav-item d-block d-sm-none d-md-none d-lg-block d-xl-block'>
                   <Link
                     className={`nav-link ${styles['nav-link-text']} ${isStickers ? 'active' : ''}`}
                     {...(isStickers ? { 'aria-current': 'page' } : {})}
@@ -362,7 +380,7 @@ export default function NavBar() {
             }
             {
               pageRules.roadmap && (
-                <li className='nav-item d-block d-sm-none d-md-none d-lg-block'>
+                <li className='nav-item d-block d-sm-none d-md-none d-lg-none d-xl-block'>
                   <Link
                     className={`nav-link ${styles['nav-link-text']} ${isRoadmap ? 'active' : ''}`}
                     {...(isRoadmap ? { 'aria-current': 'page' } : {})}
@@ -381,9 +399,9 @@ export default function NavBar() {
               </Link>
             </li> */}
             {
-              configSocials.farcasterUrl
+              (configSocials.farcasterUrl
               || configSocials.telegramUrl
-              || configSocials.twitterUrl && (
+              || configSocials.twitterUrl) && (
                 <>
                   <div className='flex-grow-1' />
                   <div className={styles['social-links']}>
@@ -420,10 +438,10 @@ export default function NavBar() {
               )
             }
             {
-              configCharts.birdeyeUrl
+              (configCharts.birdeyeUrl
               || configCharts.dexscreenerUrl
               || configCharts.dextoolsUrl
-              || configCharts.coingeckoUrl && (
+              || configCharts.coingeckoUrl) && (
                 <div className={styles['social-links']}>
                   {
                     configCharts.birdeyeUrl && (

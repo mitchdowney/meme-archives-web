@@ -1,0 +1,112 @@
+.change-image-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 16px auto;
+}
+
+.image-selectors-or {
+  margin: 10px 0 13px 0;
+}
+
+.image-selectors {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 16px auto;
+}
+
+.image-id-input {
+  max-width: 100px;
+  text-align: center;
+}
+
+.main-image-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: auto;
+  max-width: 720px;
+  position: relative;
+}
+
+.main-image {
+  margin: 0;
+}
+
+.insertable-images {
+  align-items: center;
+  display: flex;
+  justify-content: flex-start;
+  max-width: 720px;
+  margin: 22px auto 20px auto;
+  overflow-x: auto;
+}
+
+.insertable-image {
+  height: 100px !important;
+  width: auto !important;
+  cursor: pointer;
+}
+
+.inserted-image {
+  position: absolute;
+  cursor: pointer;
+}
+
+.inserted-image-buttons {
+  position: absolute;
+  top: -30px;
+  background-color: white;
+  width: 136px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4px 2px;
+  z-index: 1;
+  border: 1px solid #bbb;
+}
+
+.inserted-image-button-wrapper {
+  height: 16px;
+  width: 16px;
+  margin: 0 5px;
+}
+
+.inserted-image-button {
+  height: 16px;
+  width: 16px;
+  display: flex;
+  justify-content: center;
+}
+
+.rotate-bar {
+  position: absolute;
+  bottom: -26px;
+  height: 24px;
+  width: 140px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  display: flex;
+}
+
+.rotate-indicator {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 12px;
+  height: 12px;
+  border-radius: 12px;
+  pointer-events: none;
+  border: 2px solid red;
+}
+
+.bottom-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 16px 0;
+}

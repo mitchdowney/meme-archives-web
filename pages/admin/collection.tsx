@@ -32,7 +32,7 @@ export default function AdminCollection() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const [collectionType, setCollectionType] =
-    useState<'general' | 'discord-stickers' | 'telegram-stickers'>('general')
+    useState<'general' | 'discord-stickers' | 'telegram-stickers' | 'meme-maker'>('general')
   const [editingCollection, setEditingCollection] = useState<Collection | null>(null)
   const [isEditing, setIsEditing] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -337,6 +337,7 @@ export default function AdminCollection() {
                     <option selected={collectionType === 'general'} value="general">General</option>
                     <option selected={collectionType === 'telegram-stickers'} value="telegram-stickers">Telegram Stickers</option>
                     <option selected={collectionType === 'discord-stickers'} value="discord-stickers">Discord Stickers</option>
+                    <option selected={collectionType === 'meme-maker'} value="meme-maker">Meme Maker</option>
                   </select>
                 </div>
                 {

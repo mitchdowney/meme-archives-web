@@ -12,6 +12,7 @@ type PageRules = {
   whitepaper: boolean
   roadmap: boolean
   resources: boolean
+  memeMaker: boolean
   admin: boolean
   homePageIsGallery: boolean
   disableImageTypes: boolean
@@ -32,6 +33,7 @@ export const pageRules: PageRules = {
   whitepaper: false,
   roadmap: false,
   resources: false,
+  memeMaker: true,
   admin: true,
   // If you'd like the home page to load the gallery instead of the splash page,
   // set homePageIsGallery to true, and rename the pages/art.tsx file to pages/index.tsx.
@@ -71,6 +73,10 @@ export const configSocials = {
 export const configText = {
   appName: 'Daumen',
   disclaimer: 'This website is for entertainment and informational purposes only, not financial or investment advice.'
+}
+
+export const configMemeMaker = {
+  defaultImageId: 6 // 78
 }
 
 export const configPageText = {

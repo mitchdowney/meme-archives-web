@@ -23,7 +23,7 @@ type ServerSidePropsParams = {
 }
 
 export const getServerSideProps = (async (context: GetServerSidePropsContext) => {
-  if (!pageRules.collections) {
+  if (!pageRules.collections && !pageRules.memeMaker) {
     return {
       notFound: true
     }
@@ -114,7 +114,7 @@ export default function CollectionPage({
     clientSideCookies.set('artViewTypeSelected', newViewType)
   }
 
-  const imageTotalText = `${initialImagesTotal} ${initialImagesTotal === 1 ? 'sticker' : 'stickers'}`
+  const imageTotalText = `${initialImagesTotal} ${initialImagesTotal === 1 ? 'image' : 'images'}`
   
   const collectionFirstPreviewImage = collection?.preview_images?.[0] || null
   
@@ -177,9 +177,13 @@ export default function CollectionPage({
           <div className={`row ${styles['list-header']}`}>
             <div className='d-none d-sm-block col-sm-2'></div>
             <div className='col-sm-8'>
-              <div className={styles['results-found']}>
-                {imageTotalText}
-              </div>
+              {
+                initialImagesTotal >= 1 && (
+                  <div className={styles['results-found']}>
+                    {imageTotalText}
+                  </div>
+                )
+              }
             </div>
             <div className='col-sm-2'>
               <ViewTypeSelector
