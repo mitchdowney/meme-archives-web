@@ -112,6 +112,10 @@ export const configPageText = {
     metaTitle: `${configText.appName} community `,
     metaDescription: ''
   },
+  memeMaker: {
+    metaTitle: `${configText.appName} - Meme Maker`,
+    metaDescription: ''
+  },
   resources: {
     metaTitle: `${configText.appName} - Resources`,
     metaDescription: ''
