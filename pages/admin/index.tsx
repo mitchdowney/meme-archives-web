@@ -71,7 +71,7 @@ export default function Admin({ isUserInfoLoading, userInfo }: Props) {
                   )
                 }
                 {
-                  pageRules.collections && (
+                  pageRules.collections && !pageRules.memeMaker && (
                     <Link
                       className={`btn btn-outline-success ${styles['btn']}`}
                       href='/admin/collection'>
