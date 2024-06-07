@@ -76,6 +76,8 @@ export const configText = {
 }
 
 export const configMemeMaker = {
+  name: 'Meme Maker',
+  urlPath: '/meme-maker',
   defaultImageId: 78
 }
 
@@ -113,7 +115,7 @@ export const configPageText = {
     metaDescription: ''
   },
   memeMaker: {
-    metaTitle: `${configText.appName} - Meme Maker`,
+    metaTitle: `${configText.appName} - ${configMemeMaker.name}`,
     metaDescription: ''
   },
   resources: {

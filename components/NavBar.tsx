@@ -10,7 +10,7 @@ import Icon from './Icon'
 import styles from '@/styles/components/NavBar.module.css'
 import { useEffect, useRef } from 'react'
 import Dropdown, { DropdownItem } from './Dropdown'
-import { configCharts, configSocials, configText, pageRules } from '@/lib/constants/configurables'
+import { configCharts, configMemeMaker, configSocials, configText, pageRules } from '@/lib/constants/configurables'
 
 const navIconSize = 24
 
@@ -106,8 +106,8 @@ const getDropdownMenuItems = () => {
   // if (pageRules.memeMaker) {
   //   dropdownItems.push({
   //     className: `${styles['dropdown-item']} d-sm-none`,
-  //     href: '/meme-maker',
-  //     label: 'Meme Maker',
+  //     href: configMemeMaker.urlPath,
+  //     label: configMemeMaker.name,
   //     target: '_self'
   //   })
   // }
@@ -230,7 +230,7 @@ export default function NavBar() {
   const isStickers = pathname === '/stickers'
   const isWhitepaper = pathname === '/whitepaper'
   const isRoadmap = pathname === '/roadmap'
-  const isMemeMaker = pathname === '/meme-maker'
+  const isMemeMaker = pathname === configMemeMaker.urlPath
 
   const handleOutsideClick = (event: any) => {
     const menuIsExpanded = !!document.querySelector('.navbar-collapse.collapse.show')
@@ -324,8 +324,8 @@ export default function NavBar() {
                   <Link
                     className={`nav-link ${styles['nav-link-text']} ${isMemeMaker ? 'active' : ''}`}
                     {...(isMemeMaker ? { 'aria-current': 'page' } : {})}
-                    href='/meme-maker'>
-                    Meme Maker
+                    href={configMemeMaker.urlPath}>
+                    {configMemeMaker.name}
                   </Link>
                 </li>
               )

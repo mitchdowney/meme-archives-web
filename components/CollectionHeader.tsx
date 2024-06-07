@@ -1,6 +1,7 @@
-import styles from '@/styles/components/CollectionHeader.module.css'
-import { Collection } from '@/lib/types'
 import Link from 'next/link'
+import { configMemeMaker } from '@/lib/constants/configurables'
+import { Collection } from '@/lib/types'
+import styles from '@/styles/components/CollectionHeader.module.css'
 
 type Props = {
   collection: Collection
@@ -18,8 +19,8 @@ export default function CollectionHeader({ collection }: Props) {
       link = collection.stickers_url
       linkTitle = 'Get Telegram Stickers'
     } else if (collection.type === 'meme-maker') {
-      link = '/meme-maker'
-      linkTitle = 'Go to Meme Maker'
+      link = configMemeMaker.urlPath
+      linkTitle = `Go to ${configMemeMaker.name}`
     }
   }
 

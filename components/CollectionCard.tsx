@@ -1,10 +1,11 @@
 import Link from 'next/link'
+import { configMemeMaker } from '@/lib/constants/configurables'
 import { Collection } from '@/lib/types'
 import { getTitleOrUntitled } from '@/lib/utility'
 import { getPreferredCollectionPageUrl } from '@/services/collection'
+import { getImageUrl } from '@/services/image'
 import styles from '@/styles/components/CollectionCard.module.css'
 import Image from './Image'
-import { getImageUrl } from '@/services/image'
 
 type Props = {
   collection: Collection
@@ -19,7 +20,7 @@ export default function CollectionCard({ collection }: Props) {
   } else if (collection?.type === 'telegram-stickers') {
     typeText = 'Telegram Stickers'
   } else if (collection?.type === 'meme-maker') {
-    typeText = 'Meme Maker'
+    typeText = configMemeMaker.name
   }
 
   const first6PreviewImages = collection?.preview_images?.slice(0, 6) || []
