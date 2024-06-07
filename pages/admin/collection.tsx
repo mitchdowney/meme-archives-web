@@ -11,7 +11,7 @@ import styles from '@/styles/AdminUploadImage.module.css'
 import { getImagesAllByCollectionId } from '@/services/image'
 import AdminImageListItems from '@/components/AdminImageListItems'
 import { moveItem } from '@/lib/array'
-import { configPageText, configSocials, pageRules } from '@/lib/constants/configurables'
+import { configMemeMaker, configPageText, configSocials, pageRules } from '@/lib/constants/configurables'
 
 type LastUpdatedData = {
   id: number
@@ -337,7 +337,7 @@ export default function AdminCollection() {
                     <option selected={collectionType === 'general'} value="general">General</option>
                     <option selected={collectionType === 'telegram-stickers'} value="telegram-stickers">Telegram Stickers</option>
                     <option selected={collectionType === 'discord-stickers'} value="discord-stickers">Discord Stickers</option>
-                    <option selected={collectionType === 'meme-maker'} value="meme-maker">Meme Maker</option>
+                    <option selected={collectionType === 'meme-maker'} value="meme-maker">{configMemeMaker.name}</option>
                   </select>
                 </div>
                 {
