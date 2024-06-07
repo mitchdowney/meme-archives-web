@@ -222,14 +222,6 @@ export default function MemeMaker({ initialImage, overlayImages }: Props) {
       })
   }
 
-  const getInsertedImageClassNames = (image: InsertedImage) => {
-    const classNames = []
-    if (image.flipX) {
-      classNames.push('flip-horizontal')
-    }
-    return classNames.join(' ')
-  }
-
   return (
     <div className='container-fluid main-content-column overflow-y-scroll'>
       <div className='main-content-inner-wrapper'>
@@ -378,11 +370,13 @@ export default function MemeMaker({ initialImage, overlayImages }: Props) {
                 )}
                 <Image
                   alt='Inserted image'
-                  className={getInsertedImageClassNames(image)}
                   draggable={false}
                   imageSrc={image.src}
                   stretchFill
-                  style={{ transform: `rotate(${image.rotation}deg) scaleX(${image.flipX ? '-1' : '1'})` }}
+                  style={{
+                    transform: `rotate(${image.rotation}deg) scaleX(${image.flipX ? '-1' : '1'})`,
+                    outline: image.focus ? '3px solid rgba(13, 110, 253, 0.5)' : 'none'
+                  }}
                   title='Inserted image'
                 />
                 {image.focus && (
