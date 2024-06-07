@@ -236,7 +236,7 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
     }
   }
 
-  const copyButtonText = hasCopied ? 'Copied! ' : 'Copy '
+  const copyButtonText = hasCopied ? 'Copied! ' : 'Copy to Clipboard '
 
   const collectionOptions = generateCollectionOptions()
 

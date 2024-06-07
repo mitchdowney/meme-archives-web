@@ -1,10 +1,21 @@
+import { faArrowDown, faArrowUp, faDownload, faRightLeft, faRotateRight, faTrash, faUpload } from '@fortawesome/free-solid-svg-icons'
 import html2canvas from 'html2canvas'
-import React, { useEffect, useRef, useState } from 'react'
+import { GetServerSidePropsContext } from 'next'
+import React, { ChangeEvent, useState } from 'react'
+import Modal from 'react-modal'
 import { Rnd } from 'react-rnd'
-import Image from '@/components/Image'
-import styles from '@/styles/Editor.module.css'
+import Button from '@/components/Button'
 import FAIcon from '@/components/FAIcon'
-import { faArrowDown, faArrowUp, faRightLeft, faRotateRight, faTrash } from '@fortawesome/free-solid-svg-icons'
+import Image from '@/components/Image'
+import { Collection, Image as ImageT } from '@/lib/types'
+import styles from '@/styles/MemeMaker.module.css'
+import { getCollection } from '@/services/collection'
+import { checkIfValidInteger } from '@/lib/validation'
+import { getAvailableImageUrl, getImage, getImagesAllByCollectionId } from '@/services/image'
+import { configMemeMaker } from '@/lib/constants/configurables'
+import { faImage } from '@fortawesome/free-regular-svg-icons'
+import { set } from 'lodash'
+import { useRouter } from 'next/router'
 
 type InsertedImage = {
   id: number
@@ -16,13 +27,107 @@ type InsertedImage = {
   rotation: number
 }
 
-export default function Editor() {
-  const mainImage = 'https://d13jp9qoi0cn61.cloudfront.net/78.png'
-  const overlayImages = ['https://d13jp9qoi0cn61.cloudfront.net/79.png']
+type ServerSidePropsParams = {
+  imageIdOrSlug?: string
+}
+
+export const getServerSideProps = (async (context: GetServerSidePropsContext) => {
+  const { params, query, req, res } = context
+
+  let initialInsertableImages: ImageT[] = []
+  let initialCollection: Collection | null = null
+
+  try {
+    const data = await getCollection('meme-maker', true)
+    if (data) {
+      initialCollection = data
+    }
+  } catch (error: any) {
+    //
+  }
+
+  if (initialCollection) {
+    const data = await getImagesAllByCollectionId({ collection_id: initialCollection.id })
+    initialInsertableImages = data?.[0] || []
+  }
+
+  const overlayImages = initialInsertableImages?.map((image) => getAvailableImageUrl('no-border', image)) || []
+
+  const imageIdOrSlug = query.id as string
+  let initialImage: ImageT | null = null
+  initialImage = await getImage(imageIdOrSlug || configMemeMaker.defaultImageId)
+
+  return {
+    props: {
+      initialImage,
+      overlayImages
+    }
+  }
+})
+
+type Props = {
+  initialImage: ImageT | null
+  overlayImages: string[]
+}
+
+export default function MemeMaker({ initialImage, overlayImages }: Props) {
+  const [mainImage, setMainImage] = useState<ImageT | null>(initialImage)
+  const [uploadedImage, setUploadedImage] = useState<string | null>(null)
+  const [selectImageModalOpen, setSelectImageModalOpen] = useState(false)
   const [insertedImages, setInsertedImages] = useState<InsertedImage[]>([])
   const [isRotating, setIsRotating] = useState(false)
   const [startX, setStartX] = useState(0)
   const [rotatingImageIndex, setRotatingImageIndex] = useState(-1)
+  const [imagedFinishedLoading, setImagedFinishedLoading] = useState<boolean>(false)
+  const [imageIdOrSlug, setImageIdOrSlug] = useState<string | number>(mainImage?.slug || mainImage?.id || '')
+  const router = useRouter()
+  
+  const mainImageUrl = getAvailableImageUrl('no-border', mainImage)
+
+  const fileInputRef = React.useRef<HTMLInputElement>(null)
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
+    if (file) {
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        setUploadedImage(reader.result as string)
+      }
+      reader.readAsDataURL(file)
+
+      const { pathname } = router
+      router.push(pathname)
+      setImageIdOrSlug('')
+      setSelectImageModalOpen(false)
+    }
+  }
+
+  const handleUploadButtonClick = () => {
+    fileInputRef.current?.click()
+  }
+
+  const handleShowChangeImageModal = (bool: boolean) => {
+    setSelectImageModalOpen(bool)
+  }
+
+  const handleImageIdOrSlugChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setImageIdOrSlug(event.target.value)
+  }
+
+  const handleImageIdOrSlugBlur = async (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.value) {
+      try {
+        const image = await getImage(event.target.value)
+        setMainImage(image)
+      } catch (error) {
+        console.log('handleImageIdOrSlugBlur error', error)
+      }
+    }
+  }
+
+  function handleImageFinishedLoading(event: any) {
+    setImagedFinishedLoading(true)
+  }
 
   const handleImageClick = (img: HTMLImageElement) => {
     const aspectRatio = img.naturalWidth / img.naturalHeight
@@ -58,7 +163,6 @@ export default function Editor() {
     }
   }
 
-  // Define event handlers for the rotate-bar
   const handleRotateMouseDown = (event: React.MouseEvent, index: number) => {
     setIsRotating(true)
     setStartX(event.clientX)
@@ -69,7 +173,7 @@ export default function Editor() {
     if (!isRotating || rotatingImageIndex === -1) return
     const dx = event.clientX - startX    
     const adjustedAngle = dx * 4
-    setStartX(event.clientX) // Update startX for the next mouse move event
+    setStartX(event.clientX)
     setInsertedImages(insertedImages.map((img, i) => i === rotatingImageIndex ? { ...img, rotation: img.rotation + adjustedAngle } : img))
   }
 
@@ -130,12 +234,67 @@ export default function Editor() {
     <div className='container-fluid main-content-column overflow-y-scroll'>
       <div className='main-content-inner-wrapper'>
         <div className='container-fluid'>
+          <div className={styles['change-image-wrapper']}>
+            <Button
+              className='btn btn-primary'
+              onClick={() => handleShowChangeImageModal(true)}>
+              {/* eslint-disable-next-line quotes */}
+              {`Select Image `}
+              <FAIcon
+                className=''
+                icon={faImage}
+              />
+            </Button>
+          </div>
+          <Modal
+            contentLabel="Image Selectors Modal"
+            isOpen={selectImageModalOpen}
+            onRequestClose={() => handleShowChangeImageModal(false)}
+            style={{
+              overlay: {
+                backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              },
+              content: {
+                backgroundColor: 'white',
+                inset: 0,
+                padding: '4px 32px 8px 32px',
+                position: 'relative'
+              }
+            }}
+          >
+            <div className={styles['image-selectors']}>
+              <label htmlFor="name" className="form-label">Image Id</label>
+              <input
+                className={`form-control ${styles['image-id-input']}`}
+                id="image-id"
+                onBlur={(e) => handleImageIdOrSlugBlur(e)}
+                onChange={(e) => handleImageIdOrSlugChange(e)}
+                type="text"
+                value={imageIdOrSlug}
+              />
+              <div className={styles['image-selectors-or']}>OR</div>
+              <Button
+                className='btn btn-success'
+                onClick={handleUploadButtonClick}>
+                {/* eslint-disable-next-line quotes */}
+                {`Upload Image `}
+                <FAIcon
+                  className=''
+                  icon={faUpload}
+                />
+              </Button>
+            </div>
+          </Modal>
           <div className={styles['main-image-wrapper']}>
             <Image
               alt='Main image'
               className={`${styles['main-image']}`}
               draggable={false}
-              imageSrc={mainImage}
+              imageSrc={uploadedImage || mainImageUrl}
+              onLoad={handleImageFinishedLoading}
               priority
               stretchFill
               title='Main image'
@@ -240,22 +399,44 @@ export default function Editor() {
               </Rnd>
             ))}
           </div>
-          <div className={styles['insertable-images']}>
-            {overlayImages.map((src, index) => (
-              <Image
-                alt='Insertable image'
-                className={`${styles['insertable-image']}`}
-                key={index}
-                imageSrc={src}
-                onClick={(e) => handleImageClick(e.target as HTMLImageElement)}
-                stretchFill
-                title='Insertable image'
-              />
-            ))}
-          </div>
-          <button onClick={handleDownload}>Download Image</button>
+          {imagedFinishedLoading && (
+            <>
+              <div className={styles['insertable-images']}>
+                {overlayImages.map((src, index) => (
+                  <Image
+                    alt='Insertable image'
+                    className={`${styles['insertable-image']}`}
+                    key={index}
+                    imageSrc={src}
+                    onClick={(e) => handleImageClick(e.target as HTMLImageElement)}
+                    stretchFill
+                    title='Insertable image'
+                  />
+                ))}
+              </div>
+              <div className={styles['bottom-buttons']}>
+                <Button
+                  className='btn btn-success'
+                  onClick={handleDownload}>
+                  {/* eslint-disable-next-line quotes */}
+                  {`Download `}
+                  <FAIcon
+                    className=''
+                    icon={faDownload}
+                  />
+                </Button>
+              </div>
+            </>
+          )}
         </div>
       </div>
+      <input
+        type="file"
+        accept="image/*"
+        ref={fileInputRef}
+        onChange={handleFileChange}
+        style={{ display: 'none' }}
+      />
     </div>
   )
 }

@@ -1,3 +1,27 @@
+.change-image-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 16px auto;
+}
+
+.image-selectors-or {
+  margin: 10px 0 13px 0;
+}
+
+.image-selectors {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 16px auto;
+}
+
+.image-id-input {
+  max-width: 100px;
+  text-align: center;
+}
+
 .main-image-wrapper {
   display: flex;
   justify-content: center;
@@ -15,12 +39,14 @@
 .insertable-images {
   align-items: center;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   max-width: 720px;
+  margin: 22px auto 20px auto;
+  overflow-x: auto;
 }
 
 .insertable-image {
-  height: 120px !important;
+  height: 100px !important;
   width: auto !important;
   cursor: pointer;
 }
@@ -28,10 +54,6 @@
 .inserted-image {
   position: absolute;
   cursor: pointer;
-  /* top: 10px;
-  right: 10px; */
-  /* width: 100%;
-  height: auto; */
 }
 
 .inserted-image-buttons {
@@ -80,4 +102,11 @@
   border-radius: 12px;
   pointer-events: none;
   border: 2px solid red;
+}
+
+.bottom-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 16px 0;
 }

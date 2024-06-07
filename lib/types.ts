@@ -22,9 +22,9 @@ export type CollectionImage = {
   image: Image
 }
 
-type CollectionImageTypes = 'general' | 'telegram-stickers' | 'discord-stickers'
+type CollectionImageTypes = 'general' | 'telegram-stickers' | 'discord-stickers' | 'meme-maker'
 
-export type CollectionQueryType = 'general' | 'telegram-stickers' | 'discord-stickers' | 'stickers' | 'all'
+export type CollectionQueryType = 'general' | 'telegram-stickers' | 'discord-stickers' | 'stickers' | 'meme-maker' | 'all'
 
 export type QuerySort = 'alphabetical' | 'reverse-alphabetical' | 'newest' | 'oldest' | 'random'
 

@@ -12,7 +12,7 @@ type PageRules = {
   whitepaper: boolean
   roadmap: boolean
   resources: boolean
-  editor: boolean
+  memeMaker: boolean
   admin: boolean
   homePageIsGallery: boolean
   disableImageTypes: boolean
@@ -33,7 +33,7 @@ export const pageRules: PageRules = {
   whitepaper: true,
   roadmap: true,
   resources: false,
-  editor: true,
+  memeMaker: true,
   admin: true,
   // If you'd like the home page to load the gallery instead of the splash page,
   // set homePageIsGallery to true, and rename the pages/art.tsx file to pages/index.tsx.
@@ -73,6 +73,10 @@ export const configSocials = {
 export const configText = {
   appName: '$PAINT',
   disclaimer: 'This website is for entertainment and informational purposes only, not financial or investment advice. \$PAINT, this website, and its related social media accounts are not affiliated with, sponsored by, or endorsed by Microsoft.'
+}
+
+export const configMemeMaker = {
+  defaultImageId: 6 // 78
 }
 
 export const configPageText = {

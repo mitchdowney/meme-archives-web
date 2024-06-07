@@ -18,6 +18,8 @@ export default function CollectionCard({ collection }: Props) {
     typeText = 'Discord Stickers'
   } else if (collection?.type === 'telegram-stickers') {
     typeText = 'Telegram Stickers'
+  } else if (collection?.type === 'meme-maker') {
+    typeText = 'Meme Maker'
   }
 
   const first6PreviewImages = collection?.preview_images?.slice(0, 6) || []

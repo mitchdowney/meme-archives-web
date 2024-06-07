@@ -3,11 +3,14 @@ import '@/styles/globals.css'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 import type { AppProps } from 'next/app'
 import { useEffect, useState } from 'react'
+import Modal from 'react-modal'
 import Layout from '@/components/Layout'
 import { useRouter } from 'next/router'
 import AdminWidget from '@/components/AdminWidget'
 import { UserInfo } from '@/lib/types'
 import { getUserInfo } from '@/services/admin'
+
+Modal.setAppElement('#__next')
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter()

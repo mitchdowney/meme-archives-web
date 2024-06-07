@@ -17,6 +17,9 @@ export default function CollectionHeader({ collection }: Props) {
     } else if (collection.type === 'telegram-stickers') {
       link = collection.stickers_url
       linkTitle = 'Get Telegram Stickers'
+    } else if (collection.type === 'meme-maker') {
+      link = '/meme-maker'
+      linkTitle = 'Go to Meme Maker'
     }
   }
 
