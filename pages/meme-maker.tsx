@@ -1,21 +1,20 @@
+import { faImage } from '@fortawesome/free-regular-svg-icons'
 import { faArrowDown, faArrowUp, faDownload, faRightLeft, faRotateRight, faTrash, faUpload } from '@fortawesome/free-solid-svg-icons'
 import html2canvas from 'html2canvas'
 import { GetServerSidePropsContext } from 'next'
+import Head from 'next/head'
+import { useRouter } from 'next/router'
 import React, { ChangeEvent, useState } from 'react'
 import Modal from 'react-modal'
 import { Rnd } from 'react-rnd'
 import Button from '@/components/Button'
 import FAIcon from '@/components/FAIcon'
 import Image from '@/components/Image'
+import { configMemeMaker, configPageText, configSocials } from '@/lib/constants/configurables'
 import { Collection, Image as ImageT } from '@/lib/types'
-import styles from '@/styles/MemeMaker.module.css'
 import { getCollection } from '@/services/collection'
-import { checkIfValidInteger } from '@/lib/validation'
 import { getAvailableImageUrl, getImage, getImagesAllByCollectionId } from '@/services/image'
-import { configMemeMaker } from '@/lib/constants/configurables'
-import { faImage } from '@fortawesome/free-regular-svg-icons'
-import { set } from 'lodash'
-import { useRouter } from 'next/router'
+import styles from '@/styles/MemeMaker.module.css'
 
 type InsertedImage = {
   id: number
@@ -27,12 +26,8 @@ type InsertedImage = {
   rotation: number
 }
 
-type ServerSidePropsParams = {
-  imageIdOrSlug?: string
-}
-
 export const getServerSideProps = (async (context: GetServerSidePropsContext) => {
-  const { params, query, req, res } = context
+  const { query } = context
 
   let initialInsertableImages: ImageT[] = []
   let initialCollection: Collection | null = null
@@ -222,215 +217,234 @@ export default function MemeMaker({ initialImage, overlayImages }: Props) {
       })
   }
 
+  const metaTitle = configPageText.memeMaker.metaTitle
+  const metaDescription = configPageText.memeMaker.metaDescription
+  const metaImageUrl = `${process.env.NEXT_PUBLIC_WEB_BASE_URL}/logo-preview.png`
+
   return (
-    <div className='container-fluid main-content-column overflow-y-scroll'>
-      <div className='main-content-inner-wrapper'>
-        <div className='container-fluid'>
-          <div className={styles['change-image-wrapper']}>
-            <Button
-              className='btn btn-primary'
-              onClick={() => handleShowChangeImageModal(true)}>
-              {/* eslint-disable-next-line quotes */}
-              {`Select Image `}
-              <FAIcon
-                className=''
-                icon={faImage}
-              />
-            </Button>
-          </div>
-          <Modal
-            contentLabel="Image Selectors Modal"
-            isOpen={selectImageModalOpen}
-            onRequestClose={() => handleShowChangeImageModal(false)}
-            style={{
-              overlay: {
-                backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              },
-              content: {
-                backgroundColor: 'white',
-                inset: 0,
-                padding: '4px 32px 8px 32px',
-                position: 'relative'
-              }
-            }}
-          >
-            <div className={styles['image-selectors']}>
-              <label htmlFor="name" className="form-label">Image Id</label>
-              <input
-                className={`form-control ${styles['image-id-input']}`}
-                id="image-id"
-                onBlur={(e) => handleImageIdOrSlugBlur(e)}
-                onChange={(e) => handleImageIdOrSlugChange(e)}
-                type="text"
-                value={imageIdOrSlug}
-              />
-              <div className={styles['image-selectors-or']}>OR</div>
+    <>
+      <Head>
+        <title>{metaTitle}</title>
+        <meta name='description' content={metaDescription} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content={configSocials.twitterHandle} />
+        <meta name="twitter:title" content={metaTitle} />
+        <meta name="twitter:description" content={metaDescription} />
+        <meta name="twitter:image" content={metaImageUrl} />
+        <meta property="og:title" content={metaTitle} />
+        <meta property="og:description" content={metaDescription} />
+        <meta property="og:image" content={metaImageUrl} />
+        <meta property="og:type" content="website" />
+      </Head>
+      <div className='container-fluid main-content-column overflow-y-scroll'>
+        <div className='main-content-inner-wrapper'>
+          <div className='container-fluid'>
+            <div className={styles['change-image-wrapper']}>
               <Button
-                className='btn btn-success'
-                onClick={handleUploadButtonClick}>
+                className='btn btn-primary'
+                onClick={() => handleShowChangeImageModal(true)}>
                 {/* eslint-disable-next-line quotes */}
-                {`Upload Image `}
+                {`Select Image `}
                 <FAIcon
                   className=''
-                  icon={faUpload}
+                  icon={faImage}
                 />
               </Button>
             </div>
-          </Modal>
-          <div className={styles['main-image-wrapper']}>
-            <Image
-              alt='Main image'
-              className={`${styles['main-image']}`}
-              draggable={false}
-              imageSrc={uploadedImage || mainImageUrl}
-              onLoad={handleImageFinishedLoading}
-              priority
-              stretchFill
-              title='Main image'
-            />
-            {insertedImages.map((image, index) => (
-              <Rnd
-                key={image.id}
-                size={{ width: image.width, height: image.height }}
-                onResize={(e, direction, ref, delta, position) => {
-                  onResize(index, ref.offsetWidth, ref.offsetHeight)
-                }}
-                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-                lockAspectRatio
-                bounds='parent'
-                onFocus={() => handleFocus(index)}
-                onBlur={(event: any) => handleBlur(event, index)}
-                tabIndex={0}
-                cancel='.rotate-bar'
-              >
-                {image.focus && (
-                  <div className={styles['inserted-image-buttons']}>
-                    <FAIcon
-                      activeColor='#333'
-                      buttonWrapperName={styles['inserted-image-button-wrapper']}
-                      buttonClassName={styles['inserted-image-button']}
-                      className={styles['inserted-image-button']}
-                      color='#777'
-                      icon={faRotateRight}
-                      onClick={(event) => {
-                        handleRotateClick(event, index)
-                      }}
-                      title='Rotate right'
-                    />
-                    <FAIcon
-                      activeColor='#333'
-                      buttonWrapperName={styles['inserted-image-button-wrapper']}
-                      buttonClassName={styles['inserted-image-button']}
-                      className={styles['inserted-image-button']}
-                      color='#777'
-                      icon={faRightLeft}
-                      onClick={(event) => {
-                        handleFlipXClick(event, index)
-                      }}
-                      title='Flip horizontally'
-                    />
-                    <FAIcon
-                      activeColor='#333'
-                      buttonWrapperName={styles['inserted-image-button-wrapper']}
-                      buttonClassName={styles['inserted-image-button']}
-                      className={styles['inserted-image-button']}
-                      color='#777'
-                      icon={faArrowUp}
-                      onClick={(event) => {
-                        handleSendBackOneLevelClick(index)
-                      }}
-                      title='Send back one level'
-                    />
-                    <FAIcon
-                      activeColor='#333'
-                      buttonWrapperName={styles['inserted-image-button-wrapper']}
-                      buttonClassName={styles['inserted-image-button']}
-                      className={styles['inserted-image-button']}
-                      color='#777'
-                      icon={faArrowDown}
-                      onClick={(event) => {
-                        handlePullForwardOneLevelClick(index)
-                      }}
-                      title='Pull forward one level'
-                    />
-                    <FAIcon
-                      activeColor='#333'
-                      buttonWrapperName={styles['inserted-image-button-wrapper']}
-                      buttonClassName={styles['inserted-image-button']}
-                      className={styles['inserted-image-button']}
-                      color='#777'
-                      icon={faTrash}
-                      onClick={() => handleRemoveImage(index)}
-                      title='Remove image'
-                    />
-                  </div>
-                )}
-                <Image
-                  alt='Inserted image'
-                  draggable={false}
-                  imageSrc={image.src}
-                  stretchFill
-                  style={{
-                    transform: `rotate(${image.rotation}deg) scaleX(${image.flipX ? '-1' : '1'})`,
-                    outline: image.focus ? '3px solid rgba(13, 110, 253, 0.5)' : 'none'
-                  }}
-                  title='Inserted image'
+            <Modal
+              contentLabel="Image Selectors Modal"
+              isOpen={selectImageModalOpen}
+              onRequestClose={() => handleShowChangeImageModal(false)}
+              style={{
+                overlay: {
+                  backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                },
+                content: {
+                  backgroundColor: 'white',
+                  inset: 0,
+                  padding: '4px 32px 8px 32px',
+                  position: 'relative'
+                }
+              }}
+            >
+              <div className={styles['image-selectors']}>
+                <label htmlFor="name" className="form-label">Image Id</label>
+                <input
+                  className={`form-control ${styles['image-id-input']}`}
+                  id="image-id"
+                  onBlur={(e) => handleImageIdOrSlugBlur(e)}
+                  onChange={(e) => handleImageIdOrSlugChange(e)}
+                  type="text"
+                  value={imageIdOrSlug}
                 />
-                {image.focus && (
-                  <div
-                    className={`${styles['rotate-bar']} rotate-bar`}
-                    onMouseDown={(event) => handleRotateMouseDown(event, index)}
-                    onMouseMove={handleRotateMouseMove}
-                    onMouseUp={handleRotateMouseUp}
-                    onMouseLeave={handleRotateMouseUp}
-                  >
-                    <div className={styles['rotate-indicator']} />
-                  </div>
-                )}
-              </Rnd>
-            ))}
-          </div>
-          {imagedFinishedLoading && (
-            <>
-              <div className={styles['insertable-images']}>
-                {overlayImages.map((src, index) => (
-                  <Image
-                    alt='Insertable image'
-                    className={`${styles['insertable-image']}`}
-                    key={index}
-                    imageSrc={src}
-                    onClick={(e) => handleImageClick(e.target as HTMLImageElement)}
-                    stretchFill
-                    title='Insertable image'
-                  />
-                ))}
-              </div>
-              <div className={styles['bottom-buttons']}>
+                <div className={styles['image-selectors-or']}>OR</div>
                 <Button
                   className='btn btn-success'
-                  onClick={handleDownload}>
+                  onClick={handleUploadButtonClick}>
                   {/* eslint-disable-next-line quotes */}
-                  {`Download `}
+                  {`Upload Image `}
                   <FAIcon
                     className=''
-                    icon={faDownload}
+                    icon={faUpload}
                   />
                 </Button>
               </div>
-            </>
-          )}
+            </Modal>
+            <div className={styles['main-image-wrapper']}>
+              <Image
+                alt='Main image'
+                className={`${styles['main-image']}`}
+                draggable={false}
+                imageSrc={uploadedImage || mainImageUrl}
+                onLoad={handleImageFinishedLoading}
+                priority
+                stretchFill
+                title='Main image'
+              />
+              {insertedImages.map((image, index) => (
+                <Rnd
+                  key={image.id}
+                  size={{ width: image.width, height: image.height }}
+                  onResize={(e, direction, ref, delta, position) => {
+                    onResize(index, ref.offsetWidth, ref.offsetHeight)
+                  }}
+                  style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                  lockAspectRatio
+                  bounds='parent'
+                  onFocus={() => handleFocus(index)}
+                  onBlur={(event: any) => handleBlur(event, index)}
+                  tabIndex={0}
+                  cancel='.rotate-bar'
+                >
+                  {image.focus && (
+                    <div className={styles['inserted-image-buttons']}>
+                      <FAIcon
+                        activeColor='#333'
+                        buttonWrapperName={styles['inserted-image-button-wrapper']}
+                        buttonClassName={styles['inserted-image-button']}
+                        className={styles['inserted-image-button']}
+                        color='#777'
+                        icon={faRotateRight}
+                        onClick={(event) => {
+                          handleRotateClick(event, index)
+                        }}
+                        title='Rotate right'
+                      />
+                      <FAIcon
+                        activeColor='#333'
+                        buttonWrapperName={styles['inserted-image-button-wrapper']}
+                        buttonClassName={styles['inserted-image-button']}
+                        className={styles['inserted-image-button']}
+                        color='#777'
+                        icon={faRightLeft}
+                        onClick={(event) => {
+                          handleFlipXClick(event, index)
+                        }}
+                        title='Flip horizontally'
+                      />
+                      <FAIcon
+                        activeColor='#333'
+                        buttonWrapperName={styles['inserted-image-button-wrapper']}
+                        buttonClassName={styles['inserted-image-button']}
+                        className={styles['inserted-image-button']}
+                        color='#777'
+                        icon={faArrowUp}
+                        onClick={(event) => {
+                          handleSendBackOneLevelClick(index)
+                        }}
+                        title='Send back one level'
+                      />
+                      <FAIcon
+                        activeColor='#333'
+                        buttonWrapperName={styles['inserted-image-button-wrapper']}
+                        buttonClassName={styles['inserted-image-button']}
+                        className={styles['inserted-image-button']}
+                        color='#777'
+                        icon={faArrowDown}
+                        onClick={(event) => {
+                          handlePullForwardOneLevelClick(index)
+                        }}
+                        title='Pull forward one level'
+                      />
+                      <FAIcon
+                        activeColor='#333'
+                        buttonWrapperName={styles['inserted-image-button-wrapper']}
+                        buttonClassName={styles['inserted-image-button']}
+                        className={styles['inserted-image-button']}
+                        color='#777'
+                        icon={faTrash}
+                        onClick={() => handleRemoveImage(index)}
+                        title='Remove image'
+                      />
+                    </div>
+                  )}
+                  <Image
+                    alt='Inserted image'
+                    draggable={false}
+                    imageSrc={image.src}
+                    stretchFill
+                    style={{
+                      transform: `rotate(${image.rotation}deg) scaleX(${image.flipX ? '-1' : '1'})`,
+                      outline: image.focus ? '3px solid rgba(13, 110, 253, 0.5)' : 'none'
+                    }}
+                    title='Inserted image'
+                  />
+                  {image.focus && (
+                    <div
+                      className={`${styles['rotate-bar']} rotate-bar`}
+                      onMouseDown={(event) => handleRotateMouseDown(event, index)}
+                      onMouseMove={handleRotateMouseMove}
+                      onMouseUp={handleRotateMouseUp}
+                      onMouseLeave={handleRotateMouseUp}
+                    >
+                      <div className={styles['rotate-indicator']} />
+                    </div>
+                  )}
+                </Rnd>
+              ))}
+            </div>
+            {imagedFinishedLoading && (
+              <>
+                <div className={styles['insertable-images']}>
+                  {overlayImages.map((src, index) => (
+                    <Image
+                      alt='Insertable image'
+                      className={`${styles['insertable-image']}`}
+                      key={index}
+                      imageSrc={src}
+                      onClick={(e) => handleImageClick(e.target as HTMLImageElement)}
+                      stretchFill
+                      title='Insertable image'
+                    />
+                  ))}
+                </div>
+                <div className={styles['bottom-buttons']}>
+                  <Button
+                    className='btn btn-success'
+                    onClick={handleDownload}>
+                    {/* eslint-disable-next-line quotes */}
+                    {`Download `}
+                    <FAIcon
+                      className=''
+                      icon={faDownload}
+                    />
+                  </Button>
+                </div>
+              </>
+            )}
+          </div>
         </div>
+        <input
+          type="file"
+          accept="image/*"
+          ref={fileInputRef}
+          onChange={handleFileChange}
+          style={{ display: 'none' }}
+        />
       </div>
-      <input
-        type="file"
-        accept="image/*"
-        ref={fileInputRef}
-        onChange={handleFileChange}
-        style={{ display: 'none' }}
-      />
-    </div>
+    </>
   )
 }
