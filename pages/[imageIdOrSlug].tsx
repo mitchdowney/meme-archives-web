@@ -333,7 +333,7 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
                           Edit
                         </button>
                         {
-                          pageRules.collections && (
+                          pageRules.collections && !pageRules.memeMaker && (
                             <>
                               <div className={styles['edit-collection']}>
                                 <button

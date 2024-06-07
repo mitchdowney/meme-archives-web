@@ -23,7 +23,7 @@ type ServerSidePropsParams = {
 }
 
 export const getServerSideProps = (async (context: GetServerSidePropsContext) => {
-  if (!pageRules.collections) {
+  if (!pageRules.collections && !pageRules.memeMaker) {
     return {
       notFound: true
     }
