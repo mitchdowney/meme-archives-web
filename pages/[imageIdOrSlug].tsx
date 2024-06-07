@@ -236,7 +236,7 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
     }
   }
 
-  const copyButtonText = hasCopied ? 'Copied! ' : 'Copy to Clipboard '
+  const copyButtonText = hasCopied ? 'Copied! ' : 'Copy '
 
   const collectionOptions = generateCollectionOptions()
 
@@ -333,7 +333,7 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
                           Edit
                         </button>
                         {
-                          pageRules.collections && !pageRules.memeMaker && (
+                          ((pageRules.collections || pageRules.memeMaker)) && (
                             <>
                               <div className={styles['edit-collection']}>
                                 <button
