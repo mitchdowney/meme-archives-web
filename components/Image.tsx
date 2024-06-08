@@ -1,5 +1,5 @@
 import NextImage from 'next/image'
-import { CSSProperties, MouseEventHandler, ReactEventHandler } from 'react'
+import { CSSProperties, MouseEventHandler, ReactEventHandler, TouchEventHandler } from 'react'
 
 type Props = {
   alt: string
@@ -10,6 +10,7 @@ type Props = {
   innerRef?: any
   onClick?: MouseEventHandler<HTMLImageElement>
   onLoad?: ReactEventHandler<HTMLImageElement>
+  onTouchStart?: TouchEventHandler<HTMLImageElement>
   priority?: boolean
   stretchFill?: boolean
   style?: CSSProperties
@@ -18,7 +19,8 @@ type Props = {
 }
 
 export default function Image({ alt, className, draggable = true, height = 0, imageSrc,
-  innerRef, onClick, onLoad, priority, stretchFill, style = {}, title, width = 0 }: Props) {
+  innerRef, onClick, onLoad, onTouchStart, priority, stretchFill,
+  style = {}, title, width = 0 }: Props) {
 
   if (stretchFill) {
     style.width = '100%'
@@ -33,6 +35,7 @@ export default function Image({ alt, className, draggable = true, height = 0, im
       height={height}
       onClick={onClick}
       onLoad={onLoad}
+      onTouchStart={onTouchStart}
       priority={priority}
       ref={innerRef}
       src={imageSrc}

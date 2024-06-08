@@ -149,12 +149,23 @@ export default function MemeMaker({ initialImage, overlayImages }: Props) {
   }
 
   const handleFocus = (index: number) => {
-    setInsertedImages(insertedImages.map((img, i) => i === index ? { ...img, focus: true } : img))
+    setInsertedImages(insertedImages.map((img, i) => i === index ? { ...img, focus: true } : { ...img, focus: false }))
   }
   
   const handleBlur = (event: any, index: number) => {
     if (!event?.relatedTarget?.className?.includes(styles['inserted-image-button'])) {
       setInsertedImages(insertedImages.map((img, i) => i === index ? { ...img, focus: false } : img))
+    }
+  }
+
+  const handleBlurAll = () => {
+    setInsertedImages(insertedImages.map(img => ({ ...img, focus: false })))
+  }
+
+  const handleTouchOutsideMainImageWrapper = (event: React.TouchEvent<HTMLDivElement>) => {
+    const mainImageWrapper = document.querySelector(`.${styles['main-image-wrapper']}`)
+    if (!mainImageWrapper?.contains(event.target as Node)) {
+      handleBlurAll()
     }
   }
 
@@ -208,15 +219,19 @@ export default function MemeMaker({ initialImage, overlayImages }: Props) {
   }
 
   const handleDownload = () => {
-    const input = document.querySelector(`.${styles['main-image-wrapper']}`)
-    html2canvas(input as any, { useCORS: true })
-      .then((canvas) => {
-        const imgData = canvas.toDataURL('image/png')
-        const link = document.createElement('a')
-        link.href = imgData
-        link.download = 'daumen.png'
-        link.click()
-      })
+    setInsertedImages(insertedImages.map(img => ({ ...img, focus: false })))
+  
+    setTimeout(() => {
+      const input = document.querySelector(`.${styles['main-image-wrapper']}`)
+      html2canvas(input as any, { useCORS: true })
+        .then((canvas) => {
+          const imgData = canvas.toDataURL('image/png')
+          const link = document.createElement('a')
+          link.href = imgData
+          link.download = 'daumen.png'
+          link.click()
+        })
+    }, 0)
   }
 
   const metaTitle = configPageText.memeMaker.metaTitle
@@ -238,7 +253,9 @@ export default function MemeMaker({ initialImage, overlayImages }: Props) {
         <meta property="og:image" content={metaImageUrl} />
         <meta property="og:type" content="website" />
       </Head>
-      <div className='container-fluid main-content-column overflow-y-scroll'>
+      <div
+        className='container-fluid main-content-column overflow-y-scroll'
+        onTouchStart={handleTouchOutsideMainImageWrapper}>
         <div className='main-content-inner-wrapper'>
           <div className='container-fluid'>
             <h1 className={styles['header-text']}>{configMemeMaker.name}</h1>
@@ -303,6 +320,7 @@ export default function MemeMaker({ initialImage, overlayImages }: Props) {
                 draggable={false}
                 imageSrc={uploadedImage || mainImageUrl}
                 onLoad={handleImageFinishedLoading}
+                onTouchStart={handleBlurAll}
                 priority
                 stretchFill
                 title='Main image'

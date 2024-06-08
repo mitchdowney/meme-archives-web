@@ -117,9 +117,10 @@
 .bottom-buttons {
   display: flex;
   justify-content: center;
-  margin: 1rem 0;
+  margin: 0.5rem 0 0 0;
+  flex-direction: column;
 }
 
-.download-button {
-  margin: 0 auto;
+.bottom-button {
+  margin: 0 auto 1.5rem auto;
 }

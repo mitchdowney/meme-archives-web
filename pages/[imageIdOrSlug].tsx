@@ -21,11 +21,11 @@ import styles from '@/styles/ImageIdOrSlug.module.css'
 import { checkIfValidInteger } from '@/lib/validation'
 import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus'
 import { addImageToCollection, getAllCollections } from '@/services/collection'
-import { configSocials, configText, pageRules } from '@/lib/constants/configurables'
+import { configMemeMaker, configSocials, configText, pageRules } from '@/lib/constants/configurables'
 import Video from '@/components/Video'
 import Button from '@/components/Button'
 import { copyImageToClipboard } from '@/lib/clipboard'
-import { faCopy } from '@fortawesome/free-regular-svg-icons'
+import { faCopy, faImage } from '@fortawesome/free-regular-svg-icons'
 
 type Props = {
   initialImage: ImageT | null
@@ -400,17 +400,29 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
                               />
                             </div>
                             {
-                              imagedFinishedLoading && (
+                              imagedFinishedLoading && image && (
                                 <div className={styles['bottom-buttons']}>
                                   <Button
                                     as='button'
-                                    className={`btn btn-success ${styles['download-button']}`}
+                                    className={`btn btn-success ${styles['bottom-button']}`}
                                     onClick={handleCopyToClipboard}>
                                     <>
                                       {copyButtonText}
                                       <FAIcon
                                         className=''
                                         icon={faCopy}
+                                      />
+                                    </>
+                                  </Button>
+                                  <Button
+                                    as='a'
+                                    className={`btn btn-warning ${styles['bottom-button']}`}
+                                    href={`${configMemeMaker.urlPath}?id=${image.slug || image.id}`}>
+                                    <>
+                                      {'Open Meme Maker '}
+                                      <FAIcon
+                                        className=''
+                                        icon={faImage}
                                       />
                                     </>
                                   </Button>
