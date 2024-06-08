@@ -1,8 +1,12 @@
+.header-text {
+  text-align: center;
+}
+
 .change-image-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 16px auto;
+  margin: 24px auto;
 }
 
 .image-selectors-or {
