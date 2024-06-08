@@ -221,8 +221,6 @@ const getDropdownMenuItems = () => {
 export default function NavBar() {
   const buttonRef = useRef<any>(null)
   const pathname = usePathname()
-  const searchParams = useSearchParams()
-  const queryParamType = searchParams.get('type') as any
   const isArtGallery = pathname === '/art'
   const isVideos = pathname === '/videos'
   const isArtists = pathname === '/artists'
