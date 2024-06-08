@@ -103,14 +103,14 @@ const getDropdownMenuItems = () => {
     })
   }
 
-  // if (pageRules.memeMaker) {
-  //   dropdownItems.push({
-  //     className: `${styles['dropdown-item']} d-sm-none`,
-  //     href: configMemeMaker.urlPath,
-  //     label: configMemeMaker.name,
-  //     target: '_self'
-  //   })
-  // }
+  if (pageRules.memeMaker) {
+    dropdownItems.push({
+      className: `${styles['dropdown-item']} d-sm-none`,
+      href: configMemeMaker.urlPath,
+      label: configMemeMaker.name,
+      target: '_self'
+    })
+  }
 
   if (pageRules.artists) {
     dropdownItems.push({
@@ -318,7 +318,7 @@ export default function NavBar() {
                 </li>
               )
             }
-            {/* {
+            {
               pageRules.memeMaker && (
                 <li className='nav-item d-block d-sm-block'>
                   <Link
@@ -329,7 +329,7 @@ export default function NavBar() {
                   </Link>
                 </li>
               )
-            } */}
+            }
             {
               pageRules.artists && (
                 <li className='nav-item d-block d-sm-none d-md-block d-lg-block d-xl-block'>
