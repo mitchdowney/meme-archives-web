@@ -158,17 +158,19 @@ export default function MemeMaker({ initialImage, overlayImages }: Props) {
     }
   }
 
-  const handleRotateMouseDown = (event: React.MouseEvent, index: number) => {
+  const handleRotateMouseDown = (event: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>, index: number) => {
     setIsRotating(true)
-    setStartX(event.clientX)
+    const clientX = 'touches' in event ? event.touches[0].clientX : event.clientX
+    setStartX(clientX)
     setRotatingImageIndex(index)
   }
 
-  const handleRotateMouseMove = (event: React.MouseEvent) => {
+  const handleRotateMouseMove = (event: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>) => {
     if (!isRotating || rotatingImageIndex === -1) return
-    const dx = event.clientX - startX    
+    const clientX = 'touches' in event ? event.touches[0].clientX : event.clientX
+    const dx = clientX - startX
     const adjustedAngle = dx * 4
-    setStartX(event.clientX)
+    setStartX(clientX)
     setInsertedImages(insertedImages.map((img, i) => i === rotatingImageIndex ? { ...img, rotation: img.rotation + adjustedAngle } : img))
   }
 
@@ -239,6 +241,7 @@ export default function MemeMaker({ initialImage, overlayImages }: Props) {
       <div className='container-fluid main-content-column overflow-y-scroll'>
         <div className='main-content-inner-wrapper'>
           <div className='container-fluid'>
+            <h1 className={styles['header-text']}>{configMemeMaker.name}</h1>
             <div className={styles['change-image-wrapper']}>
               <Button
                 className='btn btn-primary'
@@ -314,7 +317,8 @@ export default function MemeMaker({ initialImage, overlayImages }: Props) {
                   style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                   lockAspectRatio
                   bounds='parent'
-                  onFocus={() => handleFocus(index)}
+                  onClick={() => handleFocus(index)}
+                  onTouchStart={() => handleFocus(index)}
                   onBlur={(event: any) => handleBlur(event, index)}
                   tabIndex={0}
                   cancel='.rotate-bar'
@@ -399,6 +403,9 @@ export default function MemeMaker({ initialImage, overlayImages }: Props) {
                       onMouseMove={handleRotateMouseMove}
                       onMouseUp={handleRotateMouseUp}
                       onMouseLeave={handleRotateMouseUp}
+                      onTouchStart={(event) => handleRotateMouseDown(event, index)}
+                      onTouchMove={handleRotateMouseMove}
+                      onTouchEnd={handleRotateMouseUp}
                     >
                       <div className={styles['rotate-indicator']} />
                     </div>

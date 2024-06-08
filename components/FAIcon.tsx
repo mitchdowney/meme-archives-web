@@ -11,7 +11,7 @@ type ExtendedFontAwesomeIconProps = FontAwesomeIconProps & {
 
 export default function FAIcon({ activeColor, buttonClassName, buttonRef,
   buttonWrapperName, className = '', color, height, href, icon, isActive, onClick,
-  onMouseDown, spin, tabIndex, target, title, width }: ExtendedFontAwesomeIconProps) {
+  spin, tabIndex, target, title, width }: ExtendedFontAwesomeIconProps) {
 
   const element = (
     <FontAwesomeIcon
@@ -28,13 +28,13 @@ export default function FAIcon({ activeColor, buttonClassName, buttonRef,
     />
   )
 
-  if (onClick || onMouseDown) {
+  if (onClick) {
     return (
       <div className={buttonWrapperName}>
         <button
           className={`${styles['button']} focus-style ${buttonClassName}`}
           onClick={onClick as any}
-          onMouseDown={onMouseDown as any}
+          onTouchEnd={onClick as any}
           ref={buttonRef}
           tabIndex={tabIndex}
           type='button'>
