@@ -149,7 +149,9 @@ export default function MemeMaker({ initialImage, overlayImages }: Props) {
   }
 
   const handleFocus = (index: number) => {
-    setInsertedImages(insertedImages.map((img, i) => i === index ? { ...img, focus: true } : { ...img, focus: false }))
+    if (!insertedImages[index].focus) {
+      setInsertedImages(insertedImages.map((img, i) => i === index ? { ...img, focus: true } : { ...img, focus: false }))
+    }
   }
   
   const handleBlur = (event: any, index: number) => {
