@@ -51,9 +51,18 @@
 }
 
 .insertable-image {
-  height: 100px !important;
+  height: 90px !important;
   width: auto !important;
   cursor: pointer;
+  border: 1px solid #ddd;
+  margin-right: 4px;
+}
+
+.insertable-image-last {
+  height: 90px !important;
+  width: auto !important;
+  cursor: pointer;
+  border: 1px solid #ddd;
 }
 
 .inserted-image {

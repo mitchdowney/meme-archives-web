@@ -46,7 +46,7 @@ export const getServerSideProps = (async (context: GetServerSidePropsContext) =>
     initialInsertableImages = data?.[0] || []
   }
 
-  const overlayImages = initialInsertableImages?.map((image) => getAvailableImageUrl('no-border', image)) || []
+  const insertableImages = initialInsertableImages?.map((image) => getAvailableImageUrl('no-border', image)) || []
 
   const imageIdOrSlug = query.id as string
   let initialImage: ImageT | null = null
@@ -55,23 +55,24 @@ export const getServerSideProps = (async (context: GetServerSidePropsContext) =>
   return {
     props: {
       initialImage,
-      overlayImages
+      insertableImages
     }
   }
 })
 
 type Props = {
   initialImage: ImageT | null
-  overlayImages: string[]
+  insertableImages: string[]
 }
 
-export default function MemeMaker({ initialImage, overlayImages }: Props) {
+export default function MemeMaker({ initialImage, insertableImages }: Props) {
   const [mainImage, setMainImage] = useState<ImageT | null>(initialImage)
   const [uploadedImage, setUploadedImage] = useState<string | null>(null)
   const [selectImageModalOpen, setSelectImageModalOpen] = useState(false)
   const [insertedImages, setInsertedImages] = useState<InsertedImage[]>([])
   const [isRotating, setIsRotating] = useState(false)
   const [startX, setStartX] = useState(0)
+  const [mainImageHeight, setMainImageHeight] = useState(0)
   const [rotatingImageIndex, setRotatingImageIndex] = useState(-1)
   const [imagedFinishedLoading, setImagedFinishedLoading] = useState<boolean>(false)
   const [imageIdOrSlug, setImageIdOrSlug] = useState<string | number>(mainImage?.slug || mainImage?.id || '')
@@ -121,6 +122,8 @@ export default function MemeMaker({ initialImage, overlayImages }: Props) {
   }
 
   function handleImageFinishedLoading(event: any) {
+    const mainImageHeight = event.target.offsetHeight
+    setMainImageHeight(mainImageHeight)
     setImagedFinishedLoading(true)
   }
 
@@ -334,6 +337,12 @@ export default function MemeMaker({ initialImage, overlayImages }: Props) {
                   onResize={(e, direction, ref, delta, position) => {
                     onResize(index, ref.offsetWidth, ref.offsetHeight)
                   }}
+                  default={{
+                    x: 0,
+                    y: mainImageHeight - image.height,
+                    width: image.width,
+                    height: image.height
+                  }}
                   style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                   lockAspectRatio
                   bounds='parent'
@@ -436,10 +445,10 @@ export default function MemeMaker({ initialImage, overlayImages }: Props) {
             {imagedFinishedLoading && (
               <>
                 <div className={styles['insertable-images']}>
-                  {overlayImages.map((src, index) => (
+                  {insertableImages.map((src, index) => (
                     <Image
                       alt='Insertable image'
-                      className={`${styles['insertable-image']}`}
+                      className={index === insertableImages.length - 1 ? styles['insertable-image-last'] : styles['insertable-image']}
                       key={index}
                       imageSrc={src}
                       onClick={(e) => handleImageClick(e.target as HTMLImageElement)}
