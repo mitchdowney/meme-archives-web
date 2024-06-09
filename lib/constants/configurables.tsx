@@ -116,7 +116,7 @@ export const configPageText = {
   },
   memeMaker: {
     metaTitle: `${configMemeMaker.name}`,
-    metaDescription: 'Make your own memes with the Daumenizer!'
+    metaDescription: 'Make your own memes with the Daumenizer'
   },
   resources: {
     metaTitle: `${configText.appName} - Resources`,
