@@ -449,7 +449,7 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
                             <div className={styles['bottom-buttons']}>
                               <Button
                                 as='a'
-                                className={`btn btn-success ${styles['download-button']}`}
+                                className={`btn btn-success ${styles['bottom-button']}`}
                                 download={downloadFileName}
                                 href={imageSrc}>
                                 Download
