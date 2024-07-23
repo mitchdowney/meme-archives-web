@@ -280,20 +280,8 @@ export default function MemeMaker({ initialImage, insertableImages }: Props) {
               contentLabel="Image Selectors Modal"
               isOpen={selectImageModalOpen}
               onRequestClose={() => handleShowChangeImageModal(false)}
-              style={{
-                overlay: {
-                  backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                },
-                content: {
-                  backgroundColor: 'white',
-                  inset: 0,
-                  padding: '4px 32px 8px 32px',
-                  position: 'relative'
-                }
-              }}
+              className="modal-content"
+              overlayClassName="modal-overlay"
             >
               <div className={styles['image-selectors']}>
                 <label htmlFor="name" className="form-label">Image Id</label>
@@ -355,11 +343,9 @@ export default function MemeMaker({ initialImage, insertableImages }: Props) {
                   {image.focus && (
                     <div className={styles['inserted-image-buttons']}>
                       <FAIcon
-                        activeColor='#333'
                         buttonWrapperName={styles['inserted-image-button-wrapper']}
                         buttonClassName={styles['inserted-image-button']}
                         className={styles['inserted-image-button']}
-                        color='#777'
                         icon={faRotateRight}
                         onClick={(event) => {
                           handleRotateClick(event, index)
@@ -367,11 +353,9 @@ export default function MemeMaker({ initialImage, insertableImages }: Props) {
                         title='Rotate right'
                       />
                       <FAIcon
-                        activeColor='#333'
                         buttonWrapperName={styles['inserted-image-button-wrapper']}
                         buttonClassName={styles['inserted-image-button']}
                         className={styles['inserted-image-button']}
-                        color='#777'
                         icon={faRightLeft}
                         onClick={(event) => {
                           handleFlipXClick(event, index)
@@ -379,11 +363,9 @@ export default function MemeMaker({ initialImage, insertableImages }: Props) {
                         title='Flip horizontally'
                       />
                       <FAIcon
-                        activeColor='#333'
                         buttonWrapperName={styles['inserted-image-button-wrapper']}
                         buttonClassName={styles['inserted-image-button']}
                         className={styles['inserted-image-button']}
-                        color='#777'
                         icon={faArrowUp}
                         onClick={(event) => {
                           handleSendBackOneLevelClick(index)
@@ -391,11 +373,9 @@ export default function MemeMaker({ initialImage, insertableImages }: Props) {
                         title='Send back one level'
                       />
                       <FAIcon
-                        activeColor='#333'
                         buttonWrapperName={styles['inserted-image-button-wrapper']}
                         buttonClassName={styles['inserted-image-button']}
                         className={styles['inserted-image-button']}
-                        color='#777'
                         icon={faArrowDown}
                         onClick={(event) => {
                           handlePullForwardOneLevelClick(index)
@@ -403,11 +383,9 @@ export default function MemeMaker({ initialImage, insertableImages }: Props) {
                         title='Pull forward one level'
                       />
                       <FAIcon
-                        activeColor='#333'
                         buttonWrapperName={styles['inserted-image-button-wrapper']}
                         buttonClassName={styles['inserted-image-button']}
                         className={styles['inserted-image-button']}
-                        color='#777'
                         icon={faTrash}
                         onClick={() => handleRemoveImage(index)}
                         title='Remove image'

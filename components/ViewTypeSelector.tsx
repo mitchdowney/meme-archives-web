@@ -14,32 +14,23 @@ export default function ViewTypeSelector({ handleSelectViewType, viewTypeSelecte
   return (
     <div className={styles['view-type-wrapper']}>
       <FAIcon
-        activeColor='#333'
         buttonWrapperName={styles['view-type-icon-button-wrapper']}
-        className={styles['view-type-icon']}
-        color='#aaa'
+        className={viewTypeSelected === 'large' ? styles['view-type-icon-active'] : styles['view-type-icon']}
         icon={faSquare}
-        isActive={viewTypeSelected === 'large'}
         onClick={() => handleSelectViewType('large')}
         title='Large view'
       />
       <FAIcon
-        activeColor='#333'
         buttonWrapperName={styles['view-type-icon-button-wrapper']}
-        className={styles['view-type-icon']}
-        color='#aaa'
+        className={viewTypeSelected === 'small' ? styles['view-type-icon-active'] : styles['view-type-icon']}
         icon={faTableCellsLarge}
-        isActive={viewTypeSelected === 'small'}
         onClick={() => handleSelectViewType('small')}
         title='Small view'
       />
       <FAIcon
-        activeColor='#333'
         buttonWrapperName={styles['view-type-icon-button-wrapper']}
-        className={styles['view-type-icon']}
-        color='#aaa'
+        className={viewTypeSelected === 'tiny' ? styles['view-type-icon-active'] : styles['view-type-icon']}
         icon={faTableCells}
-        isActive={viewTypeSelected === 'tiny'}
         onClick={() => handleSelectViewType('tiny')}
         title='Tiny view'
       />

@@ -19,5 +19,5 @@
 .loading-icon {
   height: 2em;
   width: 2em;
-  color: #555;
+  color: var(--text-secondary-color)
 }

@@ -1,7 +1,7 @@
 .results-found {
   margin: -6px auto 1rem auto;
   text-align: center;
-  color: #555;
+  color: var(--text-secondary-color);
 }
 
 .spacer {

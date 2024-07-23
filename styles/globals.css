@@ -22,28 +22,28 @@ p {
 
 @media (max-width: 575px) {
   .navbar .navbar-collapse {
+    border-bottom: 1px solid var(--border-secondary);
     text-align: center;
     padding-bottom: 1.25rem;
-    border-bottom: 1px solid #ccc;
   }
 }
 
 /* Icons */
 
 svg[data-icon="telegram"] {
-  color: #229ED9;
+  color: var(--branding-color-telegram);
   height: 24px;
   width: 24px;
 }
 
 svg[data-icon="x-twitter"] {
-  color: #000000;
+  color: var(--branding-color-twitter);
   height: 24px;
   width: 24px;
 }
 
 svg[data-icon="instagram"] {
-  color: #000000;
+  color: var(--branding-color-instagram);
   height: 24px;
   width: 24px;
 }
@@ -98,6 +98,29 @@ svg[data-icon="instagram"] {
 
 .image-element-all-border-radius {
   border-radius: 6px;
+}
+
+/* Modal */
+
+.modal-overlay {
+  position: fixed;
+  background-color: var(--modal-overlay-button-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.modal-content {
+  background-color: var(--modal-overlay-button-color);
+  inset: 0;
+  padding: 4px 32px 8px 32px;
+  position: relative;
+  min-width: 250px;
+  flex: 0;
 }
 
 /* Misc / Utility */

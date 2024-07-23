@@ -59,7 +59,7 @@
 }
 
 .prev-svg {
-  color: #000;
+  color: var(--bs-body-color);
   margin: 0 0 0 1.25rem;
 }
 
@@ -70,7 +70,7 @@
 }
 
 .next-svg {
-  color: #000;
+  color: var(--bs-body-color);
   margin: 0 0 0 1.25rem;
 }
 

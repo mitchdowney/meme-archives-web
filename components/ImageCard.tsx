@@ -62,7 +62,6 @@ export default function ImageCard({ hideTags, hideVideoOverlay, image }: Props) 
               <div className={styles['video-overlay']}>
                 <FAIcon
                   className=''
-                  color='#f7f7f7'
                   icon={faPlayCircle} />
               </div>
             )

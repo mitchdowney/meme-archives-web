@@ -253,7 +253,7 @@ export default function NavBar() {
 
   return (
     <nav
-      className={`navbar fixed-top navbar-expand-sm navbar-light bg-light ${styles.navbar}`}>
+      className={`navbar fixed-top navbar-expand-sm ${styles.navbar}`}>
       <div className='container-fluid'>
         {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
         <a className='navbar-brand d-none d-sm-block' href='/'>
