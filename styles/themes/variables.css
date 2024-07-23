@@ -6,7 +6,6 @@
   --branding-color-instagram: #000;
   --branding-color-telegram: #229ed9;
   --branding-color-twitter: #000;
-  --image-card-border: 1px solid #e7e7e7;
   --info-box-bg-color: #c3e7f5;
   --input-placeholder-icon-color: var(--bs-border-color);
   --modal-overlay-bg-color: rgba(0, 0, 0, 0.75);
@@ -27,7 +26,6 @@
     --branding-color-instagram: #fff;
     --branding-color-telegram: #229ed9;
     --branding-color-twitter: #fff;
-    --image-card-border: none;
     --info-box-bg-color: #c3e7f5;
     --input-placeholder-icon-color: var(--bs-border-color);
     --modal-overlay-bg-color: rgba(0, 0, 0, 0.75);
