@@ -2,21 +2,18 @@ import { FontAwesomeIcon, FontAwesomeIconProps } from '@fortawesome/react-fontaw
 import styles from '@/styles/components/FAIcon.module.css'
 
 type ExtendedFontAwesomeIconProps = FontAwesomeIconProps & {
-  activeColor?: string
   buttonRef?: any
   buttonClassName?: string
   buttonWrapperName?: string
-  isActive?: boolean
 }
 
-export default function FAIcon({ activeColor, buttonClassName, buttonRef,
-  buttonWrapperName, className = '', color, height, href, icon, isActive, onClick,
+export default function FAIcon({ buttonClassName, buttonRef,
+  buttonWrapperName, className = '', height, href, icon, onClick,
   spin, tabIndex, target, title, width }: ExtendedFontAwesomeIconProps) {
 
   const element = (
     <FontAwesomeIcon
       className={className}
-      color={isActive ? activeColor : color}
       height={height}
       href={href}
       icon={icon}

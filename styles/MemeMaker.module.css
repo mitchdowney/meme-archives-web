@@ -54,7 +54,7 @@
   height: 90px !important;
   width: auto !important;
   cursor: pointer;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-default);
   margin-right: 4px;
 }
 
@@ -62,7 +62,7 @@
   height: 90px !important;
   width: auto !important;
   cursor: pointer;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-default);
 }
 
 .inserted-image {
@@ -73,14 +73,14 @@
 .inserted-image-buttons {
   position: absolute;
   top: -30px;
-  background-color: white;
+  background-color: var(--bs-body-bg);
   width: 136px;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 4px 2px;
   z-index: 1;
-  border: 1px solid #bbb;
+  border: 1px solid var(--border-default);
 }
 
 .inserted-image-button-wrapper {
@@ -94,6 +94,7 @@
   width: 16px;
   display: flex;
   justify-content: center;
+  color: var(--text-secondary-color);
 }
 
 .rotate-bar {

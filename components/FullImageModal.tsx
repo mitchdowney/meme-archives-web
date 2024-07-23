@@ -55,21 +55,18 @@ export default function FullImageModal({ closeButtonRef, handleHide,
               <div className={styles['image-tools']}>
                 <FAIcon
                   className={styles['image-tool-btn']}
-                  color="fff"
                   icon={faMagnifyingGlassPlus}
                   onClick={() => zoomIn()}
                   title='Zoom in'
                 />
                 <FAIcon
                   className={styles['image-tool-btn']}
-                  color="fff"
                   icon={faMagnifyingGlassMinus}
                   onClick={() => zoomOut()}
                   title='Zoom out'
                 />
                 <FAIcon
                   className={styles['image-tool-btn']}
-                  color="fff"
                   icon={faRotateLeft}
                   onClick={() => resetTransform()}
                   title='Reset zoom'

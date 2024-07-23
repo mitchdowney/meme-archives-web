@@ -1,5 +1,6 @@
 .navbar {
   --bs-navbar-padding-y: 0;
+  background-color: var(--bs-body-bg);
 }
 
 .nav-link-text {
@@ -50,7 +51,7 @@
 .dropdown-toggle {
   padding: 5px 11px 3px 11px;
   margin-top: 3px;
-  border-color: #a7acb1;
+  border-color: var(--nav-dropdown-toggle);
 }
 
 .dropdown-menu {

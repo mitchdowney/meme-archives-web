@@ -16,9 +16,14 @@
   display: flex;
 }
 
-.view-type-icon {
+.view-type-icon, .view-type-icon-active {
   height: 24px;
   width: 24px;
   display: flex;
   justify-content: center;
+  color: var(--view-selector-color);
+}
+
+.view-type-icon-active {
+  color: var(--view-selector-color-active);
 }

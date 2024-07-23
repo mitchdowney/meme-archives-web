@@ -2,7 +2,7 @@
 
 .full-image-modal {
   position: absolute;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: var(--modal-overlay-bg-color);
   z-index: 1000000;
   top: 0;
   left: 0;
@@ -38,14 +38,14 @@
   position: absolute;
   top: 8px;
   left: 8px;
-  color: #eee;
+  color: var(--bs-body-color);
   border-radius: 28px;
-  border: 1px solid #eee;
+  border: 1px solid var(--border-default);
   align-items: center;
   justify-content: center;
   width: 28px;
   height: 28px;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: var(--modal-overlay-bg-color);
   z-index: 1000001;
 }
 
@@ -55,9 +55,9 @@
 }
 
 .image-tools {  
-  background-color: rgba(0, 0, 0, 0.6);
-  border: 1px solid #eee;
-  color: #eee;
+  background-color: var(--modal-overlay-bg-color);
+  border: 1px solid var(--border-default);
+  color: var(--border-default);
   display: flex;
   font-size: 17px;
   padding: 1px 8px;
@@ -70,4 +70,5 @@
 
 .image-tool-btn {
   margin: 0 6px;
+  color: var(--overlay-modal-button-color);
 }

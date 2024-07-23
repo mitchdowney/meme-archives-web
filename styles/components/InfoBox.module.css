@@ -1,5 +1,5 @@
 .info-box {
-  background-color: #c3e7f5;
+  background-color: var(--info-box-bg-color);
   font-size: 14px;
   margin: auto auto 24px auto;
   max-width: 560px;

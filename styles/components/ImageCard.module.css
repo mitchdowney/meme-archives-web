@@ -2,7 +2,11 @@
   --bs-card-spacer-x: 0.5rem;
   --bs-card-spacer-y: 0.6rem;
   --bs-card-title-spacer-y: 0.25rem;
-  --bs-card-title-color: black;
+  border: var(--image-card-border);
+}
+
+.card img {
+  background-color: #fff;
 }
 
 .image-title {
@@ -12,7 +16,7 @@
 }
 
 .card-text {
-  color: #555;
+  color: var(--text-secondary-color);
   font-size: 14px;
   white-space: nowrap;
   overflow: hidden;
@@ -30,7 +34,7 @@
   justify-content: center;
   align-items: center;
   font-size: 34px;
-  color: white;
+  color: var(--overlay-modal-button-color);
   z-index: 10;
 }
 
