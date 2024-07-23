@@ -2,7 +2,7 @@
   --bs-card-spacer-x: 0.5rem;
   --bs-card-spacer-y: 0.6rem;
   --bs-card-title-spacer-y: 0.25rem;
-  border: var(--image-card-border);
+  border: 1px solid var(--border-secondary);
 }
 
 .card img {
