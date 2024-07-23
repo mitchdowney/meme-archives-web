@@ -76,8 +76,8 @@ export const configText = {
 }
 
 export const configMemeMaker = {
-  name: 'Memegen',
-  urlPath: '/memegen',
+  name: 'Daumenizer',
+  urlPath: '/daumenizer',
   defaultImageId: 78
 }
 
