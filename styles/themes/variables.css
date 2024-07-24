@@ -31,8 +31,8 @@
     --modal-overlay-bg-color: rgba(0, 0, 0, 0.75);
     --modal-overlay-button-color: var(--bs-body-color);
     --nav-dropdown-toggle: #434547;
-    --text-secondary-color: #888;
-    --view-selector-color: #333;
-    --view-selector-color-active: #888;
+    --text-secondary-color: #b7b7b7;
+    --view-selector-color: #595a5c;
+    --view-selector-color-active: #bdbdbe;
   }
 }
