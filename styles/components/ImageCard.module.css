@@ -5,10 +5,6 @@
   border: 1px solid var(--border-secondary);
 }
 
-.card img {
-  background-color: #fff;
-}
-
 .image-title {
   white-space: nowrap;
   overflow: hidden;
