@@ -37,7 +37,7 @@ export const pageRules: PageRules = {
   admin: true,
   // If you'd like the home page to load the gallery instead of the splash page,
   // set homePageIsGallery to true, and rename the pages/art.tsx file to pages/index.tsx.
-  homePageIsGallery: false,
+  homePageIsGallery: true,
   // Hide the image type dropdown filter in the gallery
   disableImageTypes: true,
   // Hide the radio buttons under the search bar
