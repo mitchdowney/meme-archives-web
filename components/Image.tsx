@@ -45,7 +45,7 @@ export default function Image({ alt, className, draggable = true, height = 0, im
       width={width}
       // crossOrigin must be set to anonymous to work with canvas.toBlob
       // aka copyImageToClipboard in lib/clipboard.ts
-      crossOrigin='anonymous'
+      // crossOrigin='anonymous'
     />
   )
 }
