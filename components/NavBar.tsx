@@ -157,6 +157,15 @@ const getDropdownMenuItems = () => {
     })
   }
 
+  if (pageRules.resources) {
+    dropdownItems.push({
+      className: `${styles['dropdown-item']} d-xl-none`,
+      href: '/resources',
+      label: 'Resources',
+      target: '_self'
+    })
+  }
+
   if (
     configCharts.birdeyeUrl ||
     configCharts.dexscreenerUrl ||
@@ -228,6 +237,7 @@ export default function NavBar() {
   const isStickers = pathname === '/stickers'
   const isWhitepaper = pathname === '/whitepaper'
   const isRoadmap = pathname === '/roadmap'
+  const isResources = pathname === '/resources'
   const isMemeMaker = pathname === configMemeMaker.urlPath
 
   const handleOutsideClick = (event: any) => {
@@ -388,14 +398,18 @@ export default function NavBar() {
                 </li>
               )
             }
-            {/* <li className='nav-item d-block d-sm-none'>
-              <Link
-                className={`nav-link ${styles['nav-link-text']} ${isResources ? 'active' : ''}`}
-                {...(isResources ? { 'aria-current': 'page' } : {})}
-                href='/resources'>
-                Resources
-              </Link>
-            </li> */}
+            {
+              pageRules.resources && (
+                <li className='nav-item d-block d-sm-none d-md-none d-lg-none d-xl-block'>
+                  <Link
+                    className={`nav-link ${styles['nav-link-text']} ${isResources ? 'active' : ''}`}
+                    {...(isResources ? { 'aria-current': 'page' } : {})}
+                    href='/resources'>
+                    Resources
+                  </Link>
+                </li>
+              )
+            }
             {
               (configSocials.farcasterUrl
               || configSocials.telegramUrl
