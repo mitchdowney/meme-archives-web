@@ -25,25 +25,25 @@ type PageRules = {
 export const pageRules: PageRules = {
   // Enable or disable pages 
   gallery: true,
-  memes: true,
-  videos: true,
+  memes: false,
+  videos: false,
   artists: true,
-  collections: true,
-  stickers: true,
+  collections: false,
+  stickers: false,
   whitepaper: true,
   roadmap: true,
-  resources: false,
-  memeMaker: true,
+  resources: true,
+  memeMaker: false,
   admin: true,
   // If you'd like the home page to load the gallery instead of the splash page,
   // set homePageIsGallery to true, and rename the pages/art.tsx file to pages/index.tsx.
   homePageIsGallery: false,
   // Hide the image type dropdown filter in the gallery
-  disableImageTypes: false,
+  disableImageTypes: true,
   // Hide the radio buttons under the search bar
-  disableFilterSelectors: false,
+  disableFilterSelectors: true,
   // Hide all of the other buttons and center the ViewTypeSelector under the search bar
-  centerViewTypeSelector: false,
+  centerViewTypeSelector: true,
   // Prevent border images from being uploaded or displayed
   disableBorderImages: false,
   // Set the default preview crop style
