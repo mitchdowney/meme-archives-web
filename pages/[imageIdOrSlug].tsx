@@ -399,7 +399,7 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
                                 title={title}
                               />
                             </div>
-                            {
+                            {/* {
                               imagedFinishedLoading && image && (
                                 <div className={styles['bottom-buttons']}>
                                   <Button
@@ -432,7 +432,7 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
                                   }
                                 </div>
                               )
-                            }
+                            } */}
                           </>
                         )
                       }
