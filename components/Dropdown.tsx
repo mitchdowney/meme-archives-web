@@ -1,6 +1,7 @@
 import Link from 'next/link'
 
 export type DropdownItem = {
+  as?: 'link' | 'a'
   className?: string
   href?: string
   iconRow?: any
@@ -29,16 +30,29 @@ export default function Dropdown({ alignRight, dropdownClassName = '', dropdownT
     if (dropdownItem.iconRow) {
       return dropdownItem.iconRow
     } else if (dropdownItem.href) {
-      return (
-        <li key={`nav-dropdown-item-${index}`}>
-          <Link
-            className={dropdownItemClass}
-            href={dropdownItem.href}
-            target={dropdownItem.target}>
-            {dropdownItem.label}
-          </Link>
-        </li>
-      )
+      if (dropdownItem.as === 'a') {
+        return (
+          <li key={`nav-dropdown-item-${index}`}>
+            <a
+              className={dropdownItemClass}
+              href={dropdownItem.href}
+              target={dropdownItem.target}>
+              {dropdownItem.label}
+            </a>
+          </li>
+        )
+      } else {
+        return (
+          <li key={`nav-dropdown-item-${index}`}>
+            <Link
+              className={dropdownItemClass}
+              href={dropdownItem.href}
+              target={dropdownItem.target}>
+              {dropdownItem.label}
+            </Link>
+          </li>
+        )
+      }
     } else {
       return null
     }
