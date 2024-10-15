@@ -76,9 +76,9 @@ export const configText = {
 }
 
 export const configMemeMaker = {
-  name: 'Daumenizer',
-  urlPath: '/daumenizer',
-  defaultImageId: 78
+  name: 'Meme Maker',
+  urlPath: '/meme-maker.html',
+  defaultImageId: 6 // 78
 }
 
 export const configPageText = {

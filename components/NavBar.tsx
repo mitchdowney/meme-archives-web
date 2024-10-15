@@ -105,6 +105,7 @@ const getDropdownMenuItems = () => {
 
   if (pageRules.memeMaker) {
     dropdownItems.push({
+      as: 'a',
       className: `${styles['dropdown-item']} d-sm-none`,
       href: configMemeMaker.urlPath,
       label: configMemeMaker.name,
@@ -153,6 +154,15 @@ const getDropdownMenuItems = () => {
       className: `${styles['dropdown-item']} d-xl-none`,
       href: '/roadmap',
       label: 'Roadmap',
+      target: '_self'
+    })
+  }
+
+  if (pageRules.resources) {
+    dropdownItems.push({
+      className: `${styles['dropdown-item']} d-xl-none`,
+      href: '/resources',
+      label: 'Resources',
       target: '_self'
     })
   }
@@ -228,6 +238,7 @@ export default function NavBar() {
   const isStickers = pathname === '/stickers'
   const isWhitepaper = pathname === '/whitepaper'
   const isRoadmap = pathname === '/roadmap'
+  const isResources = pathname === '/resources'
   const isMemeMaker = pathname === configMemeMaker.urlPath
 
   const handleOutsideClick = (event: any) => {
@@ -319,12 +330,12 @@ export default function NavBar() {
             {
               pageRules.memeMaker && (
                 <li className='nav-item d-block d-sm-block'>
-                  <Link
+                  <a
                     className={`nav-link ${styles['nav-link-text']} ${isMemeMaker ? 'active' : ''}`}
                     {...(isMemeMaker ? { 'aria-current': 'page' } : {})}
                     href={configMemeMaker.urlPath}>
                     {configMemeMaker.name}
-                  </Link>
+                  </a>
                 </li>
               )
             }
@@ -388,14 +399,18 @@ export default function NavBar() {
                 </li>
               )
             }
-            {/* <li className='nav-item d-block d-sm-none'>
-              <Link
-                className={`nav-link ${styles['nav-link-text']} ${isResources ? 'active' : ''}`}
-                {...(isResources ? { 'aria-current': 'page' } : {})}
-                href='/resources'>
-                Resources
-              </Link>
-            </li> */}
+            {
+              pageRules.resources && (
+                <li className='nav-item d-block d-sm-none d-md-none d-lg-none d-xl-block'>
+                  <Link
+                    className={`nav-link ${styles['nav-link-text']} ${isResources ? 'active' : ''}`}
+                    {...(isResources ? { 'aria-current': 'page' } : {})}
+                    href='/resources'>
+                    Resources
+                  </Link>
+                </li>
+              )
+            }
             {
               (configSocials.farcasterUrl
               || configSocials.telegramUrl

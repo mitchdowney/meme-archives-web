@@ -414,18 +414,22 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
                                       />
                                     </>
                                   </Button>
-                                  <Button
-                                    as='a'
-                                    className={`btn btn-warning ${styles['bottom-button']}`}
-                                    href={`${configMemeMaker.urlPath}?id=${image.slug || image.id}`}>
-                                    <>
-                                      {'Open Meme Maker '}
-                                      <FAIcon
-                                        className=''
-                                        icon={faImage}
-                                      />
-                                    </>
-                                  </Button>
+                                  {/* {
+                                    pageRules.memeMaker && (
+                                      <Button
+                                        as='a'
+                                        className={`btn btn-warning ${styles['bottom-button']}`}
+                                        href={`${configMemeMaker.urlPath}?id=${image.slug || image.id}`}>
+                                        <>
+                                          {'Open Meme Maker '}
+                                          <FAIcon
+                                            className=''
+                                            icon={faImage}
+                                          />
+                                        </>
+                                      </Button>
+                                    )
+                                  } */}
                                 </div>
                               )
                             }
