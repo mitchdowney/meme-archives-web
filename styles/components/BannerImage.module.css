@@ -1,0 +1,9 @@
+.banner-image-wrapper {
+  margin: 1rem auto 1rem auto;
+  text-align: center;
+}
+
+.banner-image-wrapper img {
+  max-width: 400px;
+  max-height: 58px;
+}

@@ -6,6 +6,7 @@ import { useSearchParams } from 'next/navigation'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import clientSideCookieLib from 'universal-cookie'
+import BannerImage from '@/components/BannerImage'
 import FilterSelector from '@/components/FilterSelector'
 import ImageCards from '@/components/ImageCards'
 import InfoBox from '@/components/InfoBox'
@@ -353,6 +354,9 @@ export default function Gallery({
             isVideosPage
           })
         }}>
+        <BannerImage
+          imageSrc='/blizzard-blitz.gif'
+          title='Play Daumenfrosch: Blizzard Blitz!' />
         <div className={`main-content-inner-wrapper ${viewTypeSelected === 'tiny' ? 'main-content-end-may-not-be-reached' : ''}`}>
           <SearchInput
             allArtists={allArtists}
