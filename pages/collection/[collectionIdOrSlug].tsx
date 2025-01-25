@@ -23,6 +23,7 @@ type ServerSidePropsParams = {
 }
 
 export const getServerSideProps = (async (context: GetServerSidePropsContext) => {
+  const isServerSideReq = true
   if (!pageRules.collections && !pageRules.memeMaker) {
     return {
       notFound: true
@@ -40,7 +41,7 @@ export const getServerSideProps = (async (context: GetServerSidePropsContext) =>
 
   if (collectionIdOrSlug) {
     try {
-      const data = await getCollection(collectionIdOrSlug, true)
+      const data = await getCollection(collectionIdOrSlug, isServerSideReq)
       if (data) {
         initialCollection = data
       }
@@ -55,7 +56,7 @@ export const getServerSideProps = (async (context: GetServerSidePropsContext) =>
   }
 
   if (!shouldRedirect && initialCollection) {
-    const data = await getImagesByCollectionId({ page: 1, collection_id: initialCollection.id })
+    const data = await getImagesByCollectionId({ page: 1, collection_id: initialCollection.id }, isServerSideReq)
     initialImages = data?.[0] || []
     initialImagesTotal = data?.[1] || 0
   }

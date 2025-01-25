@@ -16,7 +16,7 @@ type GetCollections = {
   type: CollectionQueryType
 }
 
-export const getCollections = async ({ page = 1, sort, type }: GetCollections) => {
+export const getCollections = async ({ page = 1, sort, type }: GetCollections, isServerSideReq?: boolean) => {
   const response = await apiRequest({
     method: 'GET',
     url: '/collections',
@@ -25,7 +25,7 @@ export const getCollections = async ({ page = 1, sort, type }: GetCollections) =
       sort,
       type
     }
-  })
+  }, isServerSideReq)
 
   return response?.data
 }

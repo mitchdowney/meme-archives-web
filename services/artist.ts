@@ -12,11 +12,11 @@ export const getAllArtists = async () => {
   return response?.data as Artist[]
 }
 
-export const getAllArtistsWithImages = async () => {
+export const getAllArtistsWithImages = async (isServerSideReq?: boolean) => {
   const response = await apiRequest({
     method: 'GET',
     url: '/artists/all-with-images'
-  })
+  }, isServerSideReq)
 
   return response?.data as Artist[]
 }
@@ -25,14 +25,14 @@ type GetArtists = {
   page: number
 }
 
-export const getArtists = async ({ page }: GetArtists) => {
+export const getArtists = async ({ page }: GetArtists, isServerSideReq?: boolean) => {
   const response = await apiRequest({
     method: 'GET',
     url: '/artists',
     params: {
       page
     }
-  })
+  }, isServerSideReq)
 
   return response?.data
 }

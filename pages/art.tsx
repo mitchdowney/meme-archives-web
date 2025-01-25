@@ -35,6 +35,7 @@ const getCurrentImageType = (queryParamImageType: QueryParamImageType) => {
 }
 
 export const getServerSideProps = (async (context: GetServerSidePropsContext) => {
+  const isServerSideReq = true
   const isHomePage = context.req.url === '/'
   const isVideosPage = context.req.url?.includes('/videos') || false
 
@@ -59,8 +60,8 @@ export const getServerSideProps = (async (context: GetServerSidePropsContext) =>
     initialFilterSelected = 'by-artist'
   }
 
-  const allArtists = await getAllArtistsWithImages()
-  const initialAllTags = await getAllTagsWithImages(initialSelectedImageType)
+  const allArtists = await getAllArtistsWithImages(isServerSideReq)
+  const initialAllTags = await getAllTagsWithImages(initialSelectedImageType, isServerSideReq)
 
   const artistIdIsValidInteger = checkIfValidInteger(artistId as string)
   const tagIdIsValidInteger = checkIfValidInteger(tagId as string)
@@ -81,13 +82,13 @@ export const getServerSideProps = (async (context: GetServerSidePropsContext) =>
       tagTitle: tagTitle as string,
       imageType: initialSelectedImageType,
       ...(isVideosPage ? { imageMediumType: 'video' } : {})
-    })
+    }, isServerSideReq)
     initialImages = data?.[0] || []
     initialImagesTotal = data?.[1] || 0
   } else if (!artistIdIsValidInteger && noArtist) {
     const data = await getImagesWithoutArtists({
       page: 1
-    })
+    }, isServerSideReq)
     initialImages = data?.[0] || []
     initialImagesTotal = data?.[1] || 0
   } else if (!artistIdIsValidInteger && !tagIdIsValidInteger) {
@@ -96,30 +97,30 @@ export const getServerSideProps = (async (context: GetServerSidePropsContext) =>
       imageType: initialSelectedImageType,
       sort: initialSort,
       ...(isVideosPage ? { imageMediumType: 'video' } : {})
-    })
+    }, isServerSideReq)
     initialImages = data?.[0] || []
     initialImagesTotal = null
   } else if (artistIdIsValidInteger) {
     const parsedArtistId = parseInt(artistId as string, 10)
-    initialArtist = await getArtist(parsedArtistId)
+    initialArtist = await getArtist(parsedArtistId, isServerSideReq)
     initialInputText = initialArtist?.name
     const data = await getImagesByArtistId({
       page: 1,
       artistId: initialArtist.id,
       sort: initialSort
-    })
+    }, isServerSideReq)
     initialImages = data?.[0] || []
     initialImagesTotal = data?.[1] || 0
   } else if (tagIdIsValidInteger) {
     const parsedTagId = parseInt(tagId as string, 10)
-    initialTag = await getTagById(parsedTagId)
+    initialTag = await getTagById(parsedTagId, isServerSideReq)
     initialInputText = initialTag?.title
     const data = await getImagesByTagId({
       page: 1,
       tagId: initialTag.id,
       imageType: initialSelectedImageType,
       ...(isVideosPage ? { imageMediumType: 'video' } : {})
-    })
+    }, isServerSideReq)
     initialImages = data?.[0] || []
     initialImagesTotal = data?.[1] || 0
   }

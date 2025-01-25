@@ -37,13 +37,14 @@ type ServerSidePropsParams = {
 }
 
 export const getServerSideProps = (async (context: GetServerSidePropsContext) => {
+  const isServerSideReq = true
   const { params, res } = context
   const { imageIdOrSlug } = params as ServerSidePropsParams
   let initialImage: ImageT | null = null
 
   if (imageIdOrSlug) {
     try {
-      const data = await getImage(imageIdOrSlug, true)
+      const data = await getImage(imageIdOrSlug, isServerSideReq)
       if (data) {
         initialImage = data
       }

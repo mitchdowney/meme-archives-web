@@ -126,7 +126,7 @@ type GetImages = {
   imageMediumType?: ImageMediumType
 }
 
-export const getImages = async ({ page = 1, imageType, sort = 'random', imageMediumType }: GetImages) => {
+export const getImages = async ({ page = 1, imageType, sort = 'random', imageMediumType }: GetImages, isServerSideReq?: boolean) => {
   const response = await apiRequest({
     method: 'GET',
     url: '/images',
@@ -136,7 +136,7 @@ export const getImages = async ({ page = 1, imageType, sort = 'random', imageMed
       sort,
       imageMediumType
     }
-  })
+  }, isServerSideReq)
 
   return response?.data
 }
@@ -147,7 +147,7 @@ type GetImagesByArtistId = {
   sort: QuerySort
 }
 
-export const getImagesByArtistId = async ({ page = 1, artistId, sort = 'random' }: GetImagesByArtistId) => {
+export const getImagesByArtistId = async ({ page = 1, artistId, sort = 'random' }: GetImagesByArtistId, isServerSideReq?: boolean) => {
   const response = await apiRequest({
     method: 'GET',
     url: '/images/by-artist',
@@ -156,7 +156,7 @@ export const getImagesByArtistId = async ({ page = 1, artistId, sort = 'random' 
       id: artistId,
       sort
     }
-  })
+  }, isServerSideReq)
 
   return response?.data
 }
@@ -165,14 +165,14 @@ type GetImagesWithoutArtists = {
   page: number
 }
 
-export const getImagesWithoutArtists = async ({ page = 1 }: GetImagesWithoutArtists) => {
+export const getImagesWithoutArtists = async ({ page = 1 }: GetImagesWithoutArtists, isServerSideReq?: boolean) => {
   const response = await apiRequest({
     method: 'GET',
     url: '/images/no-artist',
     params: {
       page
     }
-  })
+  }, isServerSideReq)
 
   return response?.data
 }
@@ -184,7 +184,7 @@ type GetImagesByTagId = {
   imageMediumType?: ImageMediumType
 }
 
-export const getImagesByTagId = async ({ page = 1, tagId, imageType, imageMediumType }: GetImagesByTagId) => {
+export const getImagesByTagId = async ({ page = 1, tagId, imageType, imageMediumType }: GetImagesByTagId, isServerSideReq?: boolean) => {
   const response = await apiRequest({
     method: 'GET',
     url: '/images/by-tag',
@@ -194,7 +194,7 @@ export const getImagesByTagId = async ({ page = 1, tagId, imageType, imageMedium
       imageType,
       imageMediumType
     }
-  })
+  }, isServerSideReq)
 
   return response?.data
 }
@@ -206,7 +206,7 @@ type GetImagesByTagTitle = {
   imageMediumType?: ImageMediumType
 }
 
-export const getImagesByTagTitle = async ({ page = 1, tagTitle, imageType, imageMediumType }: GetImagesByTagTitle) => {
+export const getImagesByTagTitle = async ({ page = 1, tagTitle, imageType, imageMediumType }: GetImagesByTagTitle, isServerSideReq?: boolean) => {
   const response = await apiRequest({
     method: 'GET',
     url: '/images/by-tag',
@@ -216,7 +216,7 @@ export const getImagesByTagTitle = async ({ page = 1, tagTitle, imageType, image
       imageType,
       imageMediumType
     }
-  })
+  }, isServerSideReq)
 
   return response?.data
 }
@@ -238,7 +238,7 @@ export const getImagesAllByCollectionId = async ({ collection_id }: GetImagesByC
   return response?.data
 }
 
-export const getImagesByCollectionId = async ({ page = 1, collection_id }: GetImagesByCollectionId) => {
+export const getImagesByCollectionId = async ({ page = 1, collection_id }: GetImagesByCollectionId, isServerSideReq?: boolean) => {
   const response = await apiRequest({
     method: 'GET',
     url: '/images/by-collection',
@@ -246,7 +246,7 @@ export const getImagesByCollectionId = async ({ page = 1, collection_id }: GetIm
       page,
       id: collection_id
     }
-  })
+  }, isServerSideReq)
 
   return response?.data
 }

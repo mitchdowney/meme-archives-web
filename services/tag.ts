@@ -11,23 +11,23 @@ export const getAllTags = async () => {
   return response?.data as Tag[]
 }
 
-export const getAllTagsWithImages = async (imageType: ImageType) => {
+export const getAllTagsWithImages = async (imageType: ImageType, isServerSideReq?: boolean) => {
   const response = await apiRequest({
     method: 'GET',
     url: '/tags/all-with-images',
     params: {
       imageType
     }
-  })
+  }, isServerSideReq)
 
   return response?.data as Tag[]
 }
 
-export const getTagById = async (id: number) => {
+export const getTagById = async (id: number, isServerSideReq?: boolean) => {
   const response = await apiRequest({
     method: 'GET',
     url: `/tag/${id}`
-  })
+  }, isServerSideReq)
 
   return response?.data as Tag
 }

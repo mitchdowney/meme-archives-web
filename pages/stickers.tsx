@@ -13,13 +13,14 @@ import styles from '@/styles/Collections.module.css'
 import { configPageText, configSocials, pageRules } from '@/lib/constants/configurables'
 
 export const getServerSideProps = (async () => { 
+  const isServerSideReq = true
   if (!pageRules.stickers) {
     return {
       notFound: true
     }
   }
 
-  const data = await getCollections({ page: 1, sort: 'alphabetical', type: 'stickers' })
+  const data = await getCollections({ page: 1, sort: 'alphabetical', type: 'stickers' }, isServerSideReq)
   const initialCollections: Collection[] = data?.[0] || []
 
   return {
