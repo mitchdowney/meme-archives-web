@@ -14,6 +14,7 @@ import ArtistHeader from '@/components/ArtistHeader'
 import { checkIfValidInteger } from '@/lib/validation'
 import ViewTypeSelector from '@/components/ViewTypeSelector'
 import { configPageText, configSocials, pageRules } from '@/lib/constants/configurables'
+import Footer from '@/components/Footer'
 
 type ServerSidePropsParams = {
   artistIdOrSlug?: string
@@ -174,6 +175,11 @@ export default function ArtistPage({
           {isLoading && <LoadingSpinner />}
           {!isLoading && !endReached && <div className={styles['spacer']} />}
         </div>
+        {
+          !isLoading && endReached && (
+            <Footer />
+          )
+        }
       </div>
     </>
   )

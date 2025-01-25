@@ -7,6 +7,7 @@ import { Artist } from '@/lib/types'
 import { getArtists } from '@/services/artist'
 import styles from '@/styles/Artists.module.css'
 import { configPageText, configSocials, pageRules } from '@/lib/constants/configurables'
+import Footer from '@/components/Footer'
 
 export const getServerSideProps = (async () => {
   const isServerSideReq = true
@@ -87,6 +88,11 @@ export default function Artists({
           {isLoading && <LoadingSpinner />}
           {!isLoading && !endReached && <div className={styles['spacer']} />}
         </div>
+        {
+          !isLoading && (
+            <Footer />
+          )
+        }
       </div>
     </>
   )
