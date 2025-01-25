@@ -3,6 +3,7 @@
 }
 
 .disclaimer {
+  color: var(--text-secondary-color);
   font-size: 12px;
   text-align: center;
   margin: 3rem;
