@@ -20,6 +20,7 @@ type ServerSidePropsParams = {
 }
 
 export const getServerSideProps = (async (context: GetServerSidePropsContext) => {
+  const isServerSideReq = true
   if (!pageRules.artists) {
     return {
       notFound: true
@@ -37,7 +38,7 @@ export const getServerSideProps = (async (context: GetServerSidePropsContext) =>
 
   if (artistIdOrSlug) {
     try {
-      const data = await getArtist(artistIdOrSlug, true)
+      const data = await getArtist(artistIdOrSlug, isServerSideReq)
       if (data) {
         initialArtist = data
       }
@@ -52,7 +53,7 @@ export const getServerSideProps = (async (context: GetServerSidePropsContext) =>
   }
 
   if (!shouldRedirect && initialArtist) {
-    const data = await getImagesByArtistId({ page: 1, artistId: initialArtist.id, sort: 'random'})
+    const data = await getImagesByArtistId({ page: 1, artistId: initialArtist.id, sort: 'random'}, isServerSideReq)
     initialImages = data?.[0] || []
     initialImagesTotal = data?.[1] || 0
   }

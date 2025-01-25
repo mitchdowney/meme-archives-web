@@ -9,13 +9,14 @@ import styles from '@/styles/Artists.module.css'
 import { configPageText, configSocials, pageRules } from '@/lib/constants/configurables'
 
 export const getServerSideProps = (async () => {
+  const isServerSideReq = true
   if (!pageRules.artists) {
     return {
       notFound: true
     }
   }
 
-  const data = await getArtists({ page: 1 })
+  const data = await getArtists({ page: 1 }, isServerSideReq)
   const initialArtists: Artist[] = data || []
 
   return {
