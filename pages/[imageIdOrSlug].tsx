@@ -429,7 +429,7 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
                                         </>
                                       </Button>
                                     )
-                                  } */}
+                                  }
                                 </div>
                               )
                             } */}
