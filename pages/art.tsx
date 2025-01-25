@@ -21,6 +21,7 @@ import { getAllTagsWithImages, getTagById } from '@/services/tag'
 import styles from '@/styles/Art.module.css'
 import { parseQuerySortParam } from '@/services/apiRequest'
 import { initial } from 'lodash'
+import Footer from '@/components/Footer'
 
 type QueryParamImageType = 'paintings' | 'memes' | null
 
@@ -398,6 +399,11 @@ export default function Gallery({
           {isLoading && <LoadingSpinner />}
           {!isLoading && !endReached && <div className={styles['spacer']} />}
         </div>
+        {
+          !isLoading && endReached && (
+            <Footer />
+          )
+        }
       </div>
     </>
   )

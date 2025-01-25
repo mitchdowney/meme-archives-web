@@ -26,6 +26,7 @@ import Video from '@/components/Video'
 import Button from '@/components/Button'
 import { copyImageToClipboard } from '@/lib/clipboard'
 import { faCopy, faImage } from '@fortawesome/free-regular-svg-icons'
+import Footer from '@/components/Footer'
 
 type Props = {
   initialImage: ImageT | null
@@ -468,6 +469,11 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
                 </div>
               </div>
             </div>
+          )
+        }
+        {
+          !isLoading && (
+            <Footer />
           )
         }
       </div>

@@ -56,15 +56,15 @@ export const configImages = {
 
 // Set to empty string to disable
 export const configCharts = {
-  birdeyeUrl: 'https://birdeye.so/token/8x9c5qa4nvakKo5wHPbPa5xvTVMKmS26w4DRpCQLCLk3?chain=solana',
-  coingeckoUrl: 'https://www.coingecko.com/en/coins/ms-paint/usd',
+  birdeyeUrl: '',
+  coingeckoUrl: '',
   dexscreenerUrl: 'https://dexscreener.com/solana/8x9c5qa4nvakKo5wHPbPa5xvTVMKmS26w4DRpCQLCLk3',
-  dextoolsUrl: 'https://www.dextools.io/app/en/solana/pair-explorer/NniGZMgEpXL9jTmEATcKMxUbmH5cSNALngJKAQLTXzB'
+  dextoolsUrl: ''
 }
 
 // Set to empty string to disable
 export const configSocials = {
-  farcasterUrl: 'https://warpcast.com/paintsol',
+  farcasterUrl: '',
   telegramUrl: 'https://t.co/OjMn6rdbaU',
   twitterUrl: 'https://twitter.com/mspaintsol',
   twitterHandle: '@mspaintsol'

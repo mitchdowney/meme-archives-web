@@ -17,6 +17,7 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons/faEdit'
 import FAIcon from '@/components/FAIcon'
 import { useRouter } from 'next/router'
 import { configPageText, configSocials, pageRules } from '@/lib/constants/configurables'
+import Footer from '@/components/Footer'
 
 type ServerSidePropsParams = {
   collectionIdOrSlug?: string
@@ -203,6 +204,11 @@ export default function CollectionPage({
           {isLoading && <LoadingSpinner />}
           {!isLoading && !endReached && <div className={styles['spacer']} />}
         </div>
+        {
+          !isLoading && endReached && (
+            <Footer />
+          )
+        }
       </div>
     </>
   )

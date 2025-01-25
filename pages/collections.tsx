@@ -12,6 +12,7 @@ import { Collection } from '@/lib/types'
 import { getCollections } from '@/services/collection'
 import styles from '@/styles/Collections.module.css'
 import { configPageText, configSocials, pageRules } from '@/lib/constants/configurables'
+import Footer from '@/components/Footer'
 
 export const getServerSideProps = (async () => {
   const isServerSideReq = true
@@ -92,6 +93,11 @@ export default function Collections({
           {isLoading && <LoadingSpinner />}
           {!isLoading && !endReached && <div className={styles['spacer']} />}
         </div>
+        {
+          !isLoading && endReached && (
+            <Footer />
+          )
+        }
       </div>
     </>
   )
