@@ -33,7 +33,7 @@ export const pageRules: PageRules = {
   whitepaper: true,
   roadmap: true,
   resources: true,
-  memeMaker: false,
+  memeMaker: true,
   admin: true,
   // If you'd like the home page to load the gallery instead of the splash page,
   // set homePageIsGallery to true, and rename the pages/art.tsx file to pages/index.tsx.
@@ -77,7 +77,7 @@ export const configText = {
 
 export const configMemeMaker = {
   name: 'Meme Maker',
-  urlPath: '/meme-maker',
+  urlPath: '/meme-maker.html',
   defaultImageId: 6 // 78
 }
 

@@ -105,6 +105,7 @@ const getDropdownMenuItems = () => {
 
   if (pageRules.memeMaker) {
     dropdownItems.push({
+      as: 'a',
       className: `${styles['dropdown-item']} d-sm-none`,
       href: configMemeMaker.urlPath,
       label: configMemeMaker.name,
@@ -329,12 +330,12 @@ export default function NavBar() {
             {
               pageRules.memeMaker && (
                 <li className='nav-item d-block d-sm-block'>
-                  <Link
+                  <a
                     className={`nav-link ${styles['nav-link-text']} ${isMemeMaker ? 'active' : ''}`}
                     {...(isMemeMaker ? { 'aria-current': 'page' } : {})}
                     href={configMemeMaker.urlPath}>
                     {configMemeMaker.name}
-                  </Link>
+                  </a>
                 </li>
               )
             }

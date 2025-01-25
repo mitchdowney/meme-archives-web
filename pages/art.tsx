@@ -16,7 +16,7 @@ import { CurationInfoText } from '@/lib/constants/curationInfoText'
 import { Artist, FilterTypes, Image, QuerySort, Tag, ViewTypes } from '@/lib/types'
 import { checkIfValidInteger } from '@/lib/validation'
 import { getAllArtistsWithImages, getArtist } from '@/services/artist'
-import { ImageType, getImages, getImagesByArtistId, getImagesByTagId, getImagesWithoutArtists } from '@/services/image'
+import { ImageType, getImages, getImagesByArtistId, getImagesByTagId, getImagesByTagTitle, getImagesWithoutArtists } from '@/services/image'
 import { getAllTagsWithImages, getTagById } from '@/services/tag'
 import styles from '@/styles/Art.module.css'
 import { parseQuerySortParam } from '@/services/apiRequest'
@@ -49,7 +49,7 @@ export const getServerSideProps = (async (context: GetServerSidePropsContext) =>
 
   const { query, req } = context
   const { cookie: cookies } = req.headers
-  const { artistId, noArtist, sort, tagId, type } = query
+  const { artistId, noArtist, sort, tagId, tagTitle, type } = query
 
   const initialSelectedImageType = getCurrentImageType(type as any)
   const initialSort = parseQuerySortParam(sort as string)
@@ -73,7 +73,18 @@ export const getServerSideProps = (async (context: GetServerSidePropsContext) =>
 
   let initialInputText = ''
 
-  if (!artistIdIsValidInteger && noArtist) {
+  if (tagTitle) {
+    const formattedTagTitle = encodeURIComponent(tagTitle as string) || null
+    initialTag = initialAllTags.find((tag) => tag?.title?.toLowerCase() === formattedTagTitle?.toLowerCase()?.trim()) || null
+    const data = await getImagesByTagTitle({
+      page: 1,
+      tagTitle: tagTitle as string,
+      imageType: initialSelectedImageType,
+      ...(isVideosPage ? { imageMediumType: 'video' } : {})
+    })
+    initialImages = data?.[0] || []
+    initialImagesTotal = data?.[1] || 0
+  } else if (!artistIdIsValidInteger && noArtist) {
     const data = await getImagesWithoutArtists({
       page: 1
     })
@@ -114,7 +125,7 @@ export const getServerSideProps = (async (context: GetServerSidePropsContext) =>
   }
 
   const parsedCookies = cookies ? serverSideCookieLib.parse(cookies) : {}
-  const initialViewType: ViewTypes = parsedCookies?.artViewTypeSelected as ViewTypes || 'small'
+  const initialViewType: ViewTypes = parsedCookies?.artViewTypeSelected as ViewTypes || 'tiny'
 
   return {
     props: {

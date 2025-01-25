@@ -414,7 +414,7 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
                                       />
                                     </>
                                   </Button>
-                                  {
+                                  {/* {
                                     pageRules.memeMaker && (
                                       <Button
                                         as='a'
@@ -429,7 +429,7 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
                                         </>
                                       </Button>
                                     )
-                                  }
+                                  } */}
                                 </div>
                               )
                             } */}

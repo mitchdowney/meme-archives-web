@@ -199,6 +199,28 @@ export const getImagesByTagId = async ({ page = 1, tagId, imageType, imageMedium
   return response?.data
 }
 
+type GetImagesByTagTitle = {
+  page: number
+  tagTitle: string,
+  imageType: ImageType
+  imageMediumType?: ImageMediumType
+}
+
+export const getImagesByTagTitle = async ({ page = 1, tagTitle, imageType, imageMediumType }: GetImagesByTagTitle) => {
+  const response = await apiRequest({
+    method: 'GET',
+    url: '/images/by-tag',
+    params: {
+      page,
+      title: tagTitle,
+      imageType,
+      imageMediumType
+    }
+  })
+
+  return response?.data
+}
+
 type GetImagesByCollectionId = {
   page?: number
   collection_id: number
