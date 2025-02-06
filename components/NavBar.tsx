@@ -113,14 +113,14 @@ const getDropdownMenuItems = () => {
     })
   }
 
-  if (pageRules.artists) {
-    dropdownItems.push({
-      className: `${styles['dropdown-item']} d-md-none`,
-      href: '/artists',
-      label: 'Artists',
-      target: '_self'
-    })
-  }
+  // if (pageRules.artists) {
+  //   dropdownItems.push({
+  //     className: `${styles['dropdown-item']} d-md-none`,
+  //     href: '/artists',
+  //     label: 'Artists',
+  //     target: '_self'
+  //   })
+  // }
 
   if (pageRules.collections) {
     dropdownItems.push({
@@ -339,7 +339,7 @@ export default function NavBar() {
                 </li>
               )
             }
-            {
+            {/* {
               pageRules.artists && (
                 <li className='nav-item d-block d-sm-none d-md-block d-lg-block d-xl-block'>
                   <Link
@@ -350,7 +350,7 @@ export default function NavBar() {
                   </Link>
                 </li>
               )
-            }
+            } */}
             {
               pageRules.collections && (
                 <li className='nav-item d-block d-sm-none d-md-block d-lg-block d-xl-block'>

@@ -22,11 +22,11 @@ type ServerSidePropsParams = {
 
 export const getServerSideProps = (async (context: GetServerSidePropsContext) => {
   const isServerSideReq = true
-  if (!pageRules.artists) {
-    return {
-      notFound: true
-    }
-  }
+  // if (!pageRules.artists) {
+  //   return {
+  //     notFound: true
+  //   }
+  // }
 
   const { params, req, res } = context
   const { artistIdOrSlug } = params as ServerSidePropsParams

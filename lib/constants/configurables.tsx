@@ -27,7 +27,7 @@ export const pageRules: PageRules = {
   gallery: true,
   memes: false,
   videos: false,
-  artists: false,
+  artists: true,
   collections: false,
   stickers: false,
   whitepaper: false,

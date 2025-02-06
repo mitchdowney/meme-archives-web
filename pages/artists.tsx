@@ -11,11 +11,11 @@ import Footer from '@/components/Footer'
 
 export const getServerSideProps = (async () => {
   const isServerSideReq = true
-  if (!pageRules.artists) {
-    return {
-      notFound: true
-    }
-  }
+  // if (!pageRules.artists) {
+  //   return {
+  //     notFound: true
+  //   }
+  // }
 
   const data = await getArtists({ page: 1 }, isServerSideReq)
   const initialArtists: Artist[] = data || []
