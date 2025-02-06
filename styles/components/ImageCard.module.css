@@ -3,6 +3,8 @@
   --bs-card-spacer-y: 0.6rem;
   --bs-card-title-spacer-y: 0.25rem;
   border: 1px solid var(--border-secondary);
+  background-color: transparent;
+  border-radius: 0 !important;
 }
 
 .image-title {

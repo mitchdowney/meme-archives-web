@@ -4,24 +4,24 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>ace dat</title>
-    <!-- <meta name="description" content="ace dat"> -->
+    <title>Riptard Meme Maker</title>
+    <!-- <meta name="description" content="Riptard Meme Maker"> -->
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://acecatsol.fun/memegen" />
-    <meta property="og:title" content="ace dat" />
+    <meta property="og:url" content="https://memes.riptarded.com/meme-maker.html" />
+    <meta property="og:title" content="Riptard Meme Maker - Meme Maker" />
     <!-- <meta property="og:description" content="A brief description of your page content"> -->
-    <meta property="og:image" content="https://acecatsol.fun/assets/left.png" />
+    <meta property="og:image" content="https://riptarded.com/logo-preview.png" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="https://acecatsol.fun/memegen" />
-    <meta name="twitter:title" content="ace dat" />
+    <meta name="twitter:url" content="https://riptarded.com/meme-maker.html" />
+    <meta name="twitter:title" content="Riptard Meme Maker - Meme Maker" />
     <!-- <meta name="twitter:description" content="A brief description of your page content"> -->
     <meta
       name="twitter:image"
-      content="https://acecatsol.fun/assets/left.png"
+      content="https://riptarded.com/logo-preview.png"
     />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -30,7 +30,7 @@
       rel="icon"
       type="image/png"
       sizes="64x64"
-      href="https://acecatsol.fun/assets/favicon.png"
+      href="https://riptarded.com/favicon.ico"
     />
     <link
       rel="preload"
@@ -55,9 +55,9 @@
       html {
         height: 100%;
         margin: 0;
-        font-family: "Dongle", sans-serif;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         color: white;
-        background-color: #00a3e8;
+        background-color: #000000;
       }
 
       .meme-maker-wrapper {
@@ -68,13 +68,13 @@
       }
 
       .meme-maker-wrapper h1 {
-        margin: 0;
-        font-size: 84px;
-        line-height: 84px;
+        margin: 16px 0 4px 0;
+        font-size: 52px;
+        font-weight: 400;
       }
 
       .meme-maker-inner-wrapper {
-        padding: 1rem;
+        padding: 0.25rem 1rem;
       }
 
       .meme-maker-images {
@@ -82,17 +82,18 @@
         overflow-x: auto;
         height: 156px;
         align-items: center;
+        justify-content: center;
         width: 100%;
-        margin: 0 0 2rem 0;
+        margin: 0 0 0.75rem 0;
         padding: 0.5rem 0;
         scrollbar-width: thin; /* For Firefox */
-        scrollbar-color: #00a3e8 #fff; /* Scrollbar track color, Scrollbar thumb color */
+        scrollbar-color: #000000 #595a5c; /* Scrollbar track color, Scrollbar thumb color */
       }
 
       .meme-maker-images img {
         object-fit: contain;
         margin-right: 10px;
-        max-width: 125px;
+        max-width: 110px;
         max-height: 100%;
         width: auto;
         cursor: pointer;
@@ -100,10 +101,11 @@
       }
 
       .select-image {
-        border: 1px solid white;
+        border: 1px solid #595a5c;
         border-radius: 8px;
         height: 300px;
         display: flex;
+        margin: 0 0 0 0;
         align-items: center;
         justify-content: center;
         flex-direction: column;
@@ -112,13 +114,12 @@
       }
 
       .select-image-text {
-        font-size: 52px;
-        line-height: 38px;
+        font-size: 32px;
       }
 
       .select-image-mini-text {
-        font-size: 40px;
-        line-height: 38px;
+        font-size: 24px;
+        margin: 8px 0;
       }
 
       .meme-maker {
@@ -205,21 +206,17 @@
       }
 
       .meme-maker-buttons {
-        margin: 2rem 0 0 0;
+        margin: 32px 0;
       }
 
       .meme-maker-button {
-        font-family: "Dongle", sans-serif;
-        font-size: 32px;
-        padding: 0.25rem 1.125rem 0 1.125rem;
+        font-size: 20px;
         border-radius: 54px !important;
-        line-height: 40px;
-        border: 2px solid white;
+        border: 1px solid white;
         background-color: transparent;
         color: white;
         cursor: pointer;
-        width: 128px;
-        height: 48px;
+        padding: 8px 20px;
       }
 
       .meme-maker-button:focus {
@@ -231,15 +228,9 @@
   <body>
     <div class="meme-maker-wrapper">
       <div class="meme-maker-inner-wrapper">
-        <h1>ace dat</h1>
+        <h1>Riptard Meme Maker</h1>
         <div class="meme-maker-images">
-          <img src="./meme-maker/assets/ace.png" alt="Ace" />
-          <img src="./meme-maker/assets/ace-2.png" alt="Ace 2" />
-          <img src="./meme-maker/assets/cap.png" alt="Cap" />
-          <img src="./meme-maker/assets/glasses.png" alt="Glasses" />
-          <img src="./meme-maker/assets/saudi.png" alt="Saudi" />
-          <img src="./meme-maker/assets/sneaker.png" alt="Sneaker" />
-          <img src="./meme-maker/assets/gun.png" alt="Gun" />
+          <img src="./meme-maker/assets/riptard-head.png" />
         </div>
         <div class="select-image">
           <div class="select-image-text">click to add image</div>
@@ -257,7 +248,7 @@
             <img
               class="meme-maker-bg-image"
               src=""
-              alt="ace dat background image"
+              alt="riptard meme maker background image"
             />
           </div>
         </div>
@@ -427,18 +418,17 @@
       )
 
       $(".meme-maker-button-download").click(function () {
-        html2canvas(document.querySelector(".meme-maker-canvas")).then(
-          (canvas) => {
-            let image = canvas
-              .toDataURL("image/png")
-              .replace("image/png", "image/octet-stream")
-            let tempLink = document.createElement("a")
-            tempLink.href = image
-            tempLink.download = "aced.png"
-            tempLink.click()
-          }
-        )
-      })
+        html2canvas(document.querySelector(".meme-maker-canvas")).then((canvas) => {
+          let image = canvas
+            .toDataURL("image/png")
+            .replace("image/png", "image/octet-stream");
+          let tempLink = document.createElement("a");
+          tempLink.href = image;
+          let epochTime = Math.floor(Date.now() / 1000);
+          tempLink.download = `riptard-${epochTime}.png`;
+          tempLink.click();
+        });
+      });
 
       let isRotationBarDrag = false
 

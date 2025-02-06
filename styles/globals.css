@@ -85,19 +85,19 @@ svg[data-icon="instagram"] {
 
 .image-element {
   position: absolute;
-  z-index: 10;
+  z-index: -1;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   height: 100% !important;
   object-fit: cover;
-  border-top-left-radius: 6px;
-  border-top-right-radius: 6px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
 
 .image-element-all-border-radius {
-  border-radius: 6px;
+  border-radius: 0px;
 }
 
 /* Modal */

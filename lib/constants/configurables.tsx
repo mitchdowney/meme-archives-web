@@ -26,7 +26,7 @@ export const pageRules: PageRules = {
   // Enable or disable pages 
   gallery: true,
   memes: false,
-  videos: true,
+  videos: false,
   artists: false,
   collections: false,
   stickers: false,
@@ -91,7 +91,7 @@ export const configPageText = {
     metaDescription: ''
   },
   art: {
-    metaTitle: `${configText.appName} - Memes`,
+    metaTitle: `${configText.appName}`,
     metaDescription: ''
   },
   artist: {
