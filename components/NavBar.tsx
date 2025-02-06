@@ -309,7 +309,7 @@ export default function NavBar() {
                     className={`nav-link ${styles['nav-link-text']} ${isArtGallery ? 'active' : ''}`}
                     {...(isArtGallery ? { 'aria-current': 'page' } : {})}
                     href={pageRules.homePageIsGallery ? '/' : '/art'}>
-                    Gallery
+                    Memes
                   </a>
                 </li>
               )
