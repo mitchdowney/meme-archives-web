@@ -59,6 +59,7 @@
 }
 
 .prev-svg {
+  all: unset;
   color: var(--bs-body-color);
   margin: 0 0 0 1.25rem;
 }
@@ -70,6 +71,7 @@
 }
 
 .next-svg {
+  all: unset;
   color: var(--bs-body-color);
   margin: 0 0 0 1.25rem;
 }
