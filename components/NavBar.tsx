@@ -282,10 +282,10 @@ export default function NavBar() {
           <Image
             alt={imageAlt}
             height={48}
-            imageSrc='/horizontal-logo.png'
+            imageSrc='/logo-small-square.png'
             priority
             title={imageAlt}
-            width={175}
+            width={48}
           />
         </a>
         <button
