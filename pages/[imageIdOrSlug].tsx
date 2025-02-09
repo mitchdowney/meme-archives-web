@@ -21,7 +21,7 @@ import styles from '@/styles/ImageIdOrSlug.module.css'
 import { checkIfValidInteger } from '@/lib/validation'
 import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus'
 import { addImageToCollection, getAllCollections } from '@/services/collection'
-import { configMemeMaker, configSocials, configText, pageRules } from '@/lib/constants/configurables'
+import { configSocials, configText, pageRules } from '@/lib/constants/configurables'
 import Video from '@/components/Video'
 import Button from '@/components/Button'
 import { copyImageToClipboard } from '@/lib/clipboard'
@@ -117,6 +117,10 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.isReady, searchParams])
 
+  const handleNavigation = (url: string) => {
+    setIsLoading(true)
+    window.location.href = url
+  }
 
   function tagBadgeOnClick(tag: Tag) {
     tagNavigation(tag)
@@ -183,23 +187,23 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
   })
 
   const prevNav = (
-    <Link className={styles['prev-svg']} href={`/${prevData?.slug ? prevData.slug : prevData?.id}`}>
+    <button className={styles['prev-svg']} onClick={() => handleNavigation(`/${prevData?.slug ? prevData.slug : prevData?.id}`)}>
       <FAIcon
         className='arrow-left'
         icon={faArrowLeft}
         title='Go to previous image'
       />
-    </Link>
+    </button>
   )
-
+  
   const nextNav = (
-    <Link className={styles['next-svg']} href={`/${nextData?.slug ? nextData.slug : nextData?.id}`}>
+    <button className={styles['next-svg']} onClick={() => handleNavigation(`/${nextData?.slug ? nextData.slug : nextData?.id}`)}>
       <FAIcon
         className='arrow-right'
         icon={faArrowRight}
         title='Go to next image'
       />
-    </Link>
+    </button>
   )
 
   const generateCollectionOptions = () => {
