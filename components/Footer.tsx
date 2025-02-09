@@ -8,7 +8,7 @@ export default function Footer() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsVisible(true)
-    }, 1000)
+    }, 500)
 
     return () => clearTimeout(timer)
   }, [])
