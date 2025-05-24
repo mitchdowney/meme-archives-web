@@ -67,12 +67,12 @@ export default function Home() {
                   <Link
                     className={`link-primary ${styles['art-link']}`}
                     href='/art'>
-                    Visit the Art Gallery
+                    Visit the Meme Gallery
                   </Link>
                 </div>
                 <div className={styles['contract-wrapper']}>
                   <h2 className={styles['contract-label']}>CONTRACT:</h2>
-                  <h2 className={styles['contract-address']}>8x9c5qa4nvakKo5wHPbPa5xvTVMKmS26w4DRpCQLCLk3</h2>
+                  <h2 className={styles['contract-address']}>---</h2>
                 </div>
               </>
             )
