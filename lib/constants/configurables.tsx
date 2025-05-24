@@ -66,8 +66,12 @@ export const configCharts = {
 export const configSocials = {
   farcasterUrl: '',
   telegramUrl: 'https://t.co/OjMn6rdbaU',
+  discordUrl: '',
   twitterUrl: 'https://twitter.com/mspaintsol',
-  twitterHandle: '@mspaintsol'
+  twitterHandle: '@mspaintsol',
+  instagramUrl: '',
+  youtubeUrl: '',
+  tiktokUrl: '',
 }
 
 export const configText = {

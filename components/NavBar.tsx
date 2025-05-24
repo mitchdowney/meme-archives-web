@@ -1,4 +1,5 @@
 import { FontAwesomeIconProps } from '@fortawesome/react-fontawesome'
+import { faDiscord } from '@fortawesome/free-brands-svg-icons/faDiscord'
 import { faTelegram } from '@fortawesome/free-brands-svg-icons/faTelegram'
 import { faXTwitter } from '@fortawesome/free-brands-svg-icons/faXTwitter'
 import Link from 'next/link'
@@ -11,6 +12,7 @@ import styles from '@/styles/components/NavBar.module.css'
 import { useEffect, useRef } from 'react'
 import Dropdown, { DropdownItem } from './Dropdown'
 import { configCharts, configMemeMaker, configSocials, configText, pageRules } from '@/lib/constants/configurables'
+import { faInstagram, faTiktok, faYoutube } from '@fortawesome/free-brands-svg-icons'
 
 const navIconSize = 24
 
@@ -414,7 +416,11 @@ export default function NavBar() {
             {
               (configSocials.farcasterUrl
               || configSocials.telegramUrl
-              || configSocials.twitterUrl) && (
+              || configSocials.discordUrl
+              || configSocials.twitterUrl
+              || configSocials.instagramUrl
+              || configSocials.tiktokUrl
+              || configSocials.youtubeUrl) && (
                 <>
                   <div className='flex-grow-1' />
                   <div className={styles['social-links']}>
@@ -429,11 +435,48 @@ export default function NavBar() {
                       )
                     }
                     {
+                      configSocials.discordUrl && (
+                        <NavLinkFAIcon
+                          icon={faDiscord}
+                          title='Discord'
+                          url={configSocials.discordUrl}
+                        />
+                      )
+                    }
+                    {
                       configSocials.twitterUrl && (
                         <NavLinkFAIcon
                           icon={faXTwitter}
                           title='X - Twitter'
                           url={configSocials.twitterUrl}
+                        />
+                      )
+                    }
+                    {
+                      configSocials.instagramUrl && (
+                        <NavLinkFAIcon
+                          icon={faInstagram}
+                          style={{ marginTop: '1px' }}
+                          title='Instagram'
+                          url={configSocials.instagramUrl}
+                        />
+                      )
+                    }
+                    {
+                      configSocials.tiktokUrl && (
+                        <NavLinkFAIcon
+                          icon={faTiktok}
+                          title='TikTok'
+                          url={configSocials.tiktokUrl}
+                        />
+                      )
+                    }
+                    {
+                      configSocials.youtubeUrl && (
+                        <NavLinkFAIcon
+                          icon={faYoutube}
+                          title='YouTube'
+                          url={configSocials.youtubeUrl}
                         />
                       )
                     }
@@ -469,7 +512,7 @@ export default function NavBar() {
                   {
                     configCharts.dexscreenerUrl && (
                       <NavLinkIcon
-                        className='d-sm-none d-md-none d-xl-block'
+                        className='d-sm-none d-md-none d-xl-block dexscreener-icon'
                         imageSrc='/external-sites/dexscreener.svg'
                         title='DEX Screener'
                         url={configCharts.dexscreenerUrl}

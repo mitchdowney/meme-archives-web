@@ -36,6 +36,12 @@ svg[data-icon="telegram"] {
   width: 24px;
 }
 
+svg[data-icon="discord"] {
+  color: var(--branding-color-discord);
+  height: 24px;
+  width: 24px;
+}
+
 svg[data-icon="x-twitter"] {
   color: var(--branding-color-twitter);
   height: 24px;
@@ -46,6 +52,23 @@ svg[data-icon="instagram"] {
   color: var(--branding-color-instagram);
   height: 24px;
   width: 24px;
+}
+
+svg[data-icon="youtube"] {
+  color: var(--branding-color-youtube);
+  height: 24px;
+  width: 24px;
+}
+
+svg[data-icon="tiktok"] {
+  color: var(--branding-color-tiktok);
+  height: 22px;
+  width: 22px;
+}
+
+.dexscreener-icon {
+  margin-top: 1px;
+  margin-left: -3px;
 }
 
 /* react zoom */

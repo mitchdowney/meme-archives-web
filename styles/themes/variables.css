@@ -3,9 +3,12 @@
   --admin-widget-text-color: #333;
   --border-default: #ccc;
   --border-secondary: #e7e7e7;
-  --branding-color-instagram: #000;
+  --branding-color-instagram: #C13584;
   --branding-color-telegram: #229ed9;
+  --branding-color-discord: #7289da;
   --branding-color-twitter: #000;
+  --branding-color-youtube: #ff0000;
+  --branding-color-tiktok: #25F4EE;
   --info-box-bg-color: #c3e7f5;
   --input-placeholder-icon-color: var(--bs-border-color);
   --modal-overlay-bg-color: rgba(0, 0, 0, 0.75);
@@ -23,9 +26,12 @@
     --border-default: #dee2e6;
     --border-secondary: #595a5c;
     --bs-body-bg: #212529;
-    --branding-color-instagram: #fff;
+    --branding-color-instagram: #C13584;
     --branding-color-telegram: #229ed9;
+    --branding-color-discord: #7289da;
     --branding-color-twitter: #fff;
+    --branding-color-youtube: #ff0000;
+    --branding-color-tiktok: #25F4EE;
     --info-box-bg-color: #c3e7f5;
     --input-placeholder-icon-color: var(--bs-border-color);
     --modal-overlay-bg-color: rgba(0, 0, 0, 0.75);
