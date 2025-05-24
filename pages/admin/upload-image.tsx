@@ -641,7 +641,7 @@ export default function UploadImage() {
                   />
                   <div id="emailHelp" className="form-text">{'Alphanumeric and hyphens only. Slug is used for a custom url path.'}</div>
                 </div>
-                {/* {
+                {
                   (imageNoBorderSrc && !imageBorderSrc) && (
                     <div className={`form-check ${styles['form-toggle-wrapper']}`}>
                       <input
@@ -659,8 +659,8 @@ export default function UploadImage() {
                       </label>
                     </div>
                   )
-                } */}
-                {/* {
+                }
+                {
                   (imageNoBorderSrc && !imageBorderSrc && shouldPreventBorderImage) && (
                     <div className={`form-check ${styles['form-toggle-wrapper']}`}>
                       <input
@@ -678,7 +678,7 @@ export default function UploadImage() {
                       </label>
                     </div>
                   )
-                } */}
+                }
                 {
                   imageNoBorderSrc && !imageBorderSrc && willCropPreviewImage && (
                     <div className={`${styles['form-select-wrapper']}`}>
