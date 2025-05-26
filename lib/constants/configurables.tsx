@@ -72,7 +72,7 @@ export const configSocials = {
   instagramUrl: '',
   youtubeUrl: '',
   tiktokUrl: '',
-  linktreeUrl: ''
+  linktreeUrl: 'https://linktr.ee/croccat'
 }
 
 export const configText = {
