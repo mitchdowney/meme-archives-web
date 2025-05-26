@@ -28,7 +28,7 @@ export default function Home() {
   const metaDescription = configPageText.home.metaDescription
   const metaImageUrl = `${process.env.NEXT_PUBLIC_WEB_BASE_URL}/logo-preview.png`
 
-  const imageAlt = `${configText.appName} Logo`
+  const imageAlt = `${configText.appName} logo`
 
   return (
     <>

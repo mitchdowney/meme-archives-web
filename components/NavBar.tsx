@@ -184,7 +184,7 @@ const getDropdownMenuItems = () => {
         <NavDropdownIcon
           imageSrc='/external-sites/birdeye.svg'
           key='nav-birdeye-icon'
-          title='Birdeye'
+          title='birdeye'
           url={configCharts.birdeyeUrl}
         />
       )
@@ -194,7 +194,7 @@ const getDropdownMenuItems = () => {
         <NavDropdownIcon
           imageSrc='/external-sites/dexscreener.svg'
           key='nav-dexscreener-icon'
-          title='DEX Screener'
+          title='dex screener'
           url={configCharts.dexscreenerUrl}
         />
       )
@@ -204,7 +204,7 @@ const getDropdownMenuItems = () => {
         <NavDropdownIcon
           imageSrc='/external-sites/dextools.svg'
           key='nav-dextools-icon'
-          title='DEXTools'
+          title='dextools'
           url={configCharts.dextoolsUrl}
         />
       )
@@ -214,7 +214,7 @@ const getDropdownMenuItems = () => {
         <NavDropdownIcon
           imageSrc='/external-sites/coingecko.svg'
           key='nav-coingecko-icon'
-          title='CoinGecko'
+          title='coingecko'
           url={configCharts.coingeckoUrl}
         />
       )
@@ -265,7 +265,7 @@ export default function NavBar() {
 
   const dropdownItems: DropdownItem[] = getDropdownMenuItems()
   
-  const imageAlt = `${configText.appName} Logo`
+  const imageAlt = `${configText.appName} logo`
 
   return (
     <nav
@@ -411,7 +411,7 @@ export default function NavBar() {
                     className={`nav-link ${styles['nav-link-text']} ${isResources ? 'active' : ''}`}
                     {...(isResources ? { 'aria-current': 'page' } : {})}
                     href='/resources'>
-                    Resources
+                    resources
                   </Link>
                 </li>
               )
@@ -433,7 +433,7 @@ export default function NavBar() {
                         <NavLinkFAIcon
                           icon={faTelegram}
                           style={{ marginRight: '-1px' }}
-                          title='Telegram'
+                          title='telegram'
                           url={configSocials.telegramUrl}
                         />
                       )
@@ -442,7 +442,7 @@ export default function NavBar() {
                       configSocials.discordUrl && (
                         <NavLinkFAIcon
                           icon={faDiscord}
-                          title='Discord'
+                          title='discord'
                           url={configSocials.discordUrl}
                         />
                       )
@@ -451,7 +451,7 @@ export default function NavBar() {
                       configSocials.twitterUrl && (
                         <NavLinkFAIcon
                           icon={faXTwitter}
-                          title='X - Twitter'
+                          title='x - twitter'
                           url={configSocials.twitterUrl}
                         />
                       )
@@ -461,7 +461,7 @@ export default function NavBar() {
                         <NavLinkFAIcon
                           icon={faInstagram}
                           style={{ marginTop: '1px' }}
-                          title='Instagram'
+                          title='instagram'
                           url={configSocials.instagramUrl}
                         />
                       )
@@ -470,7 +470,7 @@ export default function NavBar() {
                       configSocials.tiktokUrl && (
                         <NavLinkFAIcon
                           icon={faTiktok}
-                          title='TikTok'
+                          title='tiktok'
                           url={configSocials.tiktokUrl}
                         />
                       )
@@ -479,7 +479,7 @@ export default function NavBar() {
                       configSocials.youtubeUrl && (
                         <NavLinkFAIcon
                           icon={faYoutube}
-                          title='YouTube'
+                          title='youtube'
                           url={configSocials.youtubeUrl}
                         />
                       )
@@ -488,7 +488,7 @@ export default function NavBar() {
                       configSocials.farcasterUrl && (
                         <NavLinkIcon
                           imageSrc='/external-sites/farcaster.png'
-                          title='Farcaster'
+                          title='farcaster'
                           url={configSocials.farcasterUrl}
                         />
                       )
@@ -497,7 +497,7 @@ export default function NavBar() {
                       configSocials.linktreeUrl && (
                         <NavLinkIcon
                           imageSrc='/external-sites/linktree.png'
-                          title='Linktree'
+                          title='linktree'
                           url={configSocials.linktreeUrl}
                         />
                       )
@@ -517,7 +517,7 @@ export default function NavBar() {
                       <NavLinkIcon
                         className='d-sm-none d-md-none d-xl-block'
                         imageSrc='/external-sites/birdeye.svg'
-                        title='Birdeye'
+                        title='birdeye'
                         url={configCharts.birdeyeUrl}
                       />
                     )
@@ -527,7 +527,7 @@ export default function NavBar() {
                       <NavLinkIcon
                         className='d-sm-none d-md-none d-xl-block dexscreener-icon'
                         imageSrc='/external-sites/dexscreener.svg'
-                        title='DEX Screener'
+                        title='dex screener'
                         url={configCharts.dexscreenerUrl}
                       />
                     )
@@ -537,7 +537,7 @@ export default function NavBar() {
                       <NavLinkIcon
                         className='d-sm-none d-md-none d-xl-block'
                         imageSrc='/external-sites/dextools.svg'
-                        title='DEXTools'
+                        title='dextools'
                         url={configCharts.dextoolsUrl}
                       />
                     )
@@ -547,7 +547,7 @@ export default function NavBar() {
                       <NavLinkIcon
                         className='d-sm-none d-md-none d-xl-block'
                         imageSrc='/external-sites/coingecko.svg'
-                        title='CoinGecko'
+                        title='coingecko'
                         url={configCharts.coingeckoUrl}
                       />
                     )
