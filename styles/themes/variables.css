@@ -10,7 +10,7 @@
   --branding-color-youtube: #ff0000;
   --branding-color-tiktok: #25F4EE;
   --info-box-bg-color: #c3e7f5;
-  --input-placeholder-icon-color: var(--bs-border-color);
+  /* --input-placeholder-icon-color: var(--bs-border-color); */
   --modal-overlay-bg-color: rgba(0, 0, 0, 0.75);
   --modal-overlay-button-color: #fff;
   --nav-dropdown-toggle: #a7acb1;
@@ -19,7 +19,7 @@
   --view-selector-color-active: #333;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --admin-widget-bg-color: #faa;
     --admin-widget-text-color: #333;
@@ -41,4 +41,4 @@
     --view-selector-color: #595a5c;
     --view-selector-color-active: #bdbdbe;
   }
-}
+} */
