@@ -58,7 +58,7 @@ export const configImages = {
 export const configCharts = {
   birdeyeUrl: '',
   coingeckoUrl: '',
-  dexscreenerUrl: 'https://dexscreener.com/solana/cyncsecwzylwrx8zwq6ivj7ca6pl2csfatfi238wcqu5',
+  dexscreenerUrl: '',
   dextoolsUrl: ''
 }
 
