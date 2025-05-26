@@ -24,6 +24,7 @@ type NavLinkIconProps = {
 }
 
 function NavLinkIcon({ className, imageSrc, title, url }: NavLinkIconProps) {
+  title = title?.toLowerCase() || ''
   return (
     <li className={`nav-item ${className}`}>
       <Link
@@ -47,6 +48,7 @@ function NavLinkIcon({ className, imageSrc, title, url }: NavLinkIconProps) {
 type NavLinkFAIconProps = FontAwesomeIconProps & { url: string }
 
 function NavLinkFAIcon({ icon, style, title, url }: NavLinkFAIconProps) {
+  title = title?.toLowerCase() || ''
   return (
     <li className='nav-item'>
       <Link
@@ -73,6 +75,7 @@ type NavDropdownIconProps = {
 }
 
 function NavDropdownIcon({ imageSrc, title, url }: NavDropdownIconProps) {
+  title = title?.toLowerCase() || ''
   return (
     <li>
       <Link
@@ -100,7 +103,7 @@ const getDropdownMenuItems = () => {
     dropdownItems.push({
       className: `${styles['dropdown-item']} d-sm-none`,
       href: '/videos',
-      label: 'Videos',
+      label: 'videos',
       target: '_self'
     })
   }
@@ -119,7 +122,7 @@ const getDropdownMenuItems = () => {
     dropdownItems.push({
       className: `${styles['dropdown-item']} d-md-none`,
       href: '/artists',
-      label: 'Artists',
+      label: 'artists',
       target: '_self'
     })
   }
@@ -128,7 +131,7 @@ const getDropdownMenuItems = () => {
     dropdownItems.push({
       className: `${styles['dropdown-item']} d-md-none`,
       href: '/collections',
-      label: 'Collections',
+      label: 'collections',
       target: '_self'
     })
   }
@@ -137,7 +140,7 @@ const getDropdownMenuItems = () => {
     dropdownItems.push(    {
       className: `${styles['dropdown-item']} d-lg-none`,
       href: '/stickers',
-      label: 'Stickers',
+      label: 'stickers',
       target: '_self'
     })
   }
@@ -146,7 +149,7 @@ const getDropdownMenuItems = () => {
     dropdownItems.push({
       className: `${styles['dropdown-item']} d-lg-none`,
       href: '/whitepaper',
-      label: 'Whitepaper',
+      label: 'whitepaper',
       target: '_self'
     })
   }
@@ -155,7 +158,7 @@ const getDropdownMenuItems = () => {
     dropdownItems.push({
       className: `${styles['dropdown-item']} d-xl-none`,
       href: '/roadmap',
-      label: 'Roadmap',
+      label: 'roadmap',
       target: '_self'
     })
   }
@@ -164,7 +167,7 @@ const getDropdownMenuItems = () => {
     dropdownItems.push({
       className: `${styles['dropdown-item']} d-xl-none`,
       href: '/resources',
-      label: 'Resources',
+      label: 'resources',
       target: '_self'
     })
   }
@@ -311,7 +314,7 @@ export default function NavBar() {
                     className={`nav-link ${styles['nav-link-text']} ${isArtGallery ? 'active' : ''}`}
                     {...(isArtGallery ? { 'aria-current': 'page' } : {})}
                     href={pageRules.homePageIsGallery ? '/' : '/art'}>
-                    Gallery
+                    gallery
                   </a>
                 </li>
               )
@@ -324,7 +327,7 @@ export default function NavBar() {
                     className={`nav-link ${styles['nav-link-text']} ${isVideos ? 'active' : ''}`}
                     {...(isVideos ? { 'aria-current': 'page' } : {})}
                     href='/videos'>
-                    Videos
+                    videos
                   </a>
                 </li>
               )
@@ -348,7 +351,7 @@ export default function NavBar() {
                     className={`nav-link ${styles['nav-link-text']} ${isArtists ? 'active' : ''}`}
                     {...(isArtists ? { 'aria-current': 'page' } : {})}
                     href='/artists'>
-                    Artists
+                    artists
                   </Link>
                 </li>
               )
@@ -360,7 +363,7 @@ export default function NavBar() {
                     className={`nav-link ${styles['nav-link-text']} ${isCollections ? 'active' : ''}`}
                     {...(isCollections ? { 'aria-current': 'page' } : {})}
                     href='/collections'>
-                    Collections
+                    collections
                   </Link>
                 </li>
               )
@@ -372,7 +375,7 @@ export default function NavBar() {
                     className={`nav-link ${styles['nav-link-text']} ${isStickers ? 'active' : ''}`}
                     {...(isStickers ? { 'aria-current': 'page' } : {})}
                     href='/stickers'>
-                    Stickers
+                    stickers
                   </Link>
                 </li>
               )
@@ -384,7 +387,7 @@ export default function NavBar() {
                     className={`nav-link ${styles['nav-link-text']} ${isWhitepaper ? 'active' : ''}`}
                     {...(isWhitepaper ? { 'aria-current': 'page' } : {})}
                     href='/whitepaper'>
-                    Whitepaper
+                    whitepaper
                   </Link>
                 </li>
               )
@@ -396,7 +399,7 @@ export default function NavBar() {
                     className={`nav-link ${styles['nav-link-text']} ${isRoadmap ? 'active' : ''}`}
                     {...(isRoadmap ? { 'aria-current': 'page' } : {})}
                     href='/roadmap'>
-                    Roadmap
+                    roadmap
                   </Link>
                 </li>
               )
