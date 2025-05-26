@@ -76,7 +76,7 @@ export const configSocials = {
 }
 
 export const configText = {
-  appName: '$CROC',
+  appName: 'croc',
   disclaimer: 'This website is for entertainment and informational purposes only, not financial or investment advice.'
 }
 
@@ -88,15 +88,15 @@ export const configMemeMaker = {
 
 export const configPageText = {
   admin: {
-    metaTitle: `${configText.appName} - Admin Panel`,
+    metaTitle: `${configText.appName} admin panel`,
     metaDescription: ''
   },
   adminCollection: {
-    metaTitle: `${configText.appName} - Admin Collection`,
+    metaTitle: `${configText.appName} admin collection`,
     metaDescription: ''
   },
   art: {
-    metaTitle: `${configText.appName} - Gallery`,
+    metaTitle: `${configText.appName} gallery`,
     metaDescription: ''
   },
   artist: {
@@ -104,7 +104,7 @@ export const configPageText = {
     metaDescription: (artistName: string) => ''
   },
   artists: {
-    metaTitle: `${configText.appName} - Artists`,
+    metaTitle: `${configText.appName} artists`,
     metaDescription: ''
   },
   collection: {
@@ -112,7 +112,7 @@ export const configPageText = {
     metaDescription: (collectionTitle: string) => ''
   },
   collections: {
-    metaTitle: `${configText.appName} - Collections`,
+    metaTitle: `${configText.appName} collections`,
     metaDescription: ''
   },
   home: {
@@ -124,31 +124,31 @@ export const configPageText = {
     metaDescription: ''
   },
   resources: {
-    metaTitle: `${configText.appName} - Resources`,
+    metaTitle: `${configText.appName} resources`,
     metaDescription: ''
   },
   roadmap: {
-    metaTitle: `${configText.appName} - Roadmap`,
+    metaTitle: `${configText.appName} roadmap`,
     metaDescription: ''
   },
   stickers: {
-    metaTitle: `${configText.appName} - Stickers`,
+    metaTitle: `${configText.appName} stickers`,
     metaDescription: ''
   },
   updateArtist: {
-    metaTitle: `${configText.appName} - Update Artist`,
+    metaTitle: `${configText.appName} update artist`,
     metaDescription: ''
   },
   uploadImage: {
-    metaTitle: `${configText.appName} - Upload Image`,
+    metaTitle: `${configText.appName} upload image`,
     metaDescription: ''
   },
   videos: {
-    metaTitle: `${configText.appName} - Videos`,
+    metaTitle: `${configText.appName} videos`,
     metaDescription: ''
   },
   whitepaper: {
-    metaTitle: `${configText.appName} - Whitepaper`,
+    metaTitle: `${configText.appName} whitepaper`,
     metaDescription: ''
   }
 }
@@ -158,37 +158,4 @@ export type ConfigStickerSet = {
   title: string
 }
 
-export const configStickerSets: ConfigStickerSet[] = [
-  {
-    href: 'https://t.me/addstickers/PAINTmojiPACK',
-    title: '$CROC-mojis'
-  },
-  {
-    href: 'https://t.me/addstickers/TICKERISPAINT',
-    title: '$CROC Set #1'
-  },
-  {
-    href: 'https://t.me/addstickers/TICKERISPAINT2',
-    title: '$CROC Set #2'
-  },
-  {
-    href: 'https://t.me/addstickers/TICKERISPAINT3',
-    title: '$CROC Set #3'
-  },
-  {
-    href: 'https://t.me/addstickers/TICKERISPAINT4',
-    title: '$CROC Set #4'
-  },
-  {
-    href: 'https://t.me/addstickers/TICKERISPAINT5',
-    title: '$CROC Set #5'
-  },
-  {
-    href: 'https://t.me/addstickers/AnnoyingPaintPack',
-    title: 'Annoying $CROC Pack'
-  },
-  {
-    href: 'https://t.me/addstickers/PAINTHASLEGS',
-    title: '$CROC Has Legs'
-  }
-]
+export const configStickerSets: ConfigStickerSet[] = []
