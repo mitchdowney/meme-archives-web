@@ -72,6 +72,7 @@ export const configSocials = {
   instagramUrl: '',
   youtubeUrl: '',
   tiktokUrl: '',
+  linktreeUrl: ''
 }
 
 export const configText = {

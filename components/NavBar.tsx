@@ -420,7 +420,8 @@ export default function NavBar() {
               || configSocials.twitterUrl
               || configSocials.instagramUrl
               || configSocials.tiktokUrl
-              || configSocials.youtubeUrl) && (
+              || configSocials.youtubeUrl
+              || configSocials.linktreeUrl) && (
                 <>
                   <div className='flex-grow-1' />
                   <div className={styles['social-links']}>
@@ -486,6 +487,15 @@ export default function NavBar() {
                           imageSrc='/external-sites/farcaster.png'
                           title='Farcaster'
                           url={configSocials.farcasterUrl}
+                        />
+                      )
+                    }
+                    {
+                      configSocials.linktreeUrl && (
+                        <NavLinkIcon
+                          imageSrc='/external-sites/linktree.png'
+                          title='Linktree'
+                          url={configSocials.linktreeUrl}
                         />
                       )
                     }
