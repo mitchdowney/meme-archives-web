@@ -58,6 +58,10 @@ export const checkIfImageUrlIsVideo = (url: string) => {
   return url.endsWith('.mp4')
 }
 
+export const checkIfImageUrlIsAnimation = (url: string) => {
+  return url.endsWith('.gif')
+}
+
 export const convertImagesToImageCardItems = (preferredVersion: ImageVersion, images: Image[]) => {
   return images?.map((image) => {
     const imageVersion = getAvailableImageVersion(preferredVersion, image)

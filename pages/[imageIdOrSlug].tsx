@@ -16,7 +16,7 @@ import TagBadge from '@/components/TagBadge'
 import FAIcon from '@/components/FAIcon'
 import { getTitleOrUntitled } from '@/lib/utility'
 import { BooleanString, Collection, Image as ImageT, Tag, UserInfo } from '@/lib/types'
-import { checkIfImageUrlIsVideo, getAvailableImageUrl, getImage } from '@/services/image'
+import { checkIfImageUrlIsAnimation, checkIfImageUrlIsVideo, getAvailableImageUrl, getImage } from '@/services/image'
 import styles from '@/styles/ImageIdOrSlug.module.css'
 import { checkIfValidInteger } from '@/lib/validation'
 import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus'
@@ -27,6 +27,7 @@ import Button from '@/components/Button'
 import { copyImageToClipboard } from '@/lib/clipboard'
 import { faCopy, faImage } from '@fortawesome/free-regular-svg-icons'
 import Footer from '@/components/Footer'
+import { faDownload } from '@fortawesome/free-solid-svg-icons'
 
 type Props = {
   initialImage: ImageT | null
@@ -228,27 +229,10 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
     return options
   }
 
-  const handleCopyToClipboard = async () => {
+  const handleCopyToClipboard = () => {
     if (imageRef?.current) {
       setHasCopied(true)
-      const img = imageRef.current as HTMLImageElement
-      const src = img.src
-      if (src.endsWith('.gif')) {
-        try {
-          const response = await fetch(src, { mode: 'cors' })
-          const blob = await response.blob()
-          if (navigator.clipboard && navigator.clipboard.write) {
-            await navigator.clipboard.write([
-              new window.ClipboardItem({ 'image/gif': blob })
-            ])
-          }
-        } catch (e) {
-          // fallback to PNG if GIF copy fails
-          await copyImageToClipboard(img)
-        }
-      } else {
-        await copyImageToClipboard(img)
-      }
+      copyImageToClipboard(imageRef?.current)
       setTimeout(() => {
         setHasCopied(false)
       }, 1500)
@@ -262,7 +246,16 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
   const artistNames = artists?.map((artist) => artist?.name)?.join(', ')
 
   const isVideo = checkIfImageUrlIsVideo(imageSrc)
-  const downloadFileName = image && (`${image.slug}.mp4` || `${image.id}.mp4`)
+  const isAnimation = checkIfImageUrlIsAnimation(imageSrc)
+  const isImage = !!imageSrc && !isVideo && !isAnimation
+
+  const downloadFileName =
+    image && (isAnimation
+      ? (image.slug ? `${image.slug}.gif` : image.id ? `${image.id}.gif` : 'image.gif')
+      : isVideo
+        ? (image.slug ? `${image.slug}.mp4` : image.id ? `${image.id}.mp4` : 'video.mp4')
+        : (image.slug ? `${image.slug}.png` : image.id ? `${image.id}.png` : 'image.png')
+    )
 
   const metaTitle = title
   const metaDescription = artistNames ? `by ${artistNames}` : ''
@@ -402,85 +395,93 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
                 <div className='row'>
                   <div className='col-xs-12'>
                     <>
-                      {
-                        imageSrc && !isVideo && (
-                          <>
-                            <div className={`${styles['main-image-wrapper']} ${isShortMaxWidth ? styles['short-max-width'] : ''}`}>
-                              <Image
-                                alt={title}
-                                className={`${styles['main-image']}`}
-                                imageSrc={imageSrc}
-                                innerRef={imageRef}
-                                onClick={handleImageClick}
-                                onLoad={handleImageFinishedLoading}
-                                priority
-                                stretchFill
-                                title={title}
-                              />
+                      {/* IMAGE */}
+                      {isImage && (
+                        <>
+                          <div className={`${styles['main-image-wrapper']} ${isShortMaxWidth ? styles['short-max-width'] : ''}`}>
+                            <Image
+                              alt={title}
+                              className={`${styles['main-image']}`}
+                              imageSrc={imageSrc}
+                              innerRef={imageRef}
+                              onClick={handleImageClick}
+                              onLoad={handleImageFinishedLoading}
+                              priority
+                              stretchFill
+                              title={title}
+                            />
+                          </div>
+                          {imagedFinishedLoading && image && (
+                            <div className={styles['bottom-buttons']}>
+                              <Button
+                                as='button'
+                                className={`btn btn-success ${styles['bottom-button']}`}
+                                onClick={handleCopyToClipboard}>
+                                <>
+                                  {copyButtonText}
+                                  <FAIcon className='' icon={faCopy} />
+                                </>
+                              </Button>
                             </div>
-                            {
-                              imagedFinishedLoading && image && (
-                                <div className={styles['bottom-buttons']}>
-                                  <Button
-                                    as='button'
-                                    className={`btn btn-success ${styles['bottom-button']}`}
-                                    onClick={handleCopyToClipboard}>
-                                    <>
-                                      {copyButtonText}
-                                      <FAIcon
-                                        className=''
-                                        icon={faCopy}
-                                      />
-                                    </>
-                                  </Button>
-                                  {/* {
-                                    pageRules.memeMaker && (
-                                      <Button
-                                        as='a'
-                                        className={`btn btn-warning ${styles['bottom-button']}`}
-                                        href={`${configMemeMaker.urlPath}?id=${image.slug || image.id}`}>
-                                        <>
-                                          {'Open Meme Maker '}
-                                          <FAIcon
-                                            className=''
-                                            icon={faImage}
-                                          />
-                                        </>
-                                      </Button>
-                                    )
-                                  } */}
-                                </div>
-                              )
-                            }
-                          </>
-                        )
-                      }
-                      {
-                        imageSrc && isVideo && (
-                          <>
-                            <div className={`${styles['main-image-wrapper']} ${isShortMaxWidth ? styles['short-max-width'] : ''}`}>
-                              <Video
-                                autoplay
-                                className={`${styles['main-image']}`}
-                                loop
-                                onLoadedData={handleImageFinishedLoading}
-                                stretchFill
-                                title={title}
-                                videoSrc={imageSrc}
-                              />
-                            </div>
+                          )}
+                        </>
+                      )}
+                      {/* ANIMATION */}
+                      {isAnimation && (
+                        <>
+                          <div className={`${styles['main-image-wrapper']} ${isShortMaxWidth ? styles['short-max-width'] : ''}`}>
+                            <Image
+                              alt={title}
+                              className={`${styles['main-image']}`}
+                              imageSrc={imageSrc}
+                              innerRef={imageRef}
+                              onClick={handleImageClick}
+                              onLoad={handleImageFinishedLoading}
+                              priority
+                              stretchFill
+                              title={title}
+                            />
+                          </div>
+                          {imagedFinishedLoading && image && (
                             <div className={styles['bottom-buttons']}>
                               <Button
                                 as='a'
                                 className={`btn btn-success ${styles['bottom-button']}`}
                                 download={downloadFileName}
                                 href={imageSrc}>
-                                Download
+                                Download{' '}
+                                <FAIcon className='' icon={faDownload} />
                               </Button>
                             </div>
-                          </>
-                        )
-                      }
+                          )}
+                        </>
+                      )}
+                      {/* VIDEO */}
+                      {isVideo && (
+                        <>
+                          <div className={`${styles['main-image-wrapper']} ${isShortMaxWidth ? styles['short-max-width'] : ''}`}>
+                            <Video
+                              autoplay
+                              className={`${styles['main-image']}`}
+                              loop
+                              onLoadedData={handleImageFinishedLoading}
+                              stretchFill
+                              title={title}
+                              videoSrc={imageSrc}
+                            />
+                          </div>
+                          <div className={styles['bottom-buttons']}>
+                            <Button
+                              as='a'
+                              className={`btn btn-success ${styles['bottom-button']}`}
+                              download={downloadFileName}
+                              href={imageSrc}>
+                              Download{' '}
+                              <FAIcon className='' icon={faDownload} />
+                            </Button>
+                          </div>
+                        </>
+                      )}
                     </>
                   </div>
                 </div>
