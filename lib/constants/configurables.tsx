@@ -77,7 +77,7 @@ export const configSocials = {
 
 export const configText = {
   appName: 'Dank Memes Gallery',
-  disclaimer: '' // 'This website is for entertainment and informational purposes only, not financial or investment advice.'
+  disclaimer: 'This website is for entertainment purposes only, not financial or investment advice.'
 }
 
 export const configMemeMaker = {
