@@ -228,10 +228,27 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
     return options
   }
 
-  const handleCopyToClipboard = () => {
+  const handleCopyToClipboard = async () => {
     if (imageRef?.current) {
       setHasCopied(true)
-      copyImageToClipboard(imageRef?.current)
+      const img = imageRef.current as HTMLImageElement
+      const src = img.src
+      if (src.endsWith('.gif')) {
+        try {
+          const response = await fetch(src, { mode: 'cors' })
+          const blob = await response.blob()
+          if (navigator.clipboard && navigator.clipboard.write) {
+            await navigator.clipboard.write([
+              new window.ClipboardItem({ 'image/gif': blob })
+            ])
+          }
+        } catch (e) {
+          // fallback to PNG if GIF copy fails
+          await copyImageToClipboard(img)
+        }
+      } else {
+        await copyImageToClipboard(img)
+      }
       setTimeout(() => {
         setHasCopied(false)
       }, 1500)
