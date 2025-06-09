@@ -70,7 +70,7 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
   const [hasCopied, setHasCopied] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [isShortMaxWidth] = useState<boolean>(true)
-  const [imagedFinishedLoading, setImagedFinishedLoading] = useState<boolean>(false)
+  const [imageFinishedLoading, setImageFinishedLoading] = useState<boolean>(false)
   const [isFullView, setIsFullView] = useState<boolean>(false)
   const [image, setImage] = useState<ImageT | null>(initialImage)
   const [imageSrc, setImageSrc] = useState('')
@@ -84,7 +84,7 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
   useEffect(() => {
     (async () => {
       setIsLoading(true)
-      setImagedFinishedLoading(false)
+      setImageFinishedLoading(false)
       setImageSrc('')
       if (router.isReady) {
         try {
@@ -138,7 +138,7 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
   }
 
   function handleImageFinishedLoading(event: any) {
-    setImagedFinishedLoading(true)
+    setImageFinishedLoading(true)
   }
 
   async function handleShowAddToCollectionModal() {
@@ -411,7 +411,7 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
                               title={title}
                             />
                           </div>
-                          {imagedFinishedLoading && image && (
+                          {imageFinishedLoading && image && (
                             <div className={styles['bottom-buttons']}>
                               <Button
                                 as='button'
@@ -442,7 +442,7 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
                               title={title}
                             />
                           </div>
-                          {imagedFinishedLoading && image && (
+                          {imageFinishedLoading && image && (
                             <div className={styles['bottom-buttons']}>
                               <Button
                                 as='a'
@@ -490,7 +490,7 @@ export default function ImagePage({ initialImage, userInfo }: Props) {
           )
         }
         {
-          !isLoading && (
+          imageFinishedLoading && (
             <Footer />
           )
         }
