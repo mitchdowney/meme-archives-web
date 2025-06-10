@@ -273,10 +273,11 @@ export default function NavBar() {
           <Image
             alt={imageAlt}
             height={48}
-            imageSrc='/logo-small-square.png'
+            imageSrc='/horizontal-logo.png'
             priority
+            style={{ marginTop: '1px' }}
             title={imageAlt}
-            width={48}
+            width={175}
           />
         </a>
         {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
@@ -286,6 +287,7 @@ export default function NavBar() {
             height={48}
             imageSrc='/horizontal-logo.png'
             priority
+            style={{ marginTop: '1px' }}
             title={imageAlt}
             width={175}
           />
@@ -304,7 +306,7 @@ export default function NavBar() {
         </button>
         <div className='collapse navbar-collapse' id='navbarSupportedContent'>
           <ul className='navbar-nav me-auto d-flex flex-grow-1'>
-            {
+            {/* {
               pageRules.gallery && (
                 <li className='nav-item'>
                   <a
@@ -315,7 +317,7 @@ export default function NavBar() {
                   </a>
                 </li>
               )
-            }
+            } */}
             {
               pageRules.videos && (
                 <li className='nav-item d-block d-sm-block'>
