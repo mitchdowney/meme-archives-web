@@ -195,7 +195,7 @@ export default function UploadImage() {
   }
 
   const handleSlugChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setSlug(event.target.value)
+    setSlug(event.target.value?.trim())
   }
 
   const handleAddTag = (selectedTagTitle?: string) => {
