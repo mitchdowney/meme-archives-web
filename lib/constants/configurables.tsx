@@ -19,6 +19,7 @@ type PageRules = {
   disableFilterSelectors: boolean
   centerViewTypeSelector: boolean
   disableBorderImages: boolean
+  allowPreviewBorderImages: boolean
   defaultPreviewCropStyle: 'top' | 'middle' | 'bottom' | 'no-crop'
 }
 
@@ -46,6 +47,8 @@ export const pageRules: PageRules = {
   centerViewTypeSelector: true,
   // Prevent border images from being uploaded or displayed
   disableBorderImages: false,
+  // Allow the preview border images to be uploaded
+  allowPreviewBorderImages: false,
   // Set the default preview crop style
   defaultPreviewCropStyle: 'middle'
 }

@@ -53,7 +53,7 @@ export default function UploadImage() {
   const [preventBorderImage, setPreventBorderImage] = useState<BooleanString>(pageRules.disableBorderImages ? 'true' : 'false')
   const [previewCropPosition, setPreviewCropPosition] =
     useState<'top' | 'middle' | 'bottom' | 'no-crop'>(pageRules.defaultPreviewCropStyle)
-  const [allowPreviewImage, setAllowPreviewImage] = useState<BooleanString>(pageRules.disableBorderImages ? 'false' : 'true')
+  const [allowPreviewBorderImage, setAllowPreviewBorderImage] = useState<BooleanString>(pageRules.allowPreviewBorderImages ? 'true' : 'false')
   const [removeAnimation, setRemoveAnimation] = useState<BooleanString>('false')
   const [removeBorder, setRemoveBorder] = useState<BooleanString>('false')
   const [removeNoBorder, setRemoveNoBorder] = useState<BooleanString>('false')
@@ -64,7 +64,7 @@ export default function UploadImage() {
   const [tagTitles, setTagTitles] = useState<string[]>([])
 
   const shouldPreventBorderImage = preventBorderImage === 'true'
-  const willCropPreviewImage = (shouldPreventBorderImage && allowPreviewImage === 'false')
+  const willCropPreviewImage = (shouldPreventBorderImage && allowPreviewBorderImage === 'false')
     || (!imageNoBorderSrc && imageBorderSrc)
 
   useEffect(() => {
@@ -133,15 +133,15 @@ export default function UploadImage() {
     }
   }
 
-  const handleTypeChange = (event: any) => {
-    setImageType(event.target.value)
-    if (event.target.value === 'meme') {
-      setPreventBorderImage('true')
-    } else {
-      setPreventBorderImage('false')
-      setAllowPreviewImage('true')
-    }
-  }
+  // const handleTypeChange = (event: any) => {
+  //   setImageType(event.target.value)
+  //   if (event.target.value === 'meme') {
+  //     setPreventBorderImage('true')
+  //   } else {
+  //     setPreventBorderImage('false')
+  //     setAllowPreviewBorderImage('true')
+  //   }
+  // }
   
   const handleChooseImage = (imageMediumType: ImageMediumType, event: ChangeEvent<HTMLInputElement>) => {
     const fileInput = event.target
@@ -281,7 +281,7 @@ export default function UploadImage() {
       formData.append('prevent_border_image', 'true')
     }
 
-    if (allowPreviewImage === 'true') {
+    if (allowPreviewBorderImage === 'true') {
       formData.append('allow_preview_border_image', 'true')
     }
 
@@ -345,7 +345,7 @@ export default function UploadImage() {
       setArtistNames([])
       setSlug('')
       setPreventBorderImage(pageRules.disableBorderImages ? 'true' : 'false')
-      setAllowPreviewImage('true')
+      setAllowPreviewBorderImage(pageRules.allowPreviewBorderImages ? 'true' : 'false')
       setPreviewCropPosition(pageRules.defaultPreviewCropStyle)
     }
   }
@@ -561,7 +561,7 @@ export default function UploadImage() {
                   )
                 }
                 <h2>{pageTitle}</h2>
-                {
+                {/* {
                   !pageRules.disableImageTypes && (
                     <>
                       <div className={`${styles['form-select-wrapper']} mb-4`}>
@@ -581,7 +581,7 @@ export default function UploadImage() {
                       <hr />
                     </>
                   )
-                }
+                } */}
                 {generateImageNodes('no-border')}
                 {!pageRules.disableBorderImages && (generateImageNodes('border'))}
                 {generateImageNodes('animation')}
@@ -664,14 +664,14 @@ export default function UploadImage() {
                   (imageNoBorderSrc && !imageBorderSrc && shouldPreventBorderImage) && (
                     <div className={`form-check ${styles['form-toggle-wrapper']}`}>
                       <input
-                        checked={allowPreviewImage === 'true'}
+                        checked={allowPreviewBorderImage === 'true'}
                         className={`form-check-input ${styles['remove-image-toggle']}`}
                         id='allow-preview-image'
                         onChange={(event: any) => {
-                          setAllowPreviewImage(event.target.checked?.toString())
+                          setAllowPreviewBorderImage(event.target.checked?.toString())
                         }}
                         type="checkbox"
-                        value={allowPreviewImage?.toString()}
+                        value={allowPreviewBorderImage?.toString()}
                       />
                       <label className="form-check-label" htmlFor={'allow-preview-image'}>
                         Allow preview border image
