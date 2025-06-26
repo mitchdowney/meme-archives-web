@@ -204,11 +204,6 @@ export default function CollectionPage({
           {isLoading && <LoadingSpinner />}
           {!isLoading && !endReached && <div className={styles['spacer']} />}
         </div>
-        {
-          !isLoading && endReached && (
-            <Footer />
-          )
-        }
       </div>
     </>
   )

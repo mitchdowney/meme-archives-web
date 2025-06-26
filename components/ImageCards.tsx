@@ -1,6 +1,7 @@
 import ImageCard from '@/components/ImageCard'
 import styles from '@/styles/components/ImageCards.module.css'
 import { Image, ViewTypes } from '@/lib/types'
+import Footer from '@/components/Footer'
 
 type Props = {
   endReached?: boolean
@@ -43,9 +44,12 @@ export default function ImageCards({ endReached, hideTags, hideVideoOverlay,
       {imageCards}
       {
         endReached && (
-          <div className={endReachedClassName}>
-            End of results
-          </div>
+          <>
+            <div className={endReachedClassName}>
+              End of results
+            </div>
+            <Footer />
+          </>
         )
       }
     </div>
